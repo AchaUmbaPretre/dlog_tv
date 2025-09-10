@@ -242,6 +242,9 @@ const RapportVehiculeCourses = ({ course }) => {
 
   return (
     <div className="rapportVehiculeValide">
+      <div className="rapport_title">
+        <h2 className="rapport_h2">Véhicules en course</h2>
+      </div>
       <Table
         columns={columns}
         dataSource={course}

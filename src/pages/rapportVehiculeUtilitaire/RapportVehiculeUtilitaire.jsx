@@ -91,6 +91,9 @@ const RapportVehiculeUtilitaire = ({ utilitaire }) => {
 
   return (
     <div className="rapportVehiculeValide">
+      <div className="rapport_title">
+        <h2 className="rapport_h2">Utilitaires</h2>
+      </div>
       <Table
         columns={columns}
         dataSource={utilitaire}

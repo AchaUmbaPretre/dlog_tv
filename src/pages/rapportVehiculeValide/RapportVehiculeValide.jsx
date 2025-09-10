@@ -133,6 +133,9 @@ const RapportVehiculeValide = ({ data }) => {
 
   return (
     <div className="rapportVehiculeValide">
+      <div className="rapport_title">
+        <h2 className="rapport_h2">Véhicule en attente de sortie</h2>
+      </div>
       <Table
         columns={columns}
         dataSource={data}
