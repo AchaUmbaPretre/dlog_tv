@@ -1,0 +1,106 @@
+.mouvement_vehicule {
+  width: 100%;
+  padding: 28px;
+  background: #fafafa;
+
+  .mouv_vehicule_wrapper {
+    .filter_toggle {
+        margin-bottom: 16px;
+        text-align: right;
+
+        button {
+            border-radius: 8px;
+            font-weight: 500;
+        }
+    }
+
+    .mouv_vehicule_row {
+      margin-top: 24px;
+    }
+
+    .mouv_vehicule_card {
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+      transition: all 0.35s ease;
+      text-align: center;
+      padding: 10px;
+      position: relative;
+
+      .card_icon {
+        font-size: 32px;
+        margin-bottom: 12px;
+        color: rgba(0, 0, 0, 0.65);
+      }
+
+      .ant-statistic-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: rgba(0, 0, 0, 0.65);
+      }
+
+      .ant-statistic-content-value {
+        font-size: 32px;
+        font-weight: 700;
+      }
+
+      &:hover {
+        transform: translateY(-6px) scale(1.02);
+        box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
+      }
+
+      &.attente {
+        background: linear-gradient(135deg, #fff7e6, #ffe7ba);
+        .card_icon { color: #d46b08; }
+      }
+
+      &.hors_site {
+        background: linear-gradient(135deg, #e6f7ff, #bae7ff);
+        .card_icon { color: #096dd9; }
+      }
+
+      &.dispo {
+        background: linear-gradient(135deg, #f6ffed, #d9f7be);
+        .card_icon { color: #389e0d; }
+      }
+    }
+
+    .mouv_h3 {
+      margin: 28px 0 16px;
+      font-weight: 700;
+      color: #333;
+    }
+
+    .mini_stat_card {
+      text-align: center;
+      border-radius: 16px;
+      padding: 20px 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+      transition: all 0.25s ease;
+      position: relative;
+
+      .mini_icon {
+        font-size: 26px;
+        margin-bottom: 8px;
+        opacity: 0.9;
+      }
+
+      .mini_stat_label {
+        display: block;
+        font-size: 13px;
+        font-weight: 500;
+        color: #555;
+        margin-top: 6px;
+      }
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.15);
+      }
+
+      &.success { background: #f6ffed; color: #389e0d; }
+      &.blue { background: #e6f7ff; color: #096dd9; }
+      &.orange { background: #fff7e6; color: #d46b08; }
+      &.red { background: #fff1f0; color: #cf1322; }
+    }
+  }
+}

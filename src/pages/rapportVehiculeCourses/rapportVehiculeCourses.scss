@@ -1,0 +1,15 @@
+.blinking-tag {
+  animation: blink 1.5s infinite;
+  font-weight: bold;
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+    color: #ff4d4f; // rouge vif
+  }
+  50% {
+    opacity: 0.5;
+    color: #fa8c16; // orange doux
+  }
+}
