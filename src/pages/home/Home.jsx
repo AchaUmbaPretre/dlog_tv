@@ -5,17 +5,47 @@ import RapportVehiculeCourses from '../rapportVehiculeCourses/RapportVehiculeCou
 import RapportVehiculeUtilitaire from '../rapportVehiculeUtilitaire/RapportVehiculeUtilitaire';
 import './home.scss';
 import TopBarModelTv from '../../components/topBarModelTv/TopBarModelTv';
+import { notification } from 'antd';
+import { getRapportCharroiVehicule } from '../../services/rapportService';
 
-const componentsList = [
-  <ModeTv key="modeTv" />,
-  <RapportVehiculeValide key="valide" />,
-  <RapportVehiculeCourses key="courses" />,
-  <RapportVehiculeUtilitaire key="utilitaire" />
-];
 
 const Home = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [fade, setFade] = useState(true);
+  const [data, setData] = useState([]);
+  const [course, setCourse] = useState([]);
+  const [utilitaire, setUtilitaire] = useState([])
+
+  const componentsList = [
+    <ModeTv key="modeTv" />,
+    <RapportVehiculeValide key="valide" data={data} />,
+    <RapportVehiculeCourses key="courses" course={course} />,
+    <RapportVehiculeUtilitaire key="utilitaire" utilitaire={utilitaire} />
+    ];
+
+    const fetchData = async() => {
+        try {
+            const { data } = await getRapportCharroiVehicule();
+
+            setData(data.listeEnAttente);
+            setCourse(data.listeCourse);
+            setUtilitaire(data.listeUtilitaire);
+
+        } catch (error) {
+            notification.error({
+            message: 'Erreur de chargement',
+            escription: 'Une erreur est survenue lors du chargement des données.',
+            });
+        }
+    }
+
+  useEffect(() => {
+    fetchData()
+    const interval = setInterval(fetchData, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
 
   useEffect(() => {
     const interval = setInterval(() => {

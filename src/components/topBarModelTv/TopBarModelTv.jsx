@@ -1,13 +1,36 @@
 import { useNavigate } from "react-router-dom";
 import "./topBarModelTv.scss";
-import { Tooltip, Badge } from "antd";
+import { Tooltip, Badge, Divider, Button, message } from "antd";
 import { FullscreenOutlined } from "@ant-design/icons";
 import { useState, useEffect } from "react";
+import { logout } from "../../services/authService";
 
 const TopBarModelTv = () => {
   const navigate = useNavigate();
   const [currentTime, setCurrentTime] = useState("");
   const [tvMode, setTvMode] = useState(true);
+
+    const handleLogout = async () => {
+    try {
+      await logout();
+      localStorage.removeItem('persist:root');
+      message.success('Déconnexion réussie !');
+      navigate('/login');
+      window.location.reload();
+    } catch (error) {
+      message.error('Erreur lors de la déconnexion.');
+    }
+  };
+
+  const renderLogoutContent = () => (
+    <div style={{ textAlign: 'center' }}>
+      <p>Voulez-vous vraiment vous déconnecter ?</p>
+      <Divider />
+      <Button type="primary" danger onClick={handleLogout} style={{ width: '100%' }}>
+        logout
+      </Button>
+    </div>
+  );
 
   useEffect(() => {
     const updateTime = () => {
