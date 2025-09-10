@@ -1,0 +1,18 @@
+.modelEvenementLive {
+  .event-card {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background: #fff;
+    max-height: 450px;
+    overflow-y: auto;
+  }
+
+  .event-item {
+    font-size: 14px;
+    line-height: 1.6;
+
+    strong {
+      font-size: 15px;
+    }
+  }
+}

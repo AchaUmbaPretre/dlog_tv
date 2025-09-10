@@ -1,8 +1,11 @@
 import React from 'react'
+import ModeTv from '../modeTv/ModeTv'
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <>
+    <ModeTv/>
+    </>
   )
 }
 

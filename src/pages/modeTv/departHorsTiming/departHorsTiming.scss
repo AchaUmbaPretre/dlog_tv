@@ -1,0 +1,104 @@
+.departHorsTiming-container {
+    width: 100%;
+}
+
+.event-card {
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.departHorsTiming-scroll {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 12px;
+
+  // Scroll élégant
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #d0d4f2;
+    border-radius: 6px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #8f9ae1;
+  }
+}
+
+.departHorsTiming-timeline {
+  margin-top: 12px;
+
+  .ant-timeline-item {
+    padding-bottom: 26px;
+  }
+}
+
+.departHorsTiming-content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 14px 18px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: #f9faff;
+    transform: translateX(6px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  }
+
+  .departHorsTiming-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 6px;
+  }
+
+  .departHorsTiming-sub {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: #555;
+    margin-bottom: 10px;
+  }
+
+  .departHorsTiming-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .departHorsTiming-date {
+      font-size: 0.8rem;
+      color: #666;
+    }
+  }
+}
+
+.departHorsTiming-icon {
+  font-size: 15px;
+
+  &.bon {
+    color: #1f1fe4;
+  }
+
+  &.car {
+    color: #1890ff;
+  }
+}
+
+.departHorsTiming-numBon{
+  font-size: .9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;  
+}
+
+.departHorsTiming-tag {
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 2px 10px;
+}
