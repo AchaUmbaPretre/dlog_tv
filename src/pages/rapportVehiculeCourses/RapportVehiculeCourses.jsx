@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
-import { Table, Tag, Tooltip, Space, Typography } from "antd";
+import {
+  Table,
+  Tag,
+  Tooltip,
+  Space,
+  Typography,
+  Card,
+  Divider,
+} from "antd";
 import {
   CarOutlined,
   ApartmentOutlined,
@@ -8,12 +16,14 @@ import {
   EnvironmentOutlined,
   TrademarkOutlined,
   AppstoreOutlined,
+  FullscreenOutlined,
 } from "@ant-design/icons";
 import moment from "moment";
 
 const { Text } = Typography;
 
-const renderTextWithTooltip = (text, color = "secondary", maxWidth = 160) => (
+/* ------------------ HELPERS ------------------ */
+const renderTextWithTooltip = (text, color = "secondary", maxWidth = 180) => (
   <Tooltip title={text}>
     <div
       style={{
@@ -23,7 +33,9 @@ const renderTextWithTooltip = (text, color = "secondary", maxWidth = 160) => (
         textOverflow: "ellipsis",
       }}
     >
-      <Text type={color}>{text}</Text>
+      <Text type={color} style={{ fontSize: "0.95rem" }}>
+        {text}
+      </Text>
     </div>
   </Tooltip>
 );
@@ -31,11 +43,14 @@ const renderTextWithTooltip = (text, color = "secondary", maxWidth = 160) => (
 const renderDateTag = (dateStr, color = "blue") => {
   if (!dateStr) return <Tag color="red">Aucune date</Tag>;
   const date = moment(dateStr);
-  return <Tag color={color}>{date.format("DD-MM-YYYY HH:mm")}</Tag>;
+  return (
+    <Tag color={color} style={{ borderRadius: 6, fontWeight: 500 }}>
+      {date.format("DD-MM-YYYY HH:mm")}
+    </Tag>
+  );
 };
 
 /* ------------------ HOOK ------------------ */
-
 const useElapsedTime = (startTime) => {
   const [elapsed, setElapsed] = useState("");
 
@@ -61,39 +76,51 @@ const useElapsedTime = (startTime) => {
 };
 
 /* ------------------ COMPONENTS ------------------ */
-
 const StatutSortieTag = ({ statut_sortie, date_retour }) => {
   const elapsed = useElapsedTime(date_retour);
 
   if (!statut_sortie) return <Tag>-</Tag>;
 
-  let color = "green";   // par défaut à l'heure
+  let color = "green"; // par défaut à l'heure
   let label = statut_sortie;
   let blinkClass = "";
 
   if (statut_sortie.includes("Retard") && date_retour) {
     const diffMinutes = moment().diff(moment(date_retour), "minutes");
 
-    if (diffMinutes <= 30) color = "orange";              // léger
-    else if (diffMinutes <= 60) color = "red";            // moyen
-    else if (diffMinutes <= 48*60) {                      // sévère <48h
+    if (diffMinutes <= 30) color = "orange"; // léger
+    else if (diffMinutes <= 60) color = "red"; // moyen
+    else if (diffMinutes <= 48 * 60) {
+      // sévère <48h
       color = "volcano";
       blinkClass = "blinking-tag";
-    } else color = "grey";                                // très long >48h
+    } else color = "grey"; // très long >48h
 
-    label = diffMinutes > 48*60 ? `${statut_sortie} (${Math.floor(diffMinutes/60/24)}j)` 
-                                 : `${statut_sortie} (${elapsed})`;
+    label =
+      diffMinutes > 48 * 60
+        ? `${statut_sortie} (${Math.floor(diffMinutes / 60 / 24)}j)`
+        : `${statut_sortie} (${elapsed})`;
   }
 
   return (
-    <Tooltip title={date_retour ? moment(date_retour).format("DD/MM HH:mm") : "-"}>
-      <Tag color={color} className={blinkClass} style={{ fontWeight: 600 }}>
+    <Tooltip
+      title={date_retour ? moment(date_retour).format("DD/MM HH:mm") : "-"}
+    >
+      <Tag
+        color={color}
+        className={blinkClass}
+        style={{
+          fontWeight: 600,
+          borderRadius: 6,
+          padding: "2px 10px",
+          fontSize: "0.9rem",
+        }}
+      >
         {label}
       </Tag>
     </Tooltip>
   );
 };
-
 
 const DureeRetardTag = ({ date_retour, duree_retard }) => {
   const elapsed = useElapsedTime(date_retour);
@@ -104,7 +131,9 @@ const DureeRetardTag = ({ date_retour, duree_retard }) => {
 
   return (
     <Tooltip
-      title={`Retour prévu : ${moment(date_retour).format("DD/MM HH:mm")} | Durée : ${duree_retard}`}
+      title={`Retour prévu : ${moment(date_retour).format(
+        "DD/MM HH:mm"
+      )} | Durée : ${duree_retard}`}
     >
       <Tag
         className={isLate && diffHours < 48 ? "blinking-tag" : ""}
@@ -118,10 +147,15 @@ const DureeRetardTag = ({ date_retour, duree_retard }) => {
 };
 
 /* ------------------ MAIN TABLE ------------------ */
-
 const RapportVehiculeCourses = ({ course }) => {
   const columns = [
-    { title: "#", key: "index", render: (_, __, index) => index + 1, width: 50 },
+    {
+      title: "#",
+      key: "index",
+      render: (_, __, index) => index + 1,
+      width: 60,
+      align: "center",
+    },
     {
       title: (
         <Space>
@@ -132,7 +166,6 @@ const RapportVehiculeCourses = ({ course }) => {
       dataIndex: "nom_motif_demande",
       key: "nom_motif_demande",
       render: (text) => renderTextWithTooltip(text),
-      ellipsis: true,
     },
     {
       title: (
@@ -144,7 +177,6 @@ const RapportVehiculeCourses = ({ course }) => {
       dataIndex: "nom_service",
       key: "nom_service",
       render: (text) => renderTextWithTooltip(text),
-      ellipsis: true,
     },
     {
       title: (
@@ -156,7 +188,6 @@ const RapportVehiculeCourses = ({ course }) => {
       dataIndex: "nom",
       key: "nom",
       render: (text) => renderTextWithTooltip(text),
-      ellipsis: true,
     },
     {
       title: (
@@ -168,7 +199,6 @@ const RapportVehiculeCourses = ({ course }) => {
       dataIndex: "nom_destination",
       key: "nom_destination",
       render: (text) => renderTextWithTooltip(text),
-      ellipsis: true,
     },
     {
       title: (
@@ -180,14 +210,17 @@ const RapportVehiculeCourses = ({ course }) => {
       dataIndex: "nom_cat",
       key: "nom_cat",
       render: (text) => renderTextWithTooltip(text),
-      ellipsis: true,
     },
     {
       title: "Immatriculation",
       dataIndex: "immatriculation",
       key: "immatriculation",
       align: "center",
-      render: (text) => <Tag color="magenta">{text}</Tag>,
+      render: (text) => (
+        <Tag color="magenta" style={{ fontSize: "0.85rem" }}>
+          {text}
+        </Tag>
+      ),
     },
     {
       title: "Marque",
@@ -195,7 +228,11 @@ const RapportVehiculeCourses = ({ course }) => {
       key: "nom_marque",
       align: "center",
       render: (text) => (
-        <Tag icon={<TrademarkOutlined />} color="blue">
+        <Tag
+          icon={<TrademarkOutlined />}
+          color="blue"
+          style={{ fontSize: "0.85rem" }}
+        >
           {text}
         </Tag>
       ),
@@ -242,18 +279,35 @@ const RapportVehiculeCourses = ({ course }) => {
 
   return (
     <div className="rapportVehiculeValide">
-      <div className="rapport_title">
-        <h2 className="rapport_h2">Véhicules en course</h2>
-      </div>
-      <Table
-        columns={columns}
-        dataSource={course}
-        rowKey={(record) => record.id_vehicule}
-        pagination={{ pageSize: 10 }}
-        scroll={{ x: "max-content" }}
-        bordered
-        size="middle"
-      />
+      <Card
+        title={
+          <Space>
+            <CarOutlined style={{ color: "#1890ff" }} />
+            <Text strong style={{ fontSize: "1.2rem" }}>
+              Véhicules en course
+            </Text>
+          </Space>
+        }
+        extra={
+          <Tooltip title="Plein écran">
+            <FullscreenOutlined style={{ fontSize: 18, cursor: "pointer" }} />
+          </Tooltip>
+        }
+        bordered={false}
+        style={{ borderRadius: 12 }}
+      >
+        <Divider />
+        <Table
+          columns={columns}
+          dataSource={course}
+          rowKey={(record) => record.id_vehicule}
+          pagination={{ pageSize: 10 }}
+          scroll={{ x: "max-content" }}
+          bordered
+          size="large"
+          rowHoverable
+        />
+      </Card>
     </div>
   );
 };

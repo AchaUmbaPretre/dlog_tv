@@ -1,3 +1,17 @@
+.rapportVehiculeValide {
+  max-width: 1600px;
+  margin: 30px auto;
+  padding: 20px;
+
+  .ant-card {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .ant-table-tbody > tr:nth-child(odd) {
+    background-color: #fafafa;
+  }
+}
+
 .blinking-tag {
   animation: blink 1.5s infinite;
   font-weight: bold;
