@@ -20,6 +20,7 @@
 
     /* Logo */
     .topbar_model_left {
+      flex: 1;
       .logo {
         font-size: 1.3rem;
         text-transform: uppercase;
@@ -47,18 +48,23 @@
 
     /* Titre */
     .topbar_model_center {
+      flex: 1;
       .topbar_model_h2 {
         font-size: 1.9rem;
         font-weight: 900;
         color: var(--text-primary);
         letter-spacing: 2px;
+        text-align: center;
       }
     }
 
     /* Zone de droite */
     .topbar_model_right {
+      flex: 1;
+      width: 100%;
       display: flex;
       align-items: center;
+      justify-content: flex-end;
       gap: 20px;
 
       .tv-switch-wrapper {
