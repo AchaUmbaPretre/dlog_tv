@@ -1,37 +1,39 @@
 import { useNavigate } from "react-router-dom";
 import "./topBarModelTv.scss";
-import { Tooltip, Badge, Divider, Button, message } from "antd";
-import { FullscreenOutlined } from "@ant-design/icons";
+import { Tooltip, Badge, Divider, Button, message, Popover } from "antd";
+import { FullscreenOutlined, LogoutOutlined } from "@ant-design/icons";
 import { useState, useEffect } from "react";
 import { logout } from "../../services/authService";
 
 const TopBarModelTv = () => {
   const navigate = useNavigate();
   const [currentTime, setCurrentTime] = useState("");
-  const [tvMode, setTvMode] = useState(true);
+  const [tvMode, setTvMode] = useState(false); // démarre en mode TV
 
-    const handleLogout = async () => {
+  const handleLogout = async () => {
     try {
       await logout();
-      localStorage.removeItem('persist:root');
-      message.success('Déconnexion réussie !');
-      navigate('/login');
+      localStorage.removeItem("persist:root");
+      message.success("Déconnexion réussie !");
+      navigate("/login");
       window.location.reload();
     } catch (error) {
-      message.error('Erreur lors de la déconnexion.');
+      console.error(error);
+      message.error("Erreur lors de la déconnexion.");
     }
   };
 
-  const renderLogoutContent = () => (
-    <div style={{ textAlign: 'center' }}>
+  const logoutContent = (
+    <div className="logout-popover">
       <p>Voulez-vous vraiment vous déconnecter ?</p>
-      <Divider />
-      <Button type="primary" danger onClick={handleLogout} style={{ width: '100%' }}>
-        logout
+      <Divider style={{ margin: "8px 0" }} />
+      <Button type="primary" danger onClick={handleLogout} block icon={<LogoutOutlined />}>
+        Se déconnecter
       </Button>
     </div>
   );
 
+  // Mise à jour de l'heure toutes les secondes
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
@@ -45,12 +47,35 @@ const TopBarModelTv = () => {
     return () => clearInterval(timer);
   }, []);
 
+  // Toggle TV avec fullscreen natif
   const handleTvSwitch = () => {
-    setTvMode(!tvMode);
     if (tvMode) {
-      navigate("/"); // redirige vers la racine quand on désactive
+      // Désactiver le mode TV
+      if (document.exitFullscreen) document.exitFullscreen();
+      setTvMode(false);
+      navigate("/"); // retourne à Home
+    } else {
+      // Activer le mode TV
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+      }
+      setTvMode(true);
+      navigate("/"); // Home en mode TV
     }
   };
+
+  // Sortie fullscreen avec Escape
+  useEffect(() => {
+    const handleKeydown = (e) => {
+      if (e.key === "Escape") {
+        setTvMode(false);
+        if (document.exitFullscreen) document.exitFullscreen();
+        navigate("/"); // retour à Home
+      }
+    };
+    document.addEventListener("keydown", handleKeydown);
+    return () => document.removeEventListener("keydown", handleKeydown);
+  }, [navigate]);
 
   return (
     <div className="topBar_model">
@@ -74,7 +99,7 @@ const TopBarModelTv = () => {
 
         {/* Actions */}
         <div className="topbar_model_right">
-          {/* Switch TV Custom */}
+          {/* Switch TV */}
           <div
             className={`tv-switch-custom ${tvMode ? "on" : "off"}`}
             onClick={handleTvSwitch}
@@ -91,16 +116,19 @@ const TopBarModelTv = () => {
             </Tooltip>
           )}
 
-          {/* Badge */}
+          {/* Badge état TV */}
           <Badge
-            count={
-              tvMode
-                ? `TV actif • MAJ ${currentTime}`
-                : `TV désactivé • MAJ ${currentTime}`
-            }
+            count={tvMode ? `TV actif • MAJ ${currentTime}` : `TV désactivé • MAJ ${currentTime}`}
             style={{ backgroundColor: tvMode ? "#52c41a" : "#ff4d4f" }}
             className="maj-badge"
           />
+
+          {/* Bouton Logout */}
+          <Popover content={logoutContent} placement="bottomRight" trigger="click">
+            <Button className="logout-button" icon={<LogoutOutlined />}>
+              Logout
+            </Button>
+          </Popover>
         </div>
       </div>
     </div>
