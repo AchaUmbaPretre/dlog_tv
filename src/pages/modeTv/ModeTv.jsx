@@ -5,7 +5,6 @@ import './modeTv.scss'
 import ModeTvCardPonct from './modeTvCardPonct/ModeTvCardPonct';
 import ModeTvService from './modeTvService/ModeTvService';
 import TableauHorsTiming from './tableauHorsTiming/TableauHorsTiming';
-import TopBarModelTv from './topBarModelTv/TopBarModelTv'
 import { InfoCircleFilled, InfoCircleOutlined } from '@ant-design/icons';
 import { getRapportKiosque } from '../../services/rapportService';
 
@@ -41,7 +40,6 @@ const ModeTv = () => {
   return (
     <>
         <div className="mode_tv">
-           <TopBarModelTv/>
            <div className="model_tv_wrapper">
                 <div className="model_tv_left">
                     <div className="model_tv_anomalie">
