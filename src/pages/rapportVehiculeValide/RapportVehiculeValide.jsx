@@ -1,5 +1,5 @@
 import './rapportVehiculeValide.scss';
-import { Table, Tag, Tooltip, Space, Typography } from 'antd';
+import { Table, Tag, Tooltip, Space, Typography, Divider, Card } from 'antd';
 import { 
   CarOutlined, ApartmentOutlined, UserOutlined, FieldTimeOutlined, 
   EnvironmentOutlined, AppstoreOutlined, TrademarkOutlined 
@@ -10,9 +10,9 @@ const { Text } = Typography;
 
 // Texte avec tooltip
 const renderTextWithTooltip = (text, color = 'secondary', maxWidth = 160) => (
-  <Tooltip title={text}>
+  <Tooltip title={text || '-'}>
     <div style={{ maxWidth, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-      <Text type={color}>{text}</Text>
+      <Text type={color}>{text || '-'}</Text>
     </div>
   </Tooltip>
 );
@@ -24,12 +24,12 @@ const renderDateTag = (dateStr, color = 'blue') => {
   return <Tag color={color}>{date.format('DD-MM-YYYY HH:mm')}</Tag>;
 };
 
-// Statut avec coloration dynamique et clignotement pour retards critiques
+// Statut avec coloration dynamique et clignotement
 const renderStatutSortie = (statut, duree_retard) => {
   if (!statut) return <Tag>-</Tag>;
 
   let color = 'green'; 
-  let isCritical = false;
+  let blinkClass = false;
 
   if (statut.includes('Retard') && duree_retard) {
     const [val, unit] = duree_retard.split(' ');
@@ -41,15 +41,15 @@ const renderStatutSortie = (statut, duree_retard) => {
     else if (minutes <= 60) color = 'red';
     else color = 'volcano';
 
-    if (unit.startsWith('jour') && parseFloat(val) >= 1) isCritical = true;
+    if (unit.startsWith('jour') && parseFloat(val) >= 1) blinkClass = true;
   }
 
   return (
     <Tooltip title={duree_retard || '-'}>
       <Tag
         color={color}
-        style={{ fontWeight: 600 }}
-        className={isCritical ? 'retard-critique' : ''}
+        style={{ fontWeight: 600, borderRadius: 6, padding: '2px 10px', fontSize: '0.9rem' }}
+        className={blinkClass ? 'retard-critique' : ''}
       >
         {statut} {duree_retard ? `(${duree_retard})` : ''}
       </Tag>
@@ -59,92 +59,82 @@ const renderStatutSortie = (statut, duree_retard) => {
 
 const RapportVehiculeValide = ({ data }) => {
   const columns = [
-  { title: '#', key: 'index', render: (_, __, index) => index + 1, width: 50 },
+    { title: '#', key: 'index', render: (_, __, index) => index + 1, width: 50, align: 'center' },
 
-  {
-    title: <Space><AppstoreOutlined style={{ color: '#1890ff' }} /><Text strong>Motif</Text></Space>,
-    dataIndex: 'nom_motif_demande',
-    key:'nom_motif_demande',
-    render: (text) => renderTextWithTooltip(text),
-    ellipsis: true,
-  },
-  {
-    title: <Space><ApartmentOutlined style={{ color: '#1d39c4' }} /><Text strong>Service</Text></Space>,
-    dataIndex: 'nom_service',
-    key:'nom_service',
-    render: (text) => renderTextWithTooltip(text),
-    ellipsis: true,
-  },
-  {
-    title: <Space><UserOutlined style={{ color:'orange' }} /><Text strong>Chauffeur</Text></Space>,
-    key:'chauffeur',
-    render: (_, record) => renderTextWithTooltip(`${record.prenom_chauffeur} ${record.nom}`),
-    ellipsis: true,
-  },
-  {
-    title: <Space><EnvironmentOutlined style={{ color: 'red' }} /><Text strong>Destination</Text></Space>,
-    dataIndex: 'nom_destination',
-    key:'nom_destination',
-    render: (text) => renderTextWithTooltip(text),
-    ellipsis: true,
-  },
-  {
-    title: <Space><CarOutlined style={{ color: 'green' }} /><Text strong>Véhicule</Text></Space>,
-    dataIndex:'nom_cat',
-    key:'nom_cat',
-    render: (text) => renderTextWithTooltip(text),
-    ellipsis: true,
-  },
-  {
-    title: 'Immatriculation',
-    dataIndex:'immatriculation',
-    key:'immatriculation',
-    align: 'center',
-    render: (text) => <Tag color='magenta'>{text}</Tag>,
-  },
-  {
-    title: 'Marque',
-    dataIndex:'nom_marque',
-    key: 'nom_marque',
-    align: 'center',
-    render: (text) => <Tag icon={<TrademarkOutlined />} color="blue">{text}</Tag>,
-  },
-  {
-    title: 'Sortie prévue',
-    dataIndex:'date_prevue',
-    key: 'date_prevue',
-    align: 'center',
-    render: (text) => renderDateTag(text),
-  },
-  {
-    title: 'Retour prévu',
-    dataIndex:'date_retour',
-    key:'date_retour',
-    align: 'center',
-    render: (text) => renderDateTag(text),
-  },
-  {
-    title: <Space><FieldTimeOutlined style={{ color:'orange' }} /><Text strong>Statut</Text></Space>,
-    key: 'statut_sortie',
-    render: (_, record) => renderStatutSortie(record.statut_sortie, record.duree_retard),
-  },
-];
-
+    { 
+      title: <Space><AppstoreOutlined style={{ color: '#1890ff' }} /><Text strong>Motif</Text></Space>,
+      key: 'nom_motif_demande',
+      render: (_, record) => renderTextWithTooltip(record.nom_motif_demande),
+    },
+    { 
+      title: <Space><ApartmentOutlined style={{ color: '#1d39c4' }} /><Text strong>Service</Text></Space>,
+      key: 'nom_service',
+      render: (_, record) => renderTextWithTooltip(record.nom_service),
+    },
+    { 
+      title: <Space><UserOutlined style={{ color:'orange' }} /><Text strong>Chauffeur</Text></Space>,
+      key: 'chauffeur',
+      render: (_, record) => renderTextWithTooltip(`${record.prenom_chauffeur || '-'} ${record.nom || '-'}`),
+    },
+    { 
+      title: <Space><EnvironmentOutlined style={{ color: 'red' }} /><Text strong>Destination</Text></Space>,
+      key: 'nom_destination',
+      render: (_, record) => renderTextWithTooltip(record.nom_destination),
+    },
+    { 
+      title: <Space><CarOutlined style={{ color: 'green' }} /><Text strong>Véhicule</Text></Space>,
+      key: 'nom_cat',
+      render: (_, record) => renderTextWithTooltip(record.nom_cat),
+    },
+    { 
+      title: 'Immatriculation',
+      key: 'immatriculation',
+      align: 'center',
+      render: (_, record) => <Tag color='magenta'>{record.immatriculation || '-'}</Tag>
+    },
+    { 
+      title: 'Marque',
+      key: 'nom_marque',
+      align: 'center',
+      render: (_, record) => <Tag icon={<TrademarkOutlined />} color="blue">{record.nom_marque || '-'}</Tag>
+    },
+    { 
+      title: 'Sortie prévue',
+      key: 'date_prevue',
+      align: 'center',
+      render: (_, record) => renderDateTag(record.date_prevue)
+    },
+    { 
+      title: 'Retour prévu',
+      key: 'date_retour',
+      align: 'center',
+      render: (_, record) => renderDateTag(record.date_retour)
+    },
+    { 
+      title: <Space><FieldTimeOutlined style={{ color:'orange' }} /><Text strong>Statut</Text></Space>,
+      key: 'statut_sortie',
+      render: (_, record) => renderStatutSortie(record.statut_sortie, record.duree_retard)
+    }
+  ];
 
   return (
     <div className="rapportVehiculeValide">
-      <div className="rapport_title">
-        <h2 className="rapport_h2">Véhicule en attente de sortie</h2>
-      </div>
-      <Table
-        columns={columns}
-        dataSource={data}
-        rowKey={(record, index) => `${record.immatriculation}-${index}`} // clé unique
-        pagination={{ pageSize: 10 }}
-        scroll={{ x: 'max-content' }}
-        bordered
-        size="middle"
-      />
+      <Card
+        title={<Text strong style={{ fontSize: '1.2rem' }}>Véhicule en attente de sortie</Text>}
+        bordered={false}
+        style={{ borderRadius: 12 }}
+      >
+        <Divider />
+        <Table
+          columns={columns}
+          dataSource={data}
+          rowKey={(record, index) => `${record.immatriculation}-${index}`}
+          pagination={{ pageSize: 10 }}
+          scroll={{ x: 'max-content' }}
+          bordered
+          size="middle"
+        />
+      </Card>
     </div>
   );
 };

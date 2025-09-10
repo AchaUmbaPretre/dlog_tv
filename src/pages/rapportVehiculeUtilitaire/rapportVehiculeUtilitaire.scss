@@ -6,6 +6,17 @@
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
   }
 
+  .legend {
+    margin-bottom: 10px;
+
+    .ant-tag {
+      border-radius: 6px;
+      font-weight: 600;
+      padding: 2px 8px;
+      font-size: 0.85rem;
+    }
+  }
+
   .ant-table-tbody > tr:nth-child(odd) {
     background-color: #fafafa;
   }
@@ -17,12 +28,13 @@
 }
 
 @keyframes blink {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
-    color: #ff4d4f; // rouge vif
+    color: #ff4d4f;
   }
   50% {
     opacity: 0.5;
-    color: #fa8c16; // orange doux
+    color: #fa8c16;
   }
 }
