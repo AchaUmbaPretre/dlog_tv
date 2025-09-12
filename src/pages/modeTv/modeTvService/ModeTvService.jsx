@@ -125,7 +125,7 @@ const ModeTvService = ({dataService, courseVehicule, motif}) => {
         />
       </div>
 
-      {/* Mini-tendances */}
+      {/* Nombre de course par motif */}
       <div className="mode_service_card">
         <h3>📈 Nbre de courses par Motif</h3>
         <div className="trends_wrapper">
