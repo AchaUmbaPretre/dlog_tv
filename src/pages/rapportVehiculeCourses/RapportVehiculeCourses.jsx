@@ -19,26 +19,9 @@ import {
   FullscreenOutlined,
 } from "@ant-design/icons";
 import moment from "moment";
+import { renderTextWithTooltip } from "../../utils/RenderTooltip";
 
 const { Text } = Typography;
-
-/* ------------------ HELPERS ------------------ */
-const renderTextWithTooltip = (text, color = "secondary", maxWidth = 180) => (
-  <Tooltip title={text}>
-    <div
-      style={{
-        maxWidth,
-        whiteSpace: "nowrap",
-        overflow: "hidden",
-        textOverflow: "ellipsis",
-      }}
-    >
-      <Text type={color} style={{ fontSize: "0.95rem" }}>
-        {text}
-      </Text>
-    </div>
-  </Tooltip>
-);
 
 const renderDateTag = (dateStr, color = "blue") => {
   if (!dateStr) return <Tag color="red">Aucune date</Tag>;

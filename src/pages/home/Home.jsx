@@ -47,7 +47,7 @@ const Home = () => {
   }, []);
 
 
-  useEffect(() => {
+/*   useEffect(() => {
     const interval = setInterval(() => {
       setFade(false);
       setTimeout(() => {
@@ -57,14 +57,16 @@ const Home = () => {
     }, 30000); // toutes les 3 secondes
 
     return () => clearInterval(interval);
-  }, []);
+  }, []); */
 
   return (
     <div className="home">
         <TopBarModelTv/>
-        <div className={`fade-container ${fade ? 'fade-in' : 'fade-out'}`}>
+        {/* <div className={`fade-container ${fade ? 'fade-in' : 'fade-out'}`}>
             {componentsList[currentIndex]}
-        </div>
+        </div> */}
+            <RapportVehiculeCourses key="courses" course={course} />,
+
     </div>
   );
 }
