@@ -71,6 +71,31 @@ export const MoyenneTag = ({ duree_moyenne_min }) => (
   <Tag color="purple">{formatDuration(duree_moyenne_min)}</Tag>
 );
 
+export const renderStatutHoraire = (nom_statut_bs, date_prevue) => {
+  if (!nom_statut_bs || !date_prevue) return <Tag>-</Tag>;
+
+  const now = moment();
+  const prevue = moment(date_prevue);
+  const diffMinutes = now.diff(prevue, 'minutes');
+
+  let color = 'green';
+  let label = `🟢 ${nom_statut_bs === 'BS validé' ? 'En attente' : ''}`;
+
+  if (diffMinutes <= 60) {
+    color = 'orange';
+    label = `🟠 ${nom_statut_bs === 'BS validé' ? 'En attente' : ''} (${diffMinutes} min de retard)`;
+  } else if (diffMinutes > 60) {
+    color = 'red';
+    label = `🔴 ${nom_statut_bs === 'BS validé' ? 'En attente' : ''} (${formatDuration(diffMinutes)} de retard)`;
+  }
+
+  return (
+    <Tag color={color} style={{ fontWeight: 600 }}>
+      {label}
+    </Tag>
+  );
+};
+
 // Ecart dynamique entre durée réelle et moyenne
 export const EcartTag = ({ duree_reelle_min, duree_moyenne_min }) => {
   const [diff, setDiff] = useState(duree_moyenne_min != null ? duree_moyenne_min - duree_reelle_min : 0);
