@@ -22,7 +22,7 @@ const ModeTv = () => {
         const fetchData = async() => {
             const { data } = await getRapportKiosque();
             setAnomalies(data?.anomalies);
-            setData(data?.ponctualite);
+            setData(data?.total);
             setCourseService(data?.courseService);
             setCourseChauffeur(data?.courseChauffeur);
             setEvenementLiveRow(data?.evenementLive);

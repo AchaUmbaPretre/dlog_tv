@@ -3,111 +3,92 @@ import { Progress } from 'antd';
 import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 import './modeTvCardPonct.scss';
 
-const ModeTvCardPonct = ({ datas, utilisationParc }) => {
+const ModeTvCardPonct = ({ datas }) => {
   const [data, setData] = useState({
     depart: 0,
     departTrend: 'up',
-    retour: 0,
-    retourTrend: 'up',
-    usage: 0,
-    usageTrend: 'up',
+    attente: 0,
+    attenteTrend: 'up',
+    dispo: 0,
+    dispoTrend: 'up',
   });
 
   useEffect(() => {
-  if (!datas) return;
+    if (!datas) return;
 
-  setData((prev) => {
-    const newDepart = Math.round(datas.depart || 0);
-    const newRetour = Math.round(datas.retour || 0);
-    const newUsage = Math.round(utilisationParc.pourcentage || 0);
+    setData((prev) => {
+      const newDepart = Math.round(datas.depart || 0);
+      const newAttente = Math.round(datas.attente || 0);
+      const newDispo = Math.round(datas.vehicule_dispo || 0);
 
-    return {
-      depart: newDepart,
-      departTrend: newDepart >= prev.depart ? 'up' : 'down',
-      retour: newRetour,
-      retourTrend: newRetour >= prev.retour ? 'up' : 'down',
-      usage: newUsage,
-      usageTrend: newUsage >= prev.usage ? 'up' : 'down',
-    };
-  });
-}, [datas]);
+      return {
+        depart: newDepart,
+        departTrend: newDepart >= prev.depart ? 'up' : 'down',
+        attente: newAttente,
+        attenteTrend: newAttente >= prev.attente ? 'up' : 'down',
+        dispo: newDispo,
+        dispoTrend: newDispo >= prev.dispo ? 'up' : 'down',
+      };
+    });
+  }, [datas]);
 
+  const renderTrend = (trend) => (
+    <div className={`tv_trend ${trend}`}>
+      {trend === 'up' ? <ArrowUpOutlined /> : <ArrowDownOutlined />}
+      <span>{trend === 'up' ? 'En hausse' : 'En baisse'}</span>
+    </div>
+  );
+
+  const getStrokeColor = (value) =>
+    value >= 90 ? '#52c41a' : value >= 75 ? '#faad14' : '#ff4d4f';
 
   return (
     <div className="tv_ponct_container">
-      {/* Ponctualité Départ */}
+      {/** Départ */}
       <div className="tv_card kpi_card departure">
-        <h3>Nombre de Départ</h3>
+        <h3>Nombre de Départs</h3>
         <div className="tv_card_body">
-          <span className="tv_value">{data.depart}%</span>
+          <span className="tv_value">{data.depart}</span>
           <Progress
             percent={data.depart}
-            strokeColor={
-              data.depart >= 90
-                ? '#52c41a'
-                : data.depart >= 75
-                ? '#faad14'
-                : '#ff4d4f'
-            }
+            strokeColor={getStrokeColor(data.depart)}
             trailColor="#e6e6e6"
-            strokeWidth={12}
+            strokeWidth={16}
             showInfo={false}
           />
-          <div className={`tv_trend ${data.departTrend}`}>
-            {data.departTrend === 'up' ? <ArrowUpOutlined /> : <ArrowDownOutlined />}
-            <span>{data.departTrend === 'up' ? 'En hausse' : 'En baisse'}</span>
-          </div>
+          {renderTrend(data.departTrend)}
         </div>
       </div>
 
-      {/* Ponctualité Retour */}
-      <div className="tv_card kpi_card retour">
-        <h3>Nbre de véhicules en attente</h3>
+      {/** Attente */}
+      <div className="tv_card kpi_card attente">
+        <h3>Véhicules en attente</h3>
         <div className="tv_card_body">
-          <span className="tv_value">{data.retour}%</span>
+          <span className="tv_value">{data.attente}</span>
           <Progress
-            percent={data.retour}
-            strokeColor={
-              data.retour >= 90
-                ? '#52c41a'
-                : data.retour >= 75
-                ? '#faad14'
-                : '#ff4d4f'
-            }
+            percent={data.attente}
+            strokeColor={getStrokeColor(data.attente)}
             trailColor="#e6e6e6"
-            strokeWidth={12}
+            strokeWidth={16}
             showInfo={false}
           />
-          <div className={`tv_trend ${data.retourTrend}`}>
-            {data.retourTrend === 'up' ? <ArrowUpOutlined /> : <ArrowDownOutlined />}
-            <span>{data.retourTrend === 'up' ? 'En hausse' : 'En baisse'}</span>
-          </div>
+          {renderTrend(data.attenteTrend)}
         </div>
       </div>
 
-      {/* Utilisation du Parc */}
-      <div className="tv_card kpi_card usage">
-        <h3>Nbre de véhicules dispo.</h3>
-        <div className="tv_card_body circle_card">
+      {/** Disponible */}
+      <div className="tv_card kpi_card dispo">
+        <h3>Véhicules disponibles</h3>
+        <div className="tv_card_body">
+          <span className="tv_value">{data.dispo}</span>
           <Progress
-            type="circle"
-            percent={data.usage}
-            strokeColor={
-              data.usage >= 80
-                ? '#52c41a'
-                : data.usage >= 50
-                ? '#faad14'
-                : '#ff4d4f'
-            }
+            percent={data.dispo}
+            strokeColor={getStrokeColor(data.dispo)}
             trailColor="#e6e6e6"
-            width={120}
-            strokeWidth={10}
+            strokeWidth={16}
+            showInfo={false}
           />
-          <span className="tv_value_circle">{data.usage}%</span>
-          <div className={`tv_trend ${data.usageTrend}`}>
-            {data.usageTrend === 'up' ? <ArrowUpOutlined /> : <ArrowDownOutlined />}
-            <span>{data.usageTrend === 'up' ? 'En hausse' : 'En baisse'}</span>
-          </div>
+          {renderTrend(data.dispoTrend)}
         </div>
       </div>
     </div>
