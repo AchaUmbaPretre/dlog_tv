@@ -75,16 +75,6 @@ const ModeTv = () => {
                                 <span className="anomalie_badge">!</span>
                                 )}
                             </div>
-
-                            <div className="anomalie_card warning">
-                                <InfoCircleOutlined className="anomalie_icon" />
-                                <span className="anomalie_desc">
-                                Retours non appariés {anomalies.retour_non_apparie}
-                                </span>
-                                {anomalies.retour_non_apparie > 0 && (
-                                <span className="anomalie_badge">!</span>
-                                )}
-                            </div>
                             </div>
                         </div>
                     </div>

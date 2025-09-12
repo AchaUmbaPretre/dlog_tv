@@ -120,14 +120,14 @@ const newTrends = [
 
 
     setTrendsData(newTrends);
-    setPrevData(dataTendance); // on garde la dernière valeur comme référence
+    setPrevData(dataTendance);
   }, [dataTendance]);
 
   return (
     <div className="mode_service">
       {/* Leaderboard par service */}
       <div className="mode_service_card">
-        <h3>🏆 Classement par service</h3>
+        <h3>🏆 Utilisation par les services</h3>
         <Table
           dataSource={leaderboardData}
           columns={leaderboardCols}
@@ -138,7 +138,7 @@ const newTrends = [
 
       {/* Courses par chauffeur */}
       <div className="mode_service_card">
-        <h3>🚗 Courses par chauffeur</h3>
+        <h3>🚗 Nbre de courses par chauffeurs</h3>
         <Table
           dataSource={coursesData}
           columns={coursesCols}
@@ -149,7 +149,7 @@ const newTrends = [
 
       {/* Mini-tendances */}
       <div className="mode_service_card">
-        <h3>📈 Mini-tendances</h3>
+        <h3>📈 Nbre de courses par Motif</h3>
         <div className="trends_wrapper">
           {trendsData.map((item) => (
             <div key={item.key} className={`trend_item ${item.trend}`}>

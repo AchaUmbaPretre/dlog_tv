@@ -81,7 +81,7 @@ const StatutSortieTag = ({ statut_sortie, date_retour }) => {
 
   if (!statut_sortie) return <Tag>-</Tag>;
 
-  let color = "green"; // par défaut à l'heure
+  let color = "green";
   let label = statut_sortie;
   let blinkClass = "";
 
@@ -301,7 +301,7 @@ const RapportVehiculeCourses = ({ course }) => {
           columns={columns}
           dataSource={course}
           rowKey={(record) => record.id_vehicule}
-          pagination={{ pageSize: 10 }}
+          pagination={{ pageSize: 15 }}
           scroll={{ x: "max-content" }}
           bordered
           size="large"

@@ -54,7 +54,7 @@ const Home = () => {
         setCurrentIndex(prev => (prev + 1) % componentsList.length);
         setFade(true); // fade-in le nouveau composant
       }, 500); // durée du fade-out
-    }, 3000); // toutes les 3 secondes
+    }, 30000); // toutes les 3 secondes
 
     return () => clearInterval(interval);
   }, []);

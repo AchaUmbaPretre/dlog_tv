@@ -37,7 +37,7 @@ const ModeTvCardPonct = ({ datas, utilisationParc }) => {
     <div className="tv_ponct_container">
       {/* Ponctualité Départ */}
       <div className="tv_card kpi_card departure">
-        <h3>Ponctualité Départ</h3>
+        <h3>Nombre de Départ</h3>
         <div className="tv_card_body">
           <span className="tv_value">{data.depart}%</span>
           <Progress
@@ -62,7 +62,7 @@ const ModeTvCardPonct = ({ datas, utilisationParc }) => {
 
       {/* Ponctualité Retour */}
       <div className="tv_card kpi_card retour">
-        <h3>Ponctualité Retour</h3>
+        <h3>Nbre de véhicules en attente</h3>
         <div className="tv_card_body">
           <span className="tv_value">{data.retour}%</span>
           <Progress
@@ -87,7 +87,7 @@ const ModeTvCardPonct = ({ datas, utilisationParc }) => {
 
       {/* Utilisation du Parc */}
       <div className="tv_card kpi_card usage">
-        <h3>Utilisation du Parc</h3>
+        <h3>Nbre de véhicules dispo.</h3>
         <div className="tv_card_body circle_card">
           <Progress
             type="circle"

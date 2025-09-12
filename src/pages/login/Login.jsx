@@ -13,7 +13,6 @@ const Login = () => {
 
   const onFinish = async (values) => {
     setIsLoading(true);
-
     try {
       await login(dispatch, values, navigate);
     } catch (error) {
@@ -29,6 +28,7 @@ const Login = () => {
         <div className="login_header">
           <h2>Se connecter</h2>
         </div>
+
         <Form
           name="login_form"
           className="login_form"
@@ -41,11 +41,12 @@ const Login = () => {
           >
             <Input
               prefix={<UserOutlined className="site_form_item_icon" />}
-              placeholder="Email Address"
+              placeholder="Email"
               size="large"
               autoComplete="off"
             />
           </Form.Item>
+
           <Form.Item
             name="password"
             rules={[{ required: true, message: 'Veuillez entrer votre mot de passe !' }]}
@@ -57,14 +58,13 @@ const Login = () => {
               autoComplete="new-password"
             />
           </Form.Item>
+
           <Form.Item className="login_footer">
             <Form.Item name="remember" valuePropName="checked" noStyle>
               <Checkbox className="login_remember_me">Souviens-toi de moi</Checkbox>
             </Form.Item>
-            <a className="login_form_forgot" href="/password_forgot">
-              Mot de passe oublié ?
-            </a>
           </Form.Item>
+
           <Form.Item>
             <Button
               type="primary"
@@ -78,9 +78,6 @@ const Login = () => {
             </Button>
           </Form.Item>
         </Form>
-        <div className="login_footer_note">
-          Vous n'avez pas de compte ? <a href="/register">Inscrivez-vous ici</a>
-        </div>
       </div>
     </div>
   );
