@@ -19,7 +19,7 @@ import {
   FullscreenOutlined,
 } from "@ant-design/icons";
 import moment from "moment";
-import { renderTextWithTooltip } from "../../utils/RenderTooltip";
+import { ChronoTag, EcartTag, MoyenneTag, renderTextWithTooltip } from "../../utils/RenderTooltip";
 
 const { Text } = Typography;
 
@@ -221,40 +221,24 @@ const RapportVehiculeCourses = ({ course }) => {
       ),
     },
     {
-      title: "Retour prévu",
-      dataIndex: "date_retour",
-      key: "date_retour",
-      align: "center",
-      render: (text) => renderDateTag(text),
-    },
-    {
-      title: (
-        <Space>
-          <FieldTimeOutlined style={{ color: "orange" }} />
-          <Text strong>Statut</Text>
-        </Space>
-      ),
-      key: "statut_sortie",
+      title: "Durée R.",
+      key: "duree_reelle_min",
       render: (_, record) => (
-        <StatutSortieTag
-          statut_sortie={record.statut_sortie}
-          date_retour={record.date_retour}
-        />
+        <ChronoTag sortie_time={record.sortie_time} date_prevue={record.date_prevue} />
       ),
     },
     {
-      title: (
-        <Space>
-          <FieldTimeOutlined style={{ color: "purple" }} />
-          <Text strong>Durée retard</Text>
-        </Space>
-      ),
-      key: "duree_retard",
-      align: "center",
+      title: "Durée M.",
+      key: "duree_moyenne_min",
+      render: (_, record) => <MoyenneTag duree_moyenne_min={record.duree_moyenne_min} />,
+    },
+    {
+      title: "Écart",
+      key: "ecart_min",
       render: (_, record) => (
-        <DureeRetardTag
-          date_retour={record.date_retour}
-          duree_retard={record.duree_retard}
+        <EcartTag
+          duree_reelle_min={record.duree_reelle_min}
+          duree_moyenne_min={record.duree_moyenne_min}
         />
       ),
     },

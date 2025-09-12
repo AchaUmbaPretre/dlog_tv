@@ -1,9 +1,8 @@
 import { Tag, Tooltip, Typography } from "antd";
 import moment from "moment";
+import { useEffect, useState } from "react";
 
 const { Text } = Typography;
-
-
 
 export const renderTextWithTooltip = (text, color = 'secondary', maxWidth = 160) => (
   <Tooltip title={text}>
@@ -13,50 +12,91 @@ export const renderTextWithTooltip = (text, color = 'secondary', maxWidth = 160)
   </Tooltip>
 );
 
-// Date formatée dans un tag
-export const renderDateTag = (dateStr, color = 'blue') => {
-  if (!dateStr) return <Tag color="red">Aucune date</Tag>;
-  const date = moment(dateStr);
-  return <Tag color={color}>{date.format('DD-MM-YYYY HH:mm')}</Tag>;
-};
 
-// Formate une durée en minutes en min / h / jour
-export const formatDuration = (minutesTotal) => {
-  if (minutesTotal == null) return '-';
-  if (minutesTotal < 60) return `${minutesTotal} min`;
-  
-  const jours = Math.floor(minutesTotal / 1440);
-  const heures = Math.floor((minutesTotal % 1440) / 60);
-  const minutes = minutesTotal % 60;
+const formatDuration = (minutes) => {
+  if (minutes == null) return "-";
+  const totalMinutes = Math.floor(minutes); // on arrondit à l'entier
+  const days = Math.floor(totalMinutes / (24 * 60));
+  const hours = Math.floor((totalMinutes % (24 * 60)) / 60);
+  const mins = totalMinutes % 60;
 
-  let result = '';
-  if (jours > 0) result += `${jours} jour${jours > 1 ? 's' : ''} `;
-  if (heures > 0) result += `${heures}h `;
-  if (minutes > 0) result += `${minutes}m`;
+  let result = "";
+  if (days > 0) result += `${days}j `;
+  if (hours > 0) result += `${hours}h `;
+  result += `${mins}m`;
+
   return result.trim();
 };
 
-export const renderStatutHoraire = (nom_statut_bs, date_prevue) => {
-  if (!nom_statut_bs || !date_prevue) return <Tag>-</Tag>;
+export const getDurationColor = (elapsedMinutes, datePrevue) => {
+  if (!datePrevue) return "default";
+  const diff = moment().diff(moment(datePrevue), "minutes");
+  if (diff <= 0) return "green";
+  if (diff > 0 && diff <= 60) return "orange";
+  return "red";
+};
 
-  const now = moment();
-  const prevue = moment(date_prevue);
-  const diffMinutes = now.diff(prevue, 'minutes');
+export const useElapsedTime = (startTime) => {
+  const [elapsed, setElapsed] = useState(0);
 
-  let color = 'green';
-  let label = `🟢 ${nom_statut_bs === 'BS validé' ? 'En attente' : ''}`;
+  useEffect(() => {
+    if (!startTime) return;
 
-  if (diffMinutes <= 60) {
-    color = 'orange';
-    label = `🟠 ${nom_statut_bs === 'BS validé' ? 'En attente' : ''} (${diffMinutes} min de retard)`;
-  } else if (diffMinutes > 60) {
-    color = 'red';
-    label = `🔴 ${nom_statut_bs === 'BS validé' ? 'En attente' : ''} (${formatDuration(diffMinutes)} de retard)`;
-  }
+    const interval = setInterval(() => {
+      const diffMinutes = Math.floor(moment().diff(moment(startTime), "minutes", true)); // arrondi à l'entier
+      setElapsed(diffMinutes);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [startTime]);
+
+  return elapsed;
+};
+
+export const ChronoTag = ({ sortie_time, date_prevue }) => {
+  const elapsedMinutes = useElapsedTime(sortie_time);
+  const color = getDurationColor(elapsedMinutes, date_prevue);
 
   return (
     <Tag color={color} style={{ fontWeight: 600 }}>
-      {label}
+      {formatDuration(elapsedMinutes)}
     </Tag>
   );
+};
+
+export const MoyenneTag = ({ duree_moyenne_min }) => (
+  <Tag color="purple">{formatDuration(duree_moyenne_min)}</Tag>
+);
+
+export const EcartTag = ({ heurePrevue }) => {
+  const [diff, setDiff] = useState(0); // différence en minutes
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = moment();
+      const ecart = moment(heurePrevue).diff(now, "minutes"); // différence positive = reste avant échéance
+      setDiff(ecart);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [heurePrevue]);
+
+  let color = "green";
+  let text = "";
+
+  if (diff > 0) {
+    // encore dans les délais
+    color = "green";
+    text = `${formatDuration(diff)} restante`;
+  } else if (diff <= 0 && diff > -60) {
+    // petit retard
+    color = "orange";
+    text = `${formatDuration(Math.abs(diff))} de retard`;
+  } else {
+    // retard significatif
+    color = "red";
+    text = `${formatDuration(Math.abs(diff))} de retard`;
+  }
+
+  return <Tag color={color}>{text}</Tag>;
 };
