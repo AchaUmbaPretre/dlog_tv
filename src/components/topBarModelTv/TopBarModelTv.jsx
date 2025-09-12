@@ -1,14 +1,48 @@
 import { useNavigate } from "react-router-dom";
 import "./topBarModelTv.scss";
-import { Tooltip, Badge, Divider, Button, message, Popover } from "antd";
-import { FullscreenOutlined, LogoutOutlined } from "@ant-design/icons";
+import { Tooltip, Badge, Divider, Button, message, Popover, Switch, Space } from "antd";
+import { FullscreenOutlined, LogoutOutlined, DesktopOutlined } from "@ant-design/icons";
 import { useState, useEffect } from "react";
 import { logout } from "../../services/authService";
 
 const TopBarModelTv = () => {
   const navigate = useNavigate();
   const [currentTime, setCurrentTime] = useState("");
-  const [tvMode, setTvMode] = useState(false); // démarre en mode TV
+  const [tvMode, setTvMode] = useState(false);
+
+  // Mise à jour de l'heure
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = new Date();
+      setCurrentTime(now.toLocaleTimeString("fr-FR", { hour12: false }));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Gestion fullscreen
+  const handleTvSwitch = (checked) => {
+    setTvMode(checked);
+    if (checked) {
+      if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+      navigate("/");
+    } else {
+      if (document.exitFullscreen) document.exitFullscreen();
+      navigate("/");
+    }
+  };
+
+  // Sortie fullscreen avec Escape
+  useEffect(() => {
+    const handleKeydown = (e) => {
+      if (e.key === "Escape") {
+        setTvMode(false);
+        if (document.exitFullscreen) document.exitFullscreen();
+        navigate("/");
+      }
+    };
+    document.addEventListener("keydown", handleKeydown);
+    return () => document.removeEventListener("keydown", handleKeydown);
+  }, [navigate]);
 
   const handleLogout = async () => {
     try {
@@ -33,50 +67,6 @@ const TopBarModelTv = () => {
     </div>
   );
 
-  // Mise à jour de l'heure toutes les secondes
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      const hours = String(now.getHours()).padStart(2, "0");
-      const minutes = String(now.getMinutes()).padStart(2, "0");
-      const seconds = String(now.getSeconds()).padStart(2, "0");
-      setCurrentTime(`${hours}:${minutes}:${seconds}`);
-    };
-    updateTime();
-    const timer = setInterval(updateTime, 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  // Toggle TV avec fullscreen natif
-  const handleTvSwitch = () => {
-    if (tvMode) {
-      // Désactiver le mode TV
-      if (document.exitFullscreen) document.exitFullscreen();
-      setTvMode(false);
-      navigate("/"); // retourne à Home
-    } else {
-      // Activer le mode TV
-      if (document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen();
-      }
-      setTvMode(true);
-      navigate("/"); // Home en mode TV
-    }
-  };
-
-  // Sortie fullscreen avec Escape
-  useEffect(() => {
-    const handleKeydown = (e) => {
-      if (e.key === "Escape") {
-        setTvMode(false);
-        if (document.exitFullscreen) document.exitFullscreen();
-        navigate("/"); // retour à Home
-      }
-    };
-    document.addEventListener("keydown", handleKeydown);
-    return () => document.removeEventListener("keydown", handleKeydown);
-  }, [navigate]);
-
   return (
     <div className="topBar_model">
       <div className="topbar_model_wrapper">
@@ -98,16 +88,22 @@ const TopBarModelTv = () => {
         </div>
 
         {/* Actions */}
-        <div className="topbar_model_right">
+        <div className="topbar_model_right" style={{ gap: 16, display: "flex", alignItems: "center" }}>
           {/* Switch TV */}
-          <div
-            className={`tv-switch-custom ${tvMode ? "on" : "off"}`}
-            onClick={handleTvSwitch}
-            title={tvMode ? "Mode TV activé" : "Mode TV désactivé"}
-          >
-            <div className="tv-switch-handle" />
-            <span className="tv-switch-label">{tvMode ? "ON" : "OFF"}</span>
-          </div>
+          <Space direction="vertical" size={2} style={{ display: "flex", alignItems: "center" }}>
+            <Switch
+              checked={tvMode}
+              onChange={handleTvSwitch}
+              checkedChildren={<DesktopOutlined />}
+              unCheckedChildren={<DesktopOutlined />}
+              className="tv-switch-ant"
+            />
+            <Badge
+              count={tvMode ? `TV actif • MAJ ${currentTime}` : `TV désactivé • MAJ ${currentTime}`}
+              style={{ backgroundColor: tvMode ? "#52c41a" : "#ff4d4f" }}
+              className="maj-badge"
+            />
+          </Space>
 
           {/* Icône plein écran */}
           {tvMode && (
@@ -115,13 +111,6 @@ const TopBarModelTv = () => {
               <FullscreenOutlined className="fullscreen-icon" />
             </Tooltip>
           )}
-
-          {/* Badge état TV */}
-          <Badge
-            count={tvMode ? `TV actif • MAJ ${currentTime}` : `TV désactivé • MAJ ${currentTime}`}
-            style={{ backgroundColor: tvMode ? "#52c41a" : "#ff4d4f" }}
-            className="maj-badge"
-          />
 
           {/* Bouton Logout */}
           <Popover content={logoutContent} placement="bottomRight" trigger="click">
