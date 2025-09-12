@@ -86,6 +86,7 @@ const RapportVehiculeCourses = ({ course }) => {
     {
       title: "Durée réelle",
       key: "duree_reelle_min",
+      align: 'center',
       render: (_, record) => (
         <ChronoTag sortie_time={record.sortie_time} date_prevue={record.date_prevue} />
       ),
@@ -93,11 +94,13 @@ const RapportVehiculeCourses = ({ course }) => {
     {
       title: "Durée Moyenne",
       key: "duree_moyenne_min",
+      align: 'center',
       render: (_, record) => <MoyenneTag duree_moyenne_min={record.duree_moyenne_min} />,
     },
     {
       title: "Écart",
       key: "ecart_min",
+      align: 'center',
       render: (_, record) => (
         <EcartTag
           duree_reelle_min={record.duree_reelle_min}
@@ -138,7 +141,7 @@ const RapportVehiculeCourses = ({ course }) => {
           columns={columns}
           dataSource={course}
           rowKey={(record) => record.id_vehicule}
-          pagination={{ pageSize: 10 }}
+          pagination={{ pageSize: 15 }}
           scroll={{ x: "max-content" }}
           bordered
           size="middle"
