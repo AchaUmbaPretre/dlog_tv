@@ -30,11 +30,14 @@ const formatDuration = (minutes) => {
 
 export const getDurationColor = (elapsedMinutes, datePrevue) => {
   if (!datePrevue) return "default";
+
   const diff = moment().diff(moment(datePrevue), "minutes");
+
   if (diff <= 0) return "green";
-  if (diff > 0 && diff <= 60) return "orange";
-  return "red";
-};
+  if (diff > 25 && diff <= 60) return "orange";
+  if (diff > 60) return "red";
+  return "green";
+
 
 export const useElapsedTime = (startTime) => {
   const [elapsed, setElapsed] = useState(0);

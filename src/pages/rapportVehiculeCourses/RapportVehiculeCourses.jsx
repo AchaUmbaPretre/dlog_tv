@@ -1,135 +1,24 @@
-import { useEffect, useState } from "react";
 import {
   Table,
-  Tag,
   Tooltip,
   Space,
   Typography,
   Card,
   Divider,
+  Badge,
 } from "antd";
 import {
   CarOutlined,
   ApartmentOutlined,
   UserOutlined,
-  FieldTimeOutlined,
   EnvironmentOutlined,
-  TrademarkOutlined,
   AppstoreOutlined,
   FullscreenOutlined,
 } from "@ant-design/icons";
-import moment from "moment";
 import { ChronoTag, EcartTag, MoyenneTag, renderTextWithTooltip } from "../../utils/RenderTooltip";
 
 const { Text } = Typography;
 
-const renderDateTag = (dateStr, color = "blue") => {
-  if (!dateStr) return <Tag color="red">Aucune date</Tag>;
-  const date = moment(dateStr);
-  return (
-    <Tag color={color} style={{ borderRadius: 6, fontWeight: 500 }}>
-      {date.format("DD-MM-YYYY HH:mm")}
-    </Tag>
-  );
-};
-
-/* ------------------ HOOK ------------------ */
-const useElapsedTime = (startTime) => {
-  const [elapsed, setElapsed] = useState("");
-
-  useEffect(() => {
-    if (!startTime) return;
-
-    const interval = setInterval(() => {
-      const diff = moment().diff(moment(startTime), "seconds");
-      const days = Math.floor(diff / (3600 * 24));
-      const hours = Math.floor((diff % (3600 * 24)) / 3600);
-      const minutes = Math.floor((diff % 3600) / 60);
-      const seconds = diff % 60;
-
-      if (days > 0) setElapsed(`${days}j ${hours}h`);
-      else if (hours > 0) setElapsed(`${hours}h ${minutes}m`);
-      else setElapsed(`${minutes}m ${seconds}s`);
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [startTime]);
-
-  return elapsed;
-};
-
-/* ------------------ COMPONENTS ------------------ */
-const StatutSortieTag = ({ statut_sortie, date_retour }) => {
-  const elapsed = useElapsedTime(date_retour);
-
-  if (!statut_sortie) return <Tag>-</Tag>;
-
-  let color = "green";
-  let label = statut_sortie;
-  let blinkClass = "";
-
-  if (statut_sortie.includes("Retard") && date_retour) {
-    const diffMinutes = moment().diff(moment(date_retour), "minutes");
-
-    if (diffMinutes <= 30) color = "orange"; // léger
-    else if (diffMinutes <= 60) color = "red"; // moyen
-    else if (diffMinutes <= 48 * 60) {
-      // sévère <48h
-      color = "volcano";
-      blinkClass = "blinking-tag";
-    } else color = "grey"; // très long >48h
-
-    label =
-      diffMinutes > 48 * 60
-        ? `${statut_sortie} (${Math.floor(diffMinutes / 60 / 24)}j)`
-        : `${statut_sortie} (${elapsed})`;
-  }
-
-  return (
-    <Tooltip
-      title={date_retour ? moment(date_retour).format("DD/MM HH:mm") : "-"}
-    >
-      <Tag
-        color={color}
-        className={blinkClass}
-        style={{
-          fontWeight: 600,
-          borderRadius: 6,
-          padding: "2px 10px",
-          fontSize: "0.9rem",
-        }}
-      >
-        {label}
-      </Tag>
-    </Tooltip>
-  );
-};
-
-const DureeRetardTag = ({ date_retour, duree_retard }) => {
-  const elapsed = useElapsedTime(date_retour);
-  const diffHours = moment().diff(moment(date_retour), "hours");
-  const displayValue = diffHours >= 48 ? duree_retard : elapsed;
-
-  const isLate = moment().isAfter(moment(date_retour));
-
-  return (
-    <Tooltip
-      title={`Retour prévu : ${moment(date_retour).format(
-        "DD/MM HH:mm"
-      )} | Durée : ${duree_retard}`}
-    >
-      <Tag
-        className={isLate && diffHours < 48 ? "blinking-tag" : ""}
-        color={isLate && diffHours < 48 ? "red" : "green"}
-        style={{ borderRadius: 6, padding: "2px 10px", fontSize: "0.9rem" }}
-      >
-        {displayValue}
-      </Tag>
-    </Tooltip>
-  );
-};
-
-/* ------------------ MAIN TABLE ------------------ */
 const RapportVehiculeCourses = ({ course }) => {
   const columns = [
     {
@@ -195,36 +84,14 @@ const RapportVehiculeCourses = ({ course }) => {
       render: (text) => renderTextWithTooltip(text),
     },
     {
-      title: "Immatriculation",
-      dataIndex: "immatriculation",
-      key: "immatriculation",
-      align: "center",
-      render: (text) => renderTextWithTooltip(text),
-    },
-    {
-      title: "Marque",
-      dataIndex: "nom_marque",
-      key: "nom_marque",
-      align: "center",
-      render: (text) => (
-        <Tag
-          icon={<TrademarkOutlined />}
-          color="blue"
-          style={{ fontSize: "0.85rem" }}
-        >
-          {text}
-        </Tag>
-      ),
-    },
-    {
-      title: "Durée R.",
+      title: "Durée réelle",
       key: "duree_reelle_min",
       render: (_, record) => (
         <ChronoTag sortie_time={record.sortie_time} date_prevue={record.date_prevue} />
       ),
     },
     {
-      title: "Durée M.",
+      title: "Durée Moyenne",
       key: "duree_moyenne_min",
       render: (_, record) => <MoyenneTag duree_moyenne_min={record.duree_moyenne_min} />,
     },
@@ -241,36 +108,51 @@ const RapportVehiculeCourses = ({ course }) => {
   ];
 
   return (
-    <div className="rapportVehiculeValide">
+    <div className="rapportVehiculeValide" style={{ padding: 12 }}>
       <Card
         title={
-          <Space>
-            <CarOutlined style={{ color: "#1890ff" }} />
-            <Text strong style={{ fontSize: "1.2rem" }}>
+          <Space align="center">
+            <CarOutlined style={{ color: "#1890ff", fontSize: 22 }} />
+            <Text strong style={{ fontSize: "1.3rem" }}>
               Véhicules en course
             </Text>
+            <Badge
+              count={course.length}
+              style={{ backgroundColor: "#52c41a", fontSize: 14 }}
+            />
           </Space>
         }
         extra={
           <Tooltip title="Plein écran">
-            <FullscreenOutlined style={{ fontSize: 18, cursor: "pointer" }} />
+            <FullscreenOutlined style={{ fontSize: 20, cursor: "pointer" }} />
           </Tooltip>
         }
         bordered={false}
-        style={{ borderRadius: 12 }}
+        style={{
+          borderRadius: 12,
+          boxShadow: "0 6px 20px rgba(0,0,0,0.08)",
+        }}
       >
-        <Divider />
+        <Divider style={{ margin: "12px 0" }} />
         <Table
           columns={columns}
           dataSource={course}
           rowKey={(record) => record.id_vehicule}
-          pagination={{ pageSize: 15 }}
+          pagination={{ pageSize: 10 }}
           scroll={{ x: "max-content" }}
           bordered
-          size="large"
-          rowHoverable
+          size="middle"
+          rowClassName={(record) =>
+            record.en_cours ? "table-row-en-cours" : ""
+          }
         />
       </Card>
+      <style jsx>{`
+        .table-row-en-cours {
+          background-color: #f6ffed; /* Vert clair pour les véhicules en cours */
+          transition: background-color 0.3s;
+        }
+      `}</style>
     </div>
   );
 };
