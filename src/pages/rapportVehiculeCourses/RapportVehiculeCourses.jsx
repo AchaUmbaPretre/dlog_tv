@@ -199,11 +199,7 @@ const RapportVehiculeCourses = ({ course }) => {
       dataIndex: "immatriculation",
       key: "immatriculation",
       align: "center",
-      render: (text) => (
-        <Tag color="magenta" style={{ fontSize: "0.85rem" }}>
-          {text}
-        </Tag>
-      ),
+      render: (text) => renderTextWithTooltip(text),
     },
     {
       title: "Marque",

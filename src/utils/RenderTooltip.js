@@ -68,33 +68,28 @@ export const MoyenneTag = ({ duree_moyenne_min }) => (
   <Tag color="purple">{formatDuration(duree_moyenne_min)}</Tag>
 );
 
-export const EcartTag = ({ heurePrevue }) => {
-  const [diff, setDiff] = useState(0); // différence en minutes
+export const EcartTag = ({ duree_reelle_min, duree_moyenne_min }) => {
+  const [diff, setDiff] = useState(duree_moyenne_min - duree_reelle_min);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const now = moment();
-      const ecart = moment(heurePrevue).diff(now, "minutes"); // différence positive = reste avant échéance
-      setDiff(ecart);
-    }, 1000);
+      setDiff(duree_moyenne_min - duree_reelle_min); // actualisation dynamique
+    }, 1000); // mise à jour chaque seconde
 
     return () => clearInterval(interval);
-  }, [heurePrevue]);
+  }, [duree_reelle_min, duree_moyenne_min]);
 
   let color = "green";
   let text = "";
-
+  
   if (diff > 0) {
-    // encore dans les délais
-    color = "green";
-    text = `${formatDuration(diff)} restante`;
+    color = "green"; // gain de temps
+    text = `${formatDuration(diff)} de gain`;
   } else if (diff <= 0 && diff > -60) {
-    // petit retard
-    color = "orange";
+    color = "orange"; // petit retard
     text = `${formatDuration(Math.abs(diff))} de retard`;
   } else {
-    // retard significatif
-    color = "red";
+    color = "red"; // retard important
     text = `${formatDuration(Math.abs(diff))} de retard`;
   }
 
