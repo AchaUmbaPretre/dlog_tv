@@ -1,19 +1,11 @@
-import React, { useEffect, useState } from "react";
 import { Table, Progress } from "antd";
 import {
-  ArrowUpOutlined,
-  ArrowDownOutlined,
   CrownOutlined,
   CarOutlined,
-  LineChartOutlined,
-  MinusOutlined
 } from "@ant-design/icons";
 import "./modeTvService.scss";
 
 const ModeTvService = ({dataService, courseVehicule, motif}) => {
-  const [prevData, setPrevData] = useState(null);
-  const [trendsData, setTrendsData] = useState([]);
-
 
   // Données factices Leaderboard par service
   const leaderboardData = (dataService || []).map((item, index) => ({
