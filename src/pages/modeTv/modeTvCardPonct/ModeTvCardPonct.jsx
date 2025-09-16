@@ -18,6 +18,7 @@ const ModeTvCardPonct = ({ datas }) => {
   const [data, setData] = useState({ depart: 0, attente: 0, dispo: 0 });
   const [flash, setFlash] = useState({ depart: '', attente: '', dispo: '' });
 
+  
   useEffect(() => {
     if (!datas) return;
 
