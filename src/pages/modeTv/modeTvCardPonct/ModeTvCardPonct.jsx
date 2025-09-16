@@ -4,13 +4,17 @@ import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 import './modeTvCardPonct.scss';
 
 const TrendArrow = ({ previous, current }) => {
+  if (previous === null) {
+    // Premier rendu, on montre la flèche si valeur > 0
+    return current > 0 ? <ArrowUpOutlined style={{ color: '#52c41a' }} /> : null;
+  }
   if (current > previous) return <ArrowUpOutlined style={{ color: '#52c41a' }} />;
   if (current < previous) return <ArrowDownOutlined style={{ color: '#ff4d4f' }} />;
   return null; // stable
 };
 
 const ModeTvCardPonct = ({ datas }) => {
-  const [prevData, setPrevData] = useState({ depart: 0, attente: 0, dispo: 0 });
+  const [prevData, setPrevData] = useState({ depart: null, attente: null, dispo: null });
   const [data, setData] = useState({ depart: 0, attente: 0, dispo: 0 });
   const [flash, setFlash] = useState({ depart: '', attente: '', dispo: '' });
 
@@ -23,6 +27,7 @@ const ModeTvCardPonct = ({ datas }) => {
       dispo: Number(datas.vehicule_dispo || 0),
     };
 
+    // Détecter changement pour animation flash
     const newFlash = {
       depart: newData.depart !== data.depart ? 'flash' : '',
       attente: newData.attente !== data.attente ? 'flash' : '',
@@ -33,6 +38,7 @@ const ModeTvCardPonct = ({ datas }) => {
     setPrevData(data);
     setData(newData);
 
+    // Reset flash après 500ms
     const timer = setTimeout(() => setFlash({ depart: '', attente: '', dispo: '' }), 500);
     return () => clearTimeout(timer);
 
@@ -41,7 +47,7 @@ const ModeTvCardPonct = ({ datas }) => {
   const getStrokeColor = (value) =>
     value >= 90 ? '#52c41a' : value >= 75 ? '#faad14' : '#ff4d4f';
 
-  const renderCard = (title, key, previousKey) => (
+  const renderCard = (title, key) => (
     <div className={`tv_card kpi_card ${key}`}>
       <h3>{title}</h3>
       <div className="tv_card_body">
@@ -56,7 +62,9 @@ const ModeTvCardPonct = ({ datas }) => {
         <div className={`tv_trend ${flash[key]}`}>
           <TrendArrow previous={prevData[key]} current={data[key]} />
           <span>
-            {data[key] > prevData[key]
+            {prevData[key] === null
+              ? 'Nouveau'
+              : data[key] > prevData[key]
               ? 'En hausse'
               : data[key] < prevData[key]
               ? 'En baisse'
