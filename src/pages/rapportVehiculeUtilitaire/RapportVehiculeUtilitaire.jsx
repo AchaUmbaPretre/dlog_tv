@@ -1,5 +1,5 @@
 import './rapportVehiculeUtilitaire.scss';
-import { Table, Tooltip, Typography, Tag, Card, Divider, Progress } from 'antd';
+import { Table, Tooltip, Typography, Card, Divider, Progress, Badge } from 'antd';
 import { CarOutlined, TruckOutlined } from '@ant-design/icons';
 
 const { Text } = Typography;
@@ -11,7 +11,7 @@ const RapportVehiculeUtilitaire = ({ utilitaire }) => {
       key: 'index',
       render: (_, __, index) => (
         <Tooltip title={`Ligne ${index + 1}`}>
-          <Tag color="blue">{index + 1}</Tag>
+          <Badge count={index + 1} style={{ backgroundColor: '#1890ff', fontSize: '0.9rem' }} />
         </Tooltip>
       ),
       width: "5%",
@@ -28,7 +28,7 @@ const RapportVehiculeUtilitaire = ({ utilitaire }) => {
             <CarOutlined className="car-icon-animated" />
             <span className="car-shadow" />
           </span>
-          <Tag color="geekblue" style={{ fontWeight: 600 }}>{text}</Tag>
+          <Text strong>{text}</Text>
         </div>
       ),
       width: "20%",
@@ -37,22 +37,14 @@ const RapportVehiculeUtilitaire = ({ utilitaire }) => {
       title: 'Marque',
       dataIndex: 'nom_marque',
       key: 'nom_marque',
-      render: (text) => (
-        <Tag icon={<CarOutlined />} color="cyan" style={{ fontWeight: 600 }}>
-          {text}
-        </Tag>
-      ),
+      render: (text) => <Text>{text}</Text>,
       width: "20%",
     },
     {
       title: 'Type véhicule',
       dataIndex: 'nom_cat',
       key: 'nom_cat',
-      render: (text) => (
-        <Tag icon={<TruckOutlined />} color="geekblue" style={{ fontWeight: 600 }}>
-          {text ?? 'Aucun'}
-        </Tag>
-      ),
+      render: (text) => <Text>{text ?? 'Aucun'}</Text>,
       width: "25%",
     },
     {
@@ -60,10 +52,18 @@ const RapportVehiculeUtilitaire = ({ utilitaire }) => {
       dataIndex: 'statut_affichage',
       key: 'statut_affichage',
       render: (text) => {
-        let color = text.includes('Disponible') ? 'green' : 'orange';
+        let color = 'default';
+        if (text.includes('Disponible')) color = '#52c41a';
+        else if (text.includes('Retard')) color = '#faad14';
+        else if (text.includes('Critique')) color = '#f5222d';
+
         return (
           <Tooltip title={`Statut du véhicule: ${text}`}>
-            <Tag color={color} style={{ fontWeight: 600 }}>{text}</Tag>
+            <Badge
+              color={color}
+              text={text}
+              style={{ fontWeight: 600 }}
+            />
           </Tooltip>
         );
       },
@@ -75,23 +75,24 @@ const RapportVehiculeUtilitaire = ({ utilitaire }) => {
       key: 'score',
       align: "center",
       render: (value) => {
-        if (value == null) return <Tag color="default">Aucun</Tag>;
+        if (value == null)
+          return (
+            <Badge count="Aucun" style={{ backgroundColor: '#d9d9d9', fontSize: '0.8rem' }} />
+          );
 
-        let color = 'blue';
-        if (value < 40) color = 'red';
-        else if (value < 70) color = 'orange';
-        else if (value < 90) color = 'green';
-        else color = 'geekblue';
+        let color = '#1890ff';
+        if (value < 40) color = '#ff4d4f';
+        else if (value < 70) color = '#faad14';
+        else if (value < 90) color = '#52c41a';
 
         return (
           <Tooltip title={`Score: ${value}%`}>
-            <Progress 
-              percent={value} 
-              size="small" 
-              strokeColor={color} 
-              showInfo={true} 
-              format={(percent) => `${percent}%`} 
-              style={{ width: 80 }} 
+            <Progress
+              type="circle"
+              percent={value}
+              width={50}
+              strokeColor={color}
+              format={(percent) => `${percent}%`}
             />
           </Tooltip>
         );
@@ -107,7 +108,14 @@ const RapportVehiculeUtilitaire = ({ utilitaire }) => {
         bordered={false}
         style={{ borderRadius: 12 }}
       >
+        {/* Nombre total de véhicules en badge */}
+        <div style={{ marginBottom: 15 }}>
+          <Text strong>Total véhicules: </Text>
+          <Badge count={utilitaire.length} style={{ backgroundColor: '#1890ff', fontSize: '1rem' }} />
+        </div>
+
         <Divider />
+
         <Table
           columns={columns}
           dataSource={utilitaire}
