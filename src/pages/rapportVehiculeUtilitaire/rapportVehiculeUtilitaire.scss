@@ -2,6 +2,113 @@
   margin: 20px auto;
   padding: 20px;
 
+  .vehicule-matricule {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.car-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+}
+
+/* Voiture avec animation au démarrage + hover */
+.car-icon-animated {
+    font-size: 24px;
+    color: #1890ff;
+    animation: carStart 0.8s ease-out forwards;
+    transform-origin: center;
+    transition: transform 0.2s;
+}
+
+.car-icon-animated:hover {
+    animation: none;
+    transform: rotate(1deg) scale(1.05);
+    animation: carVibrate 0.3s infinite;
+}
+
+/* Ombre sous la voiture */
+.car-shadow {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    transform: scaleX(0);
+    animation: shadowStretch 0.8s ease-out forwards;
+}
+
+/* Boost / drift derrière la voiture */
+.car-boost {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -10px;
+    width: 8px;
+    height: 2px;
+    background: linear-gradient(to right, #00f6ff, transparent);
+    transform: translateY(-50%) scaleX(0);
+    opacity: 0;
+    animation: boostTrail 1s ease-out forwards;
+    z-index: 0;
+}
+
+/* === Keyframes === */
+@keyframes carStart {
+    0% {
+        transform: translateX(-15px) scale(0.8) rotate(-3deg);
+        opacity: 0;
+    }
+    50% {
+        transform: translateX(5px) scale(1.05) rotate(1deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(0) scale(1) rotate(0);
+    }
+}
+
+@keyframes carVibrate {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-1px); }
+    50% { transform: translateX(1px); }
+    75% { transform: translateX(-1px); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes shadowStretch {
+    0% {
+        transform: scaleX(0);
+        opacity: 0;
+    }
+    100% {
+        transform: scaleX(1);
+        opacity: 1;
+    }
+}
+
+@keyframes boostTrail {
+    0% {
+        transform: scaleX(0);
+        opacity: 0;
+    }
+    30% {
+        transform: scaleX(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: scaleX(0.5);
+        opacity: 0;
+    }
+}
+
+
   .ant-card {
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
   }
