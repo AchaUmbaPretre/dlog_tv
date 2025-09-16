@@ -75,7 +75,7 @@ const RapportVehiculeUtilitaire = ({ utilitaire }) => {
       key: 'score',
       align: "center",
       render: (value) => {
-        if (!value) return <Tag color="default">Aucun</Tag>;
+        if (value == null) return <Tag color="default">Aucun</Tag>;
 
         let color = 'blue';
         if (value < 40) color = 'red';
@@ -89,7 +89,8 @@ const RapportVehiculeUtilitaire = ({ utilitaire }) => {
               percent={value} 
               size="small" 
               strokeColor={color} 
-              showInfo={false} 
+              showInfo={true} 
+              format={(percent) => `${percent}%`} 
               style={{ width: 80 }} 
             />
           </Tooltip>
