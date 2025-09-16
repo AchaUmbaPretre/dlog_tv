@@ -6,7 +6,7 @@ import RapportVehiculeUtilitaire from '../rapportVehiculeUtilitaire/RapportVehic
 import './home.scss';
 import TopBarModelTv from '../../components/topBarModelTv/TopBarModelTv';
 import { notification } from 'antd';
-import { getRapportCharroiVehicule } from '../../services/rapportService';
+import { getRapportCharroiVehicule, getRapportUtilitaire } from '../../services/rapportService';
 
 
 const Home = () => {
@@ -25,11 +25,14 @@ const Home = () => {
 
     const fetchData = async() => {
         try {
-            const { data } = await getRapportCharroiVehicule();
+            const [ allData, utilData] = await Promise.all([
+              getRapportCharroiVehicule(),
+              getRapportUtilitaire()
+            ])
 
-            setData(data.listeEnAttente);
-            setCourse(data.listeCourse);
-            setUtilitaire(data.listeUtilitaire);
+            setData(allData.data.listeEnAttente);
+            setCourse(allData.data.listeCourse);
+            setUtilitaire(utilData.data.listVehiculeDispo);
 
         } catch (error) {
             notification.error({
