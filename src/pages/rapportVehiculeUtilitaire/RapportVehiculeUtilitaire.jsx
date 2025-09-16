@@ -104,16 +104,10 @@ const RapportVehiculeUtilitaire = ({ utilitaire }) => {
   return (
     <div className="rapportVehiculeValide">
       <Card
-        title={<Text strong style={{ fontSize: '1.2rem' }}>Utilitaires</Text>}
+        title={<Text strong style={{ fontSize: '1.2rem' }}>Liste des véhicules utilitaires <Badge count={utilitaire.length} style={{ backgroundColor: '#1890ff', fontSize: '1rem' }} /></Text>}
         bordered={false}
         style={{ borderRadius: 12 }}
       >
-        {/* Nombre total de véhicules en badge */}
-        <div style={{ marginBottom: 15 }}>
-          <Text strong>Total véhicules: </Text>
-          <Badge count={utilitaire.length} style={{ backgroundColor: '#1890ff', fontSize: '1rem' }} />
-        </div>
-
         <Divider />
 
         <Table
