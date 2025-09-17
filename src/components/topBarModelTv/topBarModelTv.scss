@@ -65,7 +65,7 @@
         display: flex;
         align-items: center;
         cursor: pointer;
-
+        font-size: 3rem;
         .ant-switch {
           &.ant-switch-checked {
             background-color: #1890ff;
@@ -82,7 +82,7 @@
       }
 
       .maj-badge {
-        font-size: 2rem;
+        font-size: 3rem;
 
         .ant-badge-count {
           border-radius: 8px;
@@ -94,7 +94,7 @@
       }
 
       .fullscreen-icon {
-        font-size: 20px;
+        font-size: 30px;
         color: #fff;
         cursor: pointer;
         transition: transform 0.2s ease;
@@ -106,8 +106,7 @@
       }
 
       .logout-button {
-        background-color: #ff4d4f; // rouge vif pour visibilité
-        color: #fff;
+        background-color: #ff4d4f;
         border: none;
         display: flex;
         align-items: center;
@@ -130,7 +129,7 @@
         text-align: center;
 
         p {
-          font-size: 0.9rem;
+          font-size: 1.5rem;
           color: #000;
           margin-bottom: 10px;
         }
