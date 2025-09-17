@@ -67,7 +67,7 @@ const Home = () => {
 {/*         <div className={`fade-container ${fade ? 'fade-in' : 'fade-out'}`}>
           {componentsList[currentIndex]}
         </div> */}
-      <RapportVehiculeCourses key="courses" course={course} />,
+        <ModeTv key="modeTv" />
     </div>
   );
 }
