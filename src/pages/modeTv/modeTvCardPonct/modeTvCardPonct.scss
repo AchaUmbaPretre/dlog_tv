@@ -3,7 +3,7 @@
   display: flex;
   gap: 40px;
   padding: 40px;
-  background: #1e1e1e; // fond sombre
+  background: #1e1e1e;
   border-radius: 20px;
   justify-content: space-between;
   align-items: stretch;
@@ -17,7 +17,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   h3 {
@@ -31,37 +31,30 @@
   .tv_card_body {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
     align-items: center;
 
-    .tv_value {
-      font-size: 3.5rem;
-      font-weight: 900;
-      color: #ffffff;
-      text-shadow: 0 0 10px rgba(0,0,0,0.6);
-    }
-
-    .tv_trend {
+    .tv_value_wrapper {
       display: flex;
       align-items: center;
-      gap: 12px;
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: #f5f5f5;
+      gap: 10px;
 
-      &.flash {
-        animation: flashTrend 0.6s;
+      .tv_value {
+        font-size: 3.5rem;
+        font-weight: 900;
+        color: #ffffff;
+        text-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
       }
 
       svg {
-        font-size: 1.6rem;
+        font-size: 2rem;
       }
     }
-  }
-}
 
-@keyframes flashTrend {
-  0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.4); opacity: 0.7; }
-  100% { transform: scale(1); opacity: 1; }
+    .tv_previous {
+      font-size: 1rem;
+      color: #bbb;
+      font-weight: 500;
+    }
+  }
 }
