@@ -8,7 +8,6 @@ import TopBarModelTv from '../../components/topBarModelTv/TopBarModelTv';
 import { notification } from 'antd';
 import { getRapportCharroiVehicule, getRapportUtilitaire } from '../../services/rapportService';
 
-
 const Home = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [fade, setFade] = useState(true);
@@ -37,7 +36,7 @@ const Home = () => {
         } catch (error) {
             notification.error({
             message: 'Erreur de chargement',
-            escription: 'Une erreur est survenue lors du chargement des données.',
+            description: 'Une erreur est survenue lors du chargement des données.',
             });
         }
     }
@@ -66,8 +65,8 @@ const Home = () => {
     <div className="home">
         <TopBarModelTv/>
         <div className={`fade-container ${fade ? 'fade-in' : 'fade-out'}`}>
-            {componentsList[currentIndex]}
-        </div>}
+          {componentsList[currentIndex]}
+        </div>
     </div>
   );
 }

@@ -1,91 +1,67 @@
 .tv_ponct_container {
   margin-top: 20px;
   display: flex;
-  gap: 25px;
-  padding: 30px;
-  background: #ffffff;
-  border-radius: 15px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  gap: 40px;
+  padding: 40px;
+  background: #1e1e1e; // fond sombre
+  border-radius: 20px;
   justify-content: space-between;
   align-items: stretch;
 }
 
 .kpi_card {
   flex: 1;
-  background: #f9f9f9;
-  border-radius: 15px;
-  padding: 25px 20px;
+  background: #2b2b2b;
+  border-radius: 20px;
+  padding: 35px 25px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  }
-
   h3 {
-    color: #111;
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-bottom: 20px;
+    color: #f5f5f5;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 25px;
+    text-align: center;
   }
 
   .tv_card_body {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
     align-items: center;
-    position: relative;
 
     .tv_value {
-      font-size: 2.5rem;
-      font-weight: 800;
-      color: #111;
-    }
-
-    .circle_card {
-      position: relative;
-
-      .tv_value_circle {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 1.6rem;
-        font-weight: 700;
-        color: #111;
-      }
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(0,0,0,0.6);
     }
 
     .tv_trend {
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 1rem;
-      font-weight: 500;
+      gap: 12px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #f5f5f5;
 
-      &.up {
-        color: #52c41a;
-      }
-      &.down {
-        color: #ff4d4f;
+      &.flash {
+        animation: flashTrend 0.6s;
       }
 
       svg {
-        font-size: 1.2rem;
+        font-size: 1.6rem;
       }
     }
-    .tv_trend.flash {
-  animation: flashTrend 0.5s;
+  }
 }
 
 @keyframes flashTrend {
   0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.3); opacity: 0.7; }
+  50% { transform: scale(1.4); opacity: 0.7; }
   100% { transform: scale(1); opacity: 1; }
-}
-  }
 }

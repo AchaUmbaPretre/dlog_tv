@@ -1,13 +1,46 @@
-/* Home.css */
-.fade-container {
-  transition: opacity 0.5s ease-in-out;
-  opacity: 1;
-}
+.home {
+  background: #1e1e1e; // fond sombre anthracite
+  color: #f5f5f5;
+  min-height: 100vh;
+  padding: 20px;
 
-.fade-in {
-  opacity: 1;
-}
+  // fade container
+  .fade-container {
+    transition: opacity 0.5s ease-in-out;
+    opacity: 1;
+  }
 
-.fade-out {
-  opacity: 0;
+  .fade-in { opacity: 1; }
+  .fade-out { opacity: 0; }
+
+  // données principales
+  .kpi-value, .main-value {
+    font-size: 2rem; // ~32px minimum
+    font-weight: 900;
+    color: #fff;
+    text-align: center;
+  }
+
+  // statuts colorés
+  .status-success {
+    color: #52c41a; // vert vif
+    font-weight: bold;
+  }
+  .status-warning {
+    color: #faad14; // orange
+    font-weight: bold;
+  }
+  .status-danger {
+    color: #ff4d4f; // rouge saturé
+    font-weight: bold;
+  }
+
+  .flash-alert {
+    animation: flash 1s infinite alternate;
+  }
+
+  @keyframes flash {
+    from { opacity: 1; }
+    to { opacity: 0.6; }
+  }
 }
