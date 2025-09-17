@@ -19,24 +19,18 @@ const TopBarModelTv = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Gestion fullscreen
   const handleTvSwitch = (checked) => {
     setTvMode(checked);
-    if (checked) {
-      if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
-      navigate("/");
-    } else {
-      if (document.exitFullscreen) document.exitFullscreen();
-      navigate("/");
-    }
+    if (checked) document.documentElement.requestFullscreen?.();
+    else document.exitFullscreen?.();
+    navigate("/");
   };
 
-  // Sortie fullscreen avec Escape
   useEffect(() => {
     const handleKeydown = (e) => {
       if (e.key === "Escape") {
         setTvMode(false);
-        if (document.exitFullscreen) document.exitFullscreen();
+        document.exitFullscreen?.();
         navigate("/");
       }
     };
@@ -68,7 +62,7 @@ const TopBarModelTv = () => {
   );
 
   return (
-    <div className="topBar_model">
+    <div className={`topBar_model ${tvMode ? "tv-active" : ""}`}>
       <div className="topbar_model_wrapper">
         {/* Logo */}
         <div
@@ -88,9 +82,8 @@ const TopBarModelTv = () => {
         </div>
 
         {/* Actions */}
-        <div className="topbar_model_right" style={{ gap: 16, display: "flex", alignItems: "center" }}>
-          {/* Switch TV */}
-          <Space direction="vertical" size={2} style={{ display: "flex", alignItems: "center" }}>
+        <div className="topbar_model_right">
+          <Space direction="vertical" size={2} className="tv-space">
             <Switch
               checked={tvMode}
               onChange={handleTvSwitch}
@@ -99,20 +92,20 @@ const TopBarModelTv = () => {
               className="tv-switch-ant"
             />
             <Badge
-              count={tvMode ? `TV actif • MAJ ${currentTime}` : `TV désactivé • MAJ ${currentTime}`}
-              style={{ backgroundColor: tvMode ? "#52c41a" : "#ff4d4f" }}
+              count={`MAJ ${currentTime}`}
               className="maj-badge"
+              style={{
+                backgroundColor: tvMode ? "#52c41a" : "#ff4d4f",
+              }}
             />
           </Space>
 
-          {/* Icône plein écran */}
           {tvMode && (
-            <Tooltip title="Affichage plein écran avec rotation automatique des vues">
+            <Tooltip title="Affichage plein écran">
               <FullscreenOutlined className="fullscreen-icon" />
             </Tooltip>
           )}
 
-          {/* Bouton Logout */}
           <Popover content={logoutContent} placement="bottomRight" trigger="click">
             <Button className="logout-button" icon={<LogoutOutlined />}>
               Logout

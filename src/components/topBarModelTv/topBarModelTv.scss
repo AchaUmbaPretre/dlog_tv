@@ -1,17 +1,16 @@
 .topBar_model {
   width: 100%;
-  padding: 0;
   box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
 
   .topbar_model_wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 40px;
-    background: #1a1a1a; // fond sombre TV
-    color: #fff; // texte blanc
-    box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);
-    transition: all 0.3s ease;
+    background: #1a1a1a;
+    color: #fff;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
     position: sticky;
     top: 0;
     z-index: 999;
@@ -49,8 +48,7 @@
       .topbar_model_h2 {
         font-size: 3.5rem;
         font-weight: 700;
-        color: #fff; // titre blanc
-        letter-spacing: 1px;
+        color: #fff;
       }
     }
 
@@ -59,37 +57,25 @@
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      gap: 20px;
+      gap: 16px;
 
-      .tv-switch-ant {
+      .tv-space {
         display: flex;
         align-items: center;
-        cursor: pointer;
-        font-size: 3rem;
-        .ant-switch {
-          &.ant-switch-checked {
-            background-color: #1890ff;
-          }
+      }
 
-          &.ant-switch-checked .anticon {
-            color: #fff;
-          }
-
-          .anticon {
-            font-size: 25px;
-          }
-        }
+      .tv-switch-ant .ant-switch {
+        .anticon { font-size: 28px; }
+        &.ant-switch-checked { background-color: #1890ff; }
       }
 
       .maj-badge {
-        font-size: 3rem;
-
+        font-size: 2.8rem;
         .ant-badge-count {
           border-radius: 8px;
           padding: 0 10px;
           font-weight: 600;
-          background-color: #52c41a;
-          color: #fff;
+          font-size: 2.5rem;
         }
       }
 
@@ -97,12 +83,9 @@
         font-size: 30px;
         color: #fff;
         cursor: pointer;
-        transition: transform 0.2s ease;
+        transition: transform 0.3s ease;
 
-        &:hover {
-          transform: scale(1.15);
-          color: #40a9ff;
-        }
+        &:hover { transform: scale(1.1); }
       }
 
       .logout-button {
@@ -113,46 +96,31 @@
         gap: 6px;
         font-weight: 600;
 
-        &:hover {
-          background-color: #ff7875;
-          transform: scale(1.05);
-        }
-
-        &:active {
-          background-color: #cf1322;
-          transform: scale(0.98);
-        }
+        &:hover { background-color: #ff7875; }
+        &:active { background-color: #cf1322; }
       }
 
       .logout-popover {
         width: 220px;
         text-align: center;
 
-        p {
-          font-size: 1.5rem;
-          color: #000;
-          margin-bottom: 10px;
-        }
-
-        .ant-btn-primary {
-          background-color: #ff4d4f;
-          border: none;
-          color: #fff;
-        }
+        p { font-size: 1.5rem; color: #000; margin-bottom: 10px; }
+        .ant-btn-primary { background-color: #ff4d4f; border: none; color: #fff; }
       }
     }
+  }
+
+  /* TV mode subtle enhancement */
+  &.tv-active {
+    .topbar_model_h2 { font-size: 3.8rem; }
+    .maj-badge .ant-badge-count { font-size: 2.8rem; font-weight: 700; }
+    .tv-switch-ant .anticon { font-size: 30px; }
+    .fullscreen-icon { font-size: 34px; }
   }
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .topbar_model_wrapper {
-    flex-direction: column;
-    gap: 10px;
-
-    .topbar_model_right {
-      width: 100%;
-      justify-content: space-between;
-    }
-  }
+  .topbar_model_wrapper { flex-direction: column; gap: 10px; }
+  .topbar_model_right { width: 100%; justify-content: space-between; }
 }
