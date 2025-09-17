@@ -53,9 +53,9 @@ const ModelEvenementLive = ({ evenementLiveRow }) => {
     <div className="modelEvenementLive">
       <Card 
         title={<span style={{ color: "#fff", fontSize: 28, fontWeight: "700" }}>🚦 Fil d'évènements live</span>}
-      bordered={false} 
-      className="event-card"
-    >
+        bordered={false} 
+        className="event-card"
+      >
         <Timeline mode="left">
           {events.map((event) => (
             <Timeline.Item key={event.id} dot={getIcon(event.status)}>
