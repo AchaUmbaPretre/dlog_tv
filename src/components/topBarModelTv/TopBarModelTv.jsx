@@ -1,16 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import "./topBarModelTv.scss";
-import { Tooltip, Badge, Divider, Button, message, Popover, Switch, Space } from "antd";
+import { Tooltip, Divider, Button, message, Popover, Switch, Space } from "antd";
 import { FullscreenOutlined, LogoutOutlined, DesktopOutlined } from "@ant-design/icons";
 import { useState, useEffect } from "react";
 import { logout } from "../../services/authService";
 
 const TopBarModelTv = () => {
   const navigate = useNavigate();
-  const [currentTime, setCurrentTime] = useState("");
   const [tvMode, setTvMode] = useState(false);
+  const [currentTime, setCurrentTime] = useState("");
 
-  // Mise à jour de l'heure
+  // Hook pour l'heure en temps réel
   useEffect(() => {
     const timer = setInterval(() => {
       const now = new Date();
@@ -84,6 +84,7 @@ const TopBarModelTv = () => {
         {/* Actions */}
         <div className="topbar_model_right">
           <Space direction="vertical" size={2} className="tv-space">
+            {/* Switch TV */}
             <Switch
               checked={tvMode}
               onChange={handleTvSwitch}
@@ -91,13 +92,8 @@ const TopBarModelTv = () => {
               unCheckedChildren={<DesktopOutlined />}
               className="tv-switch-ant"
             />
-            <Badge
-              count={`MAJ ${currentTime}`}
-              className="maj-badge"
-              style={{
-                backgroundColor: tvMode ? "#52c41a" : "#ff4d4f",
-              }}
-            />
+            {/* Heure séparée */}
+            <div className="tv-current-time">{currentTime}</div>
           </Space>
 
           {tvMode && (

@@ -1,11 +1,11 @@
 import './rapportVehiculeUtilitaire.scss';
 import { Table, Tooltip, Typography, Space, Card, Divider, Progress, Badge } from 'antd';
-import { TruckOutlined, FullscreenOutlined } from '@ant-design/icons';
+import { TruckOutlined, CarOutlined, FullscreenOutlined } from '@ant-design/icons';
 
 const { Text } = Typography;
 
 // Tooltip pro
-const TooltipBox = (text, bg = '#1a1a1a', color = '#fff', maxWidth = 200) => (
+const TooltipBox = (text, bg = '#1a1a1a', color = '#fff', maxWidth = 220) => (
   <Tooltip title={text || '-'}>
     <div
       style={{
@@ -17,7 +17,7 @@ const TooltipBox = (text, bg = '#1a1a1a', color = '#fff', maxWidth = 200) => (
         color,
         fontWeight: 700,
         fontSize: 22,
-        borderRadius: 10,
+        borderRadius: 12,
         padding: '6px 12px',
         textAlign: 'center',
       }}
@@ -73,7 +73,7 @@ const RapportVehiculeUtilitaire = ({ utilitaire }) => {
     },
     {
       title: (
-        <Space className="column-title">
+        <Space className="column-title" align="center">
           <TruckOutlined style={{ color: '#52c41a', fontSize: 28 }} />
           Matricule
         </Space>
@@ -118,10 +118,16 @@ const RapportVehiculeUtilitaire = ({ utilitaire }) => {
     <div className="rapportVehiculeUtilitaireTV">
       <Card
         title={
-          <Text strong style={{ fontSize: 28, color: '#fff' }}>
-            Véhicules Utilitaires
-            <Badge count={utilitaire.length} style={{ backgroundColor: '#52c41a', fontSize: 20, marginLeft: 12 }} />
-          </Text>
+          <Space direction="horizontal" size={28} align="center">
+            <CarOutlined style={{ color: "#1890ff", fontSize: 28 }} />
+            <Text strong style={{ fontSize: 40, color: '#fff', fontWeight: 'bold' }}>
+              Véhicules utilitaires
+            </Text>
+            <Badge
+              count={utilitaire.length}
+              style={{ backgroundColor: '#52c41a', fontSize: 20 }}
+            />
+          </Space>
         }
         extra={<FullscreenOutlined style={{ fontSize: 26, cursor: 'pointer', color: '#fff' }} />}
         bordered={false}

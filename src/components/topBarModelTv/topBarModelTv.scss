@@ -57,25 +57,24 @@
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      gap: 16px;
+      gap: 20px;
 
       .tv-space {
         display: flex;
         align-items: center;
-      }
+        gap: 16px;
 
-      .tv-switch-ant .ant-switch {
-        .anticon { font-size: 28px; }
-        &.ant-switch-checked { background-color: #1890ff; }
-      }
+        .tv-switch-ant .ant-switch {
+          .anticon { font-size: 28px; }
+          &.ant-switch-checked { background-color: #1890ff; }
+        }
 
-      .maj-badge {
-        font-size: 2.8rem;
-        .ant-badge-count {
-          border-radius: 8px;
-          padding: 0 10px;
-          font-weight: 600;
-          font-size: 2.5rem;
+        .tv-current-time {
+          font-size: 2.4rem;
+          color: #fff;
+          font-weight: 500;
+          min-width: 90px;
+          text-align: center;
         }
       }
 
@@ -84,7 +83,6 @@
         color: #fff;
         cursor: pointer;
         transition: transform 0.3s ease;
-
         &:hover { transform: scale(1.1); }
       }
 
@@ -95,7 +93,6 @@
         align-items: center;
         gap: 6px;
         font-weight: 600;
-
         &:hover { background-color: #ff7875; }
         &:active { background-color: #cf1322; }
       }
@@ -103,19 +100,17 @@
       .logout-popover {
         width: 220px;
         text-align: center;
-
         p { font-size: 1.5rem; color: #000; margin-bottom: 10px; }
         .ant-btn-primary { background-color: #ff4d4f; border: none; color: #fff; }
       }
     }
   }
 
-  /* TV mode subtle enhancement */
   &.tv-active {
     .topbar_model_h2 { font-size: 3.8rem; }
-    .maj-badge .ant-badge-count { font-size: 2.8rem; font-weight: 700; }
     .tv-switch-ant .anticon { font-size: 30px; }
     .fullscreen-icon { font-size: 34px; }
+    .tv-current-time { font-size: 2.6rem; }
   }
 }
 
