@@ -85,47 +85,47 @@ const TableauHorsTiming = ({ departHorsTimingRow }) => {
         text ? moment(text).format("DD/MM/YYYY HH:mm") : "-",
     },
     {
-  title: "Statut",
-  dataIndex: "statut",
-  key: "statut",
-  render: (statut) => {
-    let color = "#fff"; // couleur par défaut
-    let icon = null;
-    switch (statut) {
-      case "Validé":
-        color = "#52c41a"; // vert
-        icon = <CheckCircleOutlined />;
-        break;
-      case "En attente":
-        color = "#faad14"; // orange
-        icon = <ClockCircleOutlined />;
-        break;
-      case "En retard":
-      case "Retard retour":
-        color = "#ff4d4f"; // rouge
-        icon = <CloseCircleOutlined />;
-        break;
-      default:
-        color = "#1890ff"; // bleu
-    }
-    return (
-      <span style={{ color, fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}>
-        {icon} {statut}
-      </span>
-    );
-  },
-},
-{
-  title: "Validations",
-  key: "validations",
-  render: (_, record) => (
-    <div style={{ display: "flex", gap: "12px", fontWeight: 700 }}>
-      <span style={{ color: record.resp === "✔" ? "#52c41a" : "#fff" }}>Resp</span>
-      <span style={{ color: record.dirlog === "✔" ? "#52c41a" : "#fff" }}>Dir LOG</span>
-      <span style={{ color: record.rh === "✔" ? "#52c41a" : "#fff" }}>RH</span>
-    </div>
-  ),
-},
+      title: "Statut",
+      dataIndex: "statut",
+      key: "statut",
+      render: (statut) => {
+        let color = "#fff"; // couleur par défaut
+        let icon = null;
+        switch (statut) {
+          case "Validé":
+            color = "#52c41a"; // vert
+            icon = <CheckCircleOutlined />;
+            break;
+          case "En attente":
+            color = "#faad14"; // orange
+            icon = <ClockCircleOutlined />;
+            break;
+          case "En retard":
+          case "Retard retour":
+            color = "#ff4d4f"; // rouge
+            icon = <CloseCircleOutlined />;
+            break;
+          default:
+            color = "#1890ff"; // bleu
+        }
+        return (
+          <span style={{ color, fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}>
+            {icon} {statut}
+          </span>
+        );
+      },
+    },
+    {
+      title: "Validations",
+      key: "validations",
+      render: (_, record) => (
+        <div style={{ display: "flex", gap: "12px", fontWeight: 700 }}>
+          <span style={{ color: record.resp === "✔" ? "#52c41a" : "#fff" }}>Resp</span>
+          <span style={{ color: record.dirlog === "✔" ? "#52c41a" : "#fff" }}>Dir LOG</span>
+          <span style={{ color: record.rh === "✔" ? "#52c41a" : "#fff" }}>RH</span>
+        </div>
+      ),
+    },
 
   ];
 
