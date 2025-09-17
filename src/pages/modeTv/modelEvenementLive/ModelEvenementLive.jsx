@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Timeline, Card, Typography, Tag } from "antd";
+import { Timeline, Card, Typography } from "antd";
 import { CarOutlined, ClockCircleOutlined, FlagOutlined } from "@ant-design/icons";
 import "./modelEvenementLive.scss";
 import moment from "moment";
@@ -12,7 +12,6 @@ const ModelEvenementLive = ({ evenementLiveRow }) => {
   useEffect(() => {
     if (!evenementLiveRow) return;
 
-    // Transformation de la donnée reçue pour le Timeline
     const formattedEvents = evenementLiveRow.map((item) => ({
       id: item.id_bande_sortie,
       time: moment(item.sortie_time).format("DD-MM-YYYY HH:mm"),
@@ -27,40 +26,48 @@ const ModelEvenementLive = ({ evenementLiveRow }) => {
   const getIcon = (status) => {
     switch (status) {
       case "Départ":
-        return <CarOutlined style={{ color: "#1890ff" }} />;
+        return <CarOutlined style={{ color: "#1890ff", fontSize: 24 }} />;
       case "En route":
-        return <ClockCircleOutlined style={{ color: "#faad14" }} />;
+        return <ClockCircleOutlined style={{ color: "#faad14", fontSize: 24 }} />;
       case "Arrivé":
-        return <FlagOutlined style={{ color: "#52c41a" }} />;
+        return <FlagOutlined style={{ color: "#52c41a", fontSize: 24 }} />;
       default:
-        return <ClockCircleOutlined />;
+        return <ClockCircleOutlined style={{ fontSize: 24 }} />;
     }
   };
 
-  const getTagColor = (status) => {
+  const getTextColor = (status) => {
     switch (status) {
       case "Départ":
-        return "blue";
+        return "#1890ff"; // bleu
       case "En route":
-        return "orange";
+        return "#faad14"; // orange
       case "Arrivé":
-        return "green";
+        return "#52c41a"; // vert
       default:
-        return "default";
+        return "#fff"; // blanc par défaut
     }
   };
 
   return (
     <div className="modelEvenementLive">
-      <Card title="🚦 Fil d'évènements live" bordered={false} className="event-card">
+      <Card 
+        title={<span style={{ color: "#fff", fontSize: 28, fontWeight: "700" }}>🚦 Fil d'évènements live</span>}
+      bordered={false} 
+      className="event-card"
+    >
         <Timeline mode="left">
           {events.map((event) => (
             <Timeline.Item key={event.id} dot={getIcon(event.status)}>
               <div className="event-item">
-                <Text strong>{event.time}</Text>{" "}
-                <Tag color={getTagColor(event.status)}>{event.status}</Tag>
+                <Text strong style={{ fontSize: 22, color: "#fff" }}>
+                  {event.time}
+                </Text>{" "}
+                <Text strong style={{ fontSize: 22, color: getTextColor(event.status) }}>
+                  {event.status}
+                </Text>
                 <br />
-                <Text type="secondary">
+                <Text strong style={{ fontSize: 20, color: "#fff" }}>
                   🚘 {event.immatriculation} → 📍 {event.destination}
                 </Text>
               </div>

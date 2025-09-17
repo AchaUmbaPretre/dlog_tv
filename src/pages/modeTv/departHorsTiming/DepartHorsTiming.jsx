@@ -1,18 +1,16 @@
-import { Timeline, Tag, Card, Tooltip } from "antd";
-import {
-  CarOutlined,
-  CheckCircleOutlined,
-  CloseCircleOutlined,
-  ClockCircleOutlined
-} from "@ant-design/icons";
+import { Timeline, Tooltip, Card } from "antd";
+import { CarOutlined, CheckCircleOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import moment from "moment";
 import "./departHorsTiming.scss";
 
 const DepartHorsTiming = ({ departHorsTimingRow }) => {
-  
   return (
     <div className="departHorsTiming-container">
-      <Card title="🚛 Départs hors timing" bordered={false} className="event-card">
+      <Card
+        title={<span className="card-title">🚛 Départs hors timing</span>}
+        bordered={false}
+        className="event-card"
+      >
         <div className="departHorsTiming-scroll">
           <Timeline mode="left" className="departHorsTiming-timeline">
             {departHorsTimingRow.map((item) => (
@@ -28,8 +26,7 @@ const DepartHorsTiming = ({ departHorsTimingRow }) => {
               >
                 <div className="departHorsTiming-content">
                   <div className="departHorsTiming-header">
-                    📍
-                    <span className="departHorsTiming-numBon">{item.nom_destination}</span>
+                    📍 <span className="departHorsTiming-numBon">{item.nom_destination}</span>
                   </div>
 
                   <div className="departHorsTiming-sub">
@@ -44,13 +41,9 @@ const DepartHorsTiming = ({ departHorsTimingRow }) => {
                       </span>
                     </Tooltip>
                     {item.statut_sortie === "OK" ? (
-                      <Tag icon={<CheckCircleOutlined />} color="success" className="departHorsTiming-tag">
-                        Valide
-                      </Tag>
+                      <span className="status-ok">Valide</span>
                     ) : (
-                      <Tag icon={<CloseCircleOutlined />} color="error" className="departHorsTiming-tag">
-                        En retard
-                      </Tag>
+                      <span className="status-late">En retard</span>
                     )}
                   </div>
                 </div>

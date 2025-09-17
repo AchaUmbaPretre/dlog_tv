@@ -1,5 +1,3 @@
-@import '../../style.scss';
-
 .topBar_model {
   width: 100%;
   padding: 0;
@@ -10,9 +8,9 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 40px;
-    background-color: var(--bg);
-    background: #fff;
-    box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.15);
+    background: #1a1a1a; // fond sombre TV
+    color: #fff; // texte blanc
+    box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);
     transition: all 0.3s ease;
     position: sticky;
     top: 0;
@@ -27,15 +25,13 @@
         align-items: center;
         gap: 3px;
         font-weight: 900;
-        font-size: 1.3rem;
-        color: var(--accent);
-        text-transform: uppercase;
-        letter-spacing: 2px;
+        font-size: 1.5rem;
+        color: #fff;
 
         .logo-d {
-          width: 33px;
-          height: 33px;
-          background-color: var(--accent);
+          width: 36px;
+          height: 36px;
+          background-color: #1890ff;
           border-radius: 50%;
           display: flex;
           justify-content: center;
@@ -51,10 +47,10 @@
       text-align: center;
 
       .topbar_model_h2 {
-        font-size: 1.9rem;
-        font-weight: 900;
-        color: var(--accent);
-        letter-spacing: 2px;
+        font-size: 2rem;
+        font-weight: 700;
+        color: #fff; // titre blanc
+        letter-spacing: 1px;
       }
     }
 
@@ -65,92 +61,84 @@
       align-items: center;
       gap: 20px;
 
-      /* Switch TV */
       .tv-switch-ant {
         display: flex;
         align-items: center;
         cursor: pointer;
-        transition: all 0.3s ease;
 
         .ant-switch {
           &.ant-switch-checked {
-            background-color: var(--accent);
+            background-color: #1890ff;
           }
 
           &.ant-switch-checked .anticon {
-            color: var(--accent-contrast);
+            color: #fff;
           }
 
           .anticon {
             font-size: 16px;
-            transition: transform 0.3s ease, color 0.3s ease;
-          }
-
-          &:hover .anticon {
-            transform: scale(1.2);
-            color: var(--accent-hover, #40a9ff);
           }
         }
       }
 
-      /* Badge MAJ */
       .maj-badge {
         font-size: 0.85rem;
-        margin-top: 2px;
 
         .ant-badge-count {
           border-radius: 8px;
           padding: 0 10px;
           font-weight: 600;
-          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-          transition: all 0.3s ease;
+          background-color: #52c41a; // vert si TV actif
+          color: #fff;
         }
       }
 
-      /* Fullscreen icon */
       .fullscreen-icon {
         font-size: 20px;
-        color: var(--accent);
+        color: #fff;
         cursor: pointer;
-        transition: color 0.3s ease, transform 0.2s ease;
+        transition: transform 0.2s ease;
 
         &:hover {
-          color: var(--accent-hover, #40a9ff);
           transform: scale(1.15);
+          color: #40a9ff;
         }
       }
 
-      /* Bouton logout */
       .logout-button {
-        background-color: var(--accent);
-        color: var(--accent-contrast);
+        background-color: #ff4d4f; // rouge vif pour visibilité
+        color: #fff;
         border: none;
         display: flex;
         align-items: center;
         gap: 6px;
         font-weight: 600;
-        transition: all 0.2s ease;
 
         &:hover {
-          background-color: #40a9ff;
+          background-color: #ff7875;
           transform: scale(1.05);
-          color: #fff;
         }
 
         &:active {
-          background-color: #096dd9;
-          color: #fff;
+          background-color: #cf1322;
           transform: scale(0.98);
         }
       }
 
-      /* Popover logout */
       .logout-popover {
         width: 220px;
         text-align: center;
+
         p {
           font-size: 0.9rem;
+          color: #000;
           margin-bottom: 10px;
+        }
+
+        .ant-btn-primary {
+          background-color: #ff4d4f;
+          border: none;
+          color: #fff;
         }
       }
     }

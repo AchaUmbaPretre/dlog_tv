@@ -15,7 +15,7 @@ import {
   AppstoreOutlined,
   FullscreenOutlined,
 } from "@ant-design/icons";
-import { ChronoTag, EcartTag, MoyenneTag, renderTextWithTooltip } from "../../utils/RenderTooltip";
+import { ChronoBox, EcartBox, MoyenneBox, TooltipBox } from "../../utils/RenderTooltip";
 
 const { Text } = Typography;
 
@@ -37,7 +37,7 @@ const RapportVehiculeCourses = ({ course }) => {
       ),
       dataIndex: "nom_motif_demande",
       key: "nom_motif_demande",
-      render: (text) => renderTextWithTooltip(text),
+      render: (text) => TooltipBox(text),
     },
     {
       title: (
@@ -48,7 +48,7 @@ const RapportVehiculeCourses = ({ course }) => {
       ),
       dataIndex: "nom_service",
       key: "nom_service",
-      render: (text) => renderTextWithTooltip(text),
+      render: (text) => Tooltip(text),
     },
     {
       title: (
@@ -59,7 +59,7 @@ const RapportVehiculeCourses = ({ course }) => {
       ),
       dataIndex: "nom",
       key: "nom",
-      render: (text) => renderTextWithTooltip(text),
+      render: (text) => Tooltip(text),
     },
     {
       title: (
@@ -70,7 +70,7 @@ const RapportVehiculeCourses = ({ course }) => {
       ),
       dataIndex: "nom_destination",
       key: "nom_destination",
-      render: (text) => renderTextWithTooltip(text),
+      render: (text) => Tooltip(text),
     },
     {
       title: (
@@ -81,28 +81,28 @@ const RapportVehiculeCourses = ({ course }) => {
       ),
       dataIndex: "nom_cat",
       key: "nom_cat",
-      render: (text) => renderTextWithTooltip(text),
+      render: (text) => Tooltip(text),
     },
     {
       title: "Durée réelle",
       key: "duree_reelle_min",
       align: 'center',
       render: (_, record) => (
-        <ChronoTag sortie_time={record.sortie_time} date_prevue={record.date_prevue} />
+        <ChronoBox sortie_time={record.sortie_time} date_prevue={record.date_prevue} />
       ),
     },
     {
       title: "Durée Moyenne",
       key: "duree_moyenne_min",
       align: 'center',
-      render: (_, record) => <MoyenneTag duree_moyenne_min={record.duree_moyenne_min} />,
+      render: (_, record) => <MoyenneBox duree_moyenne_min={record.duree_moyenne_min} />,
     },
     {
       title: "Écart",
       key: "ecart_min",
       align: 'center',
       render: (_, record) => (
-        <EcartTag
+        <EcartBox
           duree_reelle_min={record.duree_reelle_min}
           duree_moyenne_min={record.duree_moyenne_min}
         />

@@ -1,48 +1,41 @@
-/* rapportVehiculeValide.scss */
-.rapportVehiculeValide {
-  margin: 20px auto;
+.rapportVehiculeValideTV {
   padding: 20px;
 
   .ant-card {
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+    background-color: #1a1a1a;
     border-radius: 12px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.08);
   }
 
-  .legend {
-    margin-bottom: 10px;
+  .ant-table-thead > tr > th {
+    background-color: #333;
+    color: #fff;
+    font-size: 28px;
+    font-weight: 900;
+    padding: 16px 12px;
+  }
 
-    .ant-tag {
-      border-radius: 6px;
-      font-weight: 600;
-      padding: 2px 10px;
-      font-size: 0.85rem;
-    }
+  .ant-table-tbody > tr {
+    height: 60px;
+    color: #fff;
   }
 
   .ant-table-tbody > tr:nth-child(odd) {
-    background-color: #fafafa;
+    background-color: #2a2a2a;
   }
 
-  .retard-critique {
+  .ant-table-tbody > tr:nth-child(even) {
+    background-color: #1f1f1f;
+  }
+
+  .row-retard {
     animation: blink 1s infinite;
     font-weight: bold;
-    border-radius: 6px;
-    padding: 2px 10px;
+    color: #ff4d4f;
   }
 
   @keyframes blink {
     0%, 50%, 100% { opacity: 1; }
     25%, 75% { opacity: 0.3; }
-  }
-
-  .rapport_title {
-    text-align: center;
-    margin-bottom: 15px;
-
-    .rapport_h2 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #1890ff;
-    }
   }
 }

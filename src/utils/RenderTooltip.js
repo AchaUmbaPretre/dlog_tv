@@ -1,26 +1,39 @@
-import { Tag, Tooltip, Typography } from "antd";
+import { Tooltip } from "antd";
 import moment from "moment";
 import { useEffect, useState } from "react";
 
-const { Text } = Typography;
-
-// Tooltip pour texte tronqué
-export const renderTextWithTooltip = (text, color = 'secondary', maxWidth = 160) => (
-  <Tooltip title={text}>
-    <div style={{ maxWidth, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-      <Text type={color}>{text}</Text>
+// Tooltip stylé pour texte tronqué
+export const TooltipBox = ({ text, bg = "#333", color = "#fff", fontSize = 24, padding = '6px 12px', radius = 12, minWidth = 90 }) => (
+  <Tooltip title={text || '-'}>
+    <div
+      style={{
+        display: 'inline-block',
+        minWidth,
+        background: bg,
+        color,
+        fontWeight: 700,
+        fontSize,
+        padding,
+        borderRadius: radius,
+        textAlign: 'center',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
+      }}
+    >
+      {text || '-'}
     </div>
   </Tooltip>
 );
 
-// Formatage des minutes en j h m
-const formatDuration = (minutes) => {
+// Formatage durée en j h m
+export const formatDuration = (minutes) => {
   if (minutes == null) return "-";
   const totalMinutes = Math.floor(minutes);
   const days = Math.floor(totalMinutes / (24 * 60));
   const hours = Math.floor((totalMinutes % (24 * 60)) / 60);
   const mins = totalMinutes % 60;
-
   let result = "";
   if (days > 0) result += `${days}j `;
   if (hours > 0) result += `${hours}h `;
@@ -28,105 +41,76 @@ const formatDuration = (minutes) => {
   return result.trim();
 };
 
-// Détermination de la couleur en fonction du retard
+// Couleur en fonction du retard
 export const getDurationColor = (elapsedMinutes) => {
-  if (elapsedMinutes <= 0) return "green";       // gain de temps ou à l'heure
-  if (elapsedMinutes > 25 && elapsedMinutes <= 60) return "orange"; // retard léger >25min
-  if (elapsedMinutes > 60) return "red";         // retard important >1h
-  return "green";                                // 0-25min reste vert
+  if (elapsedMinutes <= 0) return "#52c41a";       // vert
+  if (elapsedMinutes > 25 && elapsedMinutes <= 60) return "#faad14"; // orange
+  if (elapsedMinutes > 60) return "#ff4d4f";       // rouge
+  return "#52c41a";
 };
 
-// Hook pour le compteur dynamique
+// Hook pour compteur dynamique
 export const useElapsedTime = (startTime) => {
   const [elapsed, setElapsed] = useState(0);
-
   useEffect(() => {
     if (!startTime) return;
-
     const interval = setInterval(() => {
       const diffMinutes = Math.floor(moment().diff(moment(startTime), "minutes", true));
       setElapsed(diffMinutes);
     }, 1000);
-
     return () => clearInterval(interval);
   }, [startTime]);
-
   return elapsed;
 };
 
-// Chrono dynamique pour la course en cours
-export const ChronoTag = ({ sortie_time }) => {
+// Chrono dynamique
+export const ChronoBox = ({ sortie_time }) => {
   const elapsedMinutes = useElapsedTime(sortie_time);
-  const color = getDurationColor(elapsedMinutes);
-
-  return (
-    <Tag color={color} style={{ fontWeight: 600 }}>
-      {formatDuration(elapsedMinutes)}
-    </Tag>
-  );
+  const bgColor = getDurationColor(elapsedMinutes);
+  return <TooltipBox text={formatDuration(elapsedMinutes)} bg={bgColor} />;
 };
 
-// Affichage de la durée moyenne (statique)
-export const MoyenneTag = ({ duree_moyenne_min }) => (
-  <Tag color="purple">{formatDuration(duree_moyenne_min)}</Tag>
+// Durée moyenne statique
+export const MoyenneBox = ({ duree_moyenne_min }) => (
+  <TooltipBox text={formatDuration(duree_moyenne_min)} bg="#722ed1" />
 );
 
-export const renderStatutHoraire = (nom_statut_bs, date_prevue) => {
-  if (!nom_statut_bs || !date_prevue) return <Tag>-</Tag>;
-
+// Statut horaire
+export const StatutBox = (nom_statut_bs, date_prevue) => {
+  if (!nom_statut_bs || !date_prevue) return <TooltipBox text="-" bg="#595959" />;
   const now = moment();
   const prevue = moment(date_prevue);
-  const diffMinutes = now.diff(prevue, 'minutes');
+  const diffMinutes = now.diff(prevue, "minutes");
 
-  let color = 'green';
-  let label = `🟢 ${nom_statut_bs === 'BS validé' ? 'En attente' : ''}`;
+  let bgColor = "#52c41a";
+  let label = "À l'heure";
 
-  if (diffMinutes <= 60) {
-    color = 'orange';
-    label = `🟠 ${nom_statut_bs === 'BS validé' ? 'En attente' : ''} (${diffMinutes} min de retard)`;
+  if (diffMinutes > 25 && diffMinutes <= 60) {
+    bgColor = "#faad14";
+    label = `⚠️ ${diffMinutes} min de retard`;
   } else if (diffMinutes > 60) {
-    color = 'red';
-    label = `🔴 ${nom_statut_bs === 'BS validé' ? 'En attente' : ''} (${formatDuration(diffMinutes)} de retard)`;
+    bgColor = "#ff4d4f";
+    label = `⏰ ${formatDuration(diffMinutes)} de retard`;
   }
 
-  return (
-    <Tag color={color} style={{ fontWeight: 600 }}>
-      {label}
-    </Tag>
-  );
+  return <TooltipBox text={label} bg={bgColor} />;
 };
 
-// Ecart dynamique entre durée réelle et moyenne
-export const EcartTag = ({ duree_reelle_min, duree_moyenne_min }) => {
-  const [diff, setDiff] = useState(duree_moyenne_min != null ? duree_moyenne_min - duree_reelle_min : 0);
+// Ecart dynamique
+export const EcartBox = ({ duree_reelle_min, duree_moyenne_min }) => {
+  if (duree_moyenne_min == null) return <TooltipBox text="Aucune moyenne" bg="#595959" />;
 
-  useEffect(() => {
-    if (duree_moyenne_min == null) return;
-    const interval = setInterval(() => {
-      setDiff(duree_moyenne_min - duree_reelle_min);
-    }, 1000);
+  const diff = duree_moyenne_min - duree_reelle_min;
+  let bgColor = "#52c41a";
+  let text = `${formatDuration(Math.abs(diff))} de gain`;
 
-    return () => clearInterval(interval);
-  }, [duree_reelle_min, duree_moyenne_min]);
-
-  if (duree_moyenne_min == null) {
-    return (
-      <Tag color="default" style={{ fontWeight: 600 }}>
-        Aucune moyenne
-      </Tag>
-    );
+  if (diff < 0 && diff >= -60) {
+    bgColor = "#faad14";
+    text = `${formatDuration(Math.abs(diff))} de retard`;
+  } else if (diff < -60) {
+    bgColor = "#ff4d4f";
+    text = `${formatDuration(Math.abs(diff))} de retard`;
   }
 
-  let color = "green";
-  if (diff > 0) color = "green";
-  else if (diff <= 0 && diff > -60) color = "orange";
-  else color = "red";
-
-  const text =
-    diff > 0
-      ? `${formatDuration(diff)} de gain`
-      : `${formatDuration(Math.abs(diff))} de retard`;
-
-  return <Tag color={color}>{text}</Tag>;
+  return <TooltipBox text={text} bg={bgColor} />;
 };
-
