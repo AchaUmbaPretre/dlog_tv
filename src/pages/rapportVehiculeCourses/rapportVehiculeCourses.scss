@@ -1,28 +1,114 @@
-.rapportVehiculeValide {
-  margin: 20px auto;
+.rapportVehiculeCourses {
   padding: 20px;
 
   .ant-card {
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+    background-color: #1a1a1a;
+    border-radius: 16px;
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);
+
+    .ant-card-head-title {
+      display: flex;
+      align-items: center;
+      font-size: 32px;
+      color: #fff;
+
+      .ant-badge-count {
+        min-width: 44px;
+        height: 44px;
+        font-size: 1.2rem;
+        background-color: #52c41a;
+      }
+    }
+
+    .ant-card-extra {
+      color: #fff;
+    }
   }
 
-  .ant-table-tbody > tr:nth-child(odd) {
-    background-color: #fafafa;
-  }
-}
+  .ant-table {
+    .ant-table-thead > tr > th {
+      background-color: #333;
+      color: #fff;
+      font-size: 28px;
+      font-weight: 900;
+      padding: 16px 12px;
+    }
 
-.blinking-tag {
-  animation: blink 1.5s infinite;
-  font-weight: bold;
+    .ant-table-tbody > tr {
+      height: 60px;
+      color: #fff;
+    }
+
+    .ant-table-tbody > tr:nth-child(odd) {
+      background-color: #2a2a2a;
+    }
+
+    .ant-table-tbody > tr:nth-child(even) {
+      background-color: #1f1f1f;
+    }
+
+    .row-en-cours {
+      background-color: rgba(82, 196, 26, 0.1); // vert léger
+      transition: background-color 0.3s;
+    }
+
+    .row-retard {
+      animation: blink 1s infinite;
+      font-weight: bold;
+      color: #ff4d4f;
+    }
+
+    .tooltip-box {
+      font-weight: 700;
+      font-size: 22px;
+      color: #fff;
+      text-align: center;
+      border-radius: 10px;
+      padding: 6px 12px;
+      min-width: 90px;
+    }
+
+    .chrono-box {
+      background-color: #52c41a; // dynamique selon ChronoBox
+      color: #fff;
+      font-weight: 700;
+      font-size: 22px;
+      padding: 4px 12px;
+      border-radius: 10px;
+      text-align: center;
+      min-width: 90px;
+    }
+
+    .moyenne-box {
+      background-color: #722ed1;
+      color: #fff;
+      font-weight: 700;
+      font-size: 22px;
+      padding: 4px 12px;
+      border-radius: 10px;
+      text-align: center;
+      min-width: 90px;
+    }
+
+    .ecart-box {
+      font-weight: 700;
+      font-size: 22px;
+      padding: 4px 12px;
+      border-radius: 10px;
+      text-align: center;
+      min-width: 90px;
+      background-color: #52c41a; // vert par défaut
+    }
+  }
 }
 
 @keyframes blink {
   0%, 100% {
     opacity: 1;
-    color: #ff4d4f; // rouge vif
+    color: #ff4d4f;
   }
   50% {
     opacity: 0.5;
-    color: #fa8c16; // orange doux
+    color: #fa8c14;
   }
 }

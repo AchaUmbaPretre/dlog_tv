@@ -1,11 +1,11 @@
 import {
   Table,
-  Tooltip,
   Space,
   Typography,
   Card,
   Divider,
   Badge,
+  Tooltip,
 } from "antd";
 import {
   CarOutlined,
@@ -15,7 +15,13 @@ import {
   AppstoreOutlined,
   FullscreenOutlined,
 } from "@ant-design/icons";
-import { ChronoBox, EcartBox, MoyenneBox, TooltipBox } from "../../utils/RenderTooltip";
+import {
+  ChronoBox,
+  EcartBox,
+  MoyenneBox,
+  TooltipBox,
+} from "../../utils/RenderTooltip";
+import './rapportVehiculeCourses.scss'
 
 const { Text } = Typography;
 
@@ -24,69 +30,84 @@ const RapportVehiculeCourses = ({ course }) => {
     {
       title: "#",
       key: "index",
-      render: (_, __, index) => index + 1,
-      width: 60,
+      render: (_, __, index) => (
+        <Text style={{ fontSize: 28, fontWeight: 900, color: "#fff" }}>
+          {index + 1}
+        </Text>
+      ),
+      width: 70,
       align: "center",
     },
     {
       title: (
         <Space>
-          <AppstoreOutlined style={{ color: "#1890ff" }} />
-          <Text strong>Motif</Text>
+          <AppstoreOutlined style={{ color: "#1890ff", fontSize: 28 }} />
+          <Text strong style={{ fontSize: 32, color: "#fff" }}>
+            Motif
+          </Text>
         </Space>
       ),
       dataIndex: "nom_motif_demande",
       key: "nom_motif_demande",
-      render: (text) => TooltipBox(text),
+      render: (text) => <TooltipBox text={text} bg="#333" />,
     },
-    {
+/*     {
       title: (
         <Space>
-          <ApartmentOutlined style={{ color: "#1d39c4" }} />
-          <Text strong>Service</Text>
+          <ApartmentOutlined style={{ color: "#1d39c4", fontSize: 28 }} />
+          <Text strong style={{ fontSize: 32, color: "#fff" }}>
+            Service
+          </Text>
         </Space>
       ),
       dataIndex: "nom_service",
       key: "nom_service",
-      render: (text) => Tooltip(text),
-    },
+      render: (text) => <TooltipBox text={text} bg="#333" />,
+    }, */
     {
       title: (
         <Space>
-          <UserOutlined style={{ color: "orange" }} />
-          <Text strong>Chauffeur</Text>
+          <UserOutlined style={{ color: "orange", fontSize: 28 }} />
+          <Text strong style={{ fontSize: 32, color: "#fff" }}>
+            Chauffeur
+          </Text>
         </Space>
       ),
       dataIndex: "nom",
       key: "nom",
-      render: (text) => Tooltip(text),
+      render: (text, record) =>
+        <TooltipBox text={`${record.prenom_chauffeur || '-'} ${record.nom || '-'}`} bg="#333" />
     },
     {
       title: (
         <Space>
-          <EnvironmentOutlined style={{ color: "red" }} />
-          <Text strong>Destination</Text>
+          <EnvironmentOutlined style={{ color: "red", fontSize: 28 }} />
+          <Text strong style={{ fontSize: 32, color: "#fff" }}>
+            Destination
+          </Text>
         </Space>
       ),
       dataIndex: "nom_destination",
       key: "nom_destination",
-      render: (text) => Tooltip(text),
+      render: (text) => <TooltipBox text={text} bg="#333" />,
     },
     {
       title: (
         <Space>
-          <CarOutlined style={{ color: "green" }} />
-          <Text strong>Véhicule</Text>
+          <CarOutlined style={{ color: "green", fontSize: 28 }} />
+          <Text strong style={{ fontSize: 32, color: "#fff" }}>
+            Véhicule
+          </Text>
         </Space>
       ),
       dataIndex: "nom_cat",
       key: "nom_cat",
-      render: (text) => Tooltip(text),
+      render: (text) => <TooltipBox text={text} bg="#333" />,
     },
     {
       title: "Durée réelle",
       key: "duree_reelle_min",
-      align: 'center',
+      align: "center",
       render: (_, record) => (
         <ChronoBox sortie_time={record.sortie_time} date_prevue={record.date_prevue} />
       ),
@@ -94,13 +115,13 @@ const RapportVehiculeCourses = ({ course }) => {
     {
       title: "Durée Moyenne",
       key: "duree_moyenne_min",
-      align: 'center',
+      align: "center",
       render: (_, record) => <MoyenneBox duree_moyenne_min={record.duree_moyenne_min} />,
     },
     {
       title: "Écart",
       key: "ecart_min",
-      align: 'center',
+      align: "center",
       render: (_, record) => (
         <EcartBox
           duree_reelle_min={record.duree_reelle_min}
@@ -111,48 +132,49 @@ const RapportVehiculeCourses = ({ course }) => {
   ];
 
   return (
-    <div className="rapportVehiculeValide" style={{ padding: 12 }}>
+    <div className="rapportVehiculeCourses" style={{ padding: 20 }}>
       <Card
         title={
           <Space align="center">
-            <CarOutlined style={{ color: "#1890ff", fontSize: 22 }} />
-            <Text strong style={{ fontSize: "1.3rem" }}>
+            <CarOutlined style={{ color: "#1890ff", fontSize: 28 }} />
+            <Text strong style={{ fontSize: "34px", color: "#fff" }}>
               Véhicules en course
             </Text>
             <Badge
               count={course.length}
-              style={{ backgroundColor: "#52c41a", fontSize: 14 }}
+              style={{ backgroundColor: "#52c41a", fontSize: 20, minWidth: 44, height: 44 }}
             />
           </Space>
         }
         extra={
           <Tooltip title="Plein écran">
-            <FullscreenOutlined style={{ fontSize: 20, cursor: "pointer" }} />
+            <FullscreenOutlined style={{ fontSize: 24, cursor: "pointer", color: "#fff" }} />
           </Tooltip>
         }
         bordered={false}
         style={{
-          borderRadius: 12,
-          boxShadow: "0 6px 20px rgba(0,0,0,0.08)",
+          borderRadius: 16,
+          boxShadow: "0 6px 30px rgba(0,0,0,0.15)",
+          backgroundColor: "#1a1a1a",
         }}
       >
-        <Divider style={{ margin: "12px 0" }} />
+        <Divider style={{ margin: "14px 0", borderColor: "#444" }} />
         <Table
           columns={columns}
           dataSource={course}
           rowKey={(record) => record.id_vehicule}
           pagination={{ pageSize: 15 }}
           scroll={{ x: "max-content" }}
-          bordered
+          bordered={false}
           size="middle"
           rowClassName={(record) =>
-            record.en_cours ? "table-row-en-cours" : ""
+            record.en_cours ? "row-en-cours" : ""
           }
         />
       </Card>
       <style jsx>{`
-        .table-row-en-cours {
-          background-color: #f6ffed; /* Vert clair pour les véhicules en cours */
+        .row-en-cours {
+          background-color: rgba(82, 196, 26, 0.1); /* vert léger pour cours */
           transition: background-color 0.3s;
         }
       `}</style>

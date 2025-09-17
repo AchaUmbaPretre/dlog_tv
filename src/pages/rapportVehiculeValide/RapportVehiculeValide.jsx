@@ -1,6 +1,6 @@
 import './rapportVehiculeValide.scss';
 import { Table, Space, Typography, Divider, Card, Badge } from 'antd';
-import { CarOutlined, ApartmentOutlined, UserOutlined, EnvironmentOutlined } from '@ant-design/icons';
+import { CarOutlined, AppstoreOutlined, UserOutlined, EnvironmentOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import { ChronoBox, MoyenneBox, TooltipBox } from '../../utils/RenderTooltip';
 
@@ -16,7 +16,7 @@ const RapportVehiculeValide = ({ data }) => {
       align: 'center' 
     },
     { 
-      title: <Space><ApartmentOutlined style={{ color: '#1d39c4', fontSize: 28 }} /><Text strong style={{ fontSize:32, color:'#fff' }}>Motif</Text></Space>, 
+      title: <Space><AppstoreOutlined style={{ color: '#1d39c4', fontSize: 28 }} /><Text strong style={{ fontSize:32, color:'#fff' }}>Motif</Text></Space>, 
       key: 'nom_service', 
       render: (_, record) => <TooltipBox text={record.nom_service} bg="#333" />
     },
