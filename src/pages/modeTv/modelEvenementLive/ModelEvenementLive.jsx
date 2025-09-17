@@ -26,50 +26,47 @@ const ModelEvenementLive = ({ evenementLiveRow }) => {
   const getIcon = (status) => {
     switch (status) {
       case "Départ":
-        return <CarOutlined style={{ color: "#1890ff", fontSize: 24 }} />;
+        return <CarOutlined style={{ color: "#1890ff", fontSize: 26 }} />;
       case "En route":
-        return <ClockCircleOutlined style={{ color: "#faad14", fontSize: 24 }} />;
+        return <ClockCircleOutlined style={{ color: "#faad14", fontSize: 26 }} />;
       case "Arrivé":
-        return <FlagOutlined style={{ color: "#52c41a", fontSize: 24 }} />;
+        return <FlagOutlined style={{ color: "#52c41a", fontSize: 26 }} />;
       default:
-        return <ClockCircleOutlined style={{ fontSize: 24 }} />;
+        return <ClockCircleOutlined style={{ fontSize: 26, color: "#999" }} />;
     }
   };
 
   const getTextColor = (status) => {
     switch (status) {
       case "Départ":
-        return "#1890ff"; // bleu
+        return "#1890ff"; 
       case "En route":
-        return "#faad14"; // orange
+        return "#faad14"; 
       case "Arrivé":
-        return "#52c41a"; // vert
+        return "#52c41a"; 
       default:
-        return "#fff"; // blanc par défaut
+        return "#ccc"; 
     }
   };
 
   return (
     <div className="modelEvenementLive">
-      <Card 
-        title={<span style={{ color: "#fff", fontSize: 28, fontWeight: "700" }}>🚦 Fil d'évènements live</span>}
-        bordered={false} 
+      <Card
+        title={<span className="event-title">🚦 Fil d'évènements live</span>}
+        bordered={false}
         className="event-card"
       >
         <Timeline mode="left">
           {events.map((event) => (
             <Timeline.Item key={event.id} dot={getIcon(event.status)}>
               <div className="event-item">
-                <Text strong style={{ fontSize: 22, color: "#fff" }}>
-                  {event.time}
-                </Text>{" "}
-                <Text strong style={{ fontSize: 22, color: getTextColor(event.status) }}>
+                <Text strong className="event-time">{event.time}</Text>
+                <Text strong style={{ color: getTextColor(event.status) }} className="event-status">
                   {event.status}
                 </Text>
-                <br />
-                <Text strong style={{ fontSize: 20, color: "#fff" }}>
+                <div className="event-detail">
                   🚘 {event.immatriculation} → 📍 {event.destination}
-                </Text>
+                </div>
               </div>
             </Timeline.Item>
           ))}
