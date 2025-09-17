@@ -1,4 +1,4 @@
-import { Tooltip } from "antd";
+import { Progress, Tooltip } from "antd";
 import moment from "moment";
 import { useEffect, useState } from "react";
 
@@ -113,4 +113,29 @@ export const EcartBox = ({ duree_reelle_min, duree_moyenne_min }) => {
   }
 
   return <TooltipBox text={text} bg={bgColor} />;
+};
+
+
+export const ScoreBox = (value) => {
+  if (value == null) return TooltipBox('Aucun', '#d9d9d9', '#000'); // texte visible
+
+  let color = '#1890ff';
+  if (value < 40) color = '#ff4d4f';
+  else if (value < 70) color = '#faad14';
+  else if (value < 90) color = '#52c41a';
+
+  return (
+    <Tooltip title={`Score: ${value}%`}>
+      <div style={{ display: 'flex', justifyContent: 'center', background: '#222', borderRadius: 50, padding: 4 }}>
+        <Progress
+          type="circle"
+          percent={value}
+          width={60}
+          strokeColor={color}
+          trailColor="#555" // arrière-plan visible
+          format={(p) => <span style={{ color: '#fff', fontWeight: 900 }}>{p}%</span>} // texte blanc
+        />
+      </div>
+    </Tooltip>
+  );
 };
