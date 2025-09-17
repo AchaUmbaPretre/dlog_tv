@@ -1,12 +1,12 @@
 import './rapportVehiculeUtilitaire.scss';
-import { Table, Tooltip, Typography, Card, Divider, Progress } from 'antd';
-import { CarOutlined, TruckOutlined } from '@ant-design/icons';
+import { Table, Tooltip, Typography, Space, Card, Divider, Progress, Badge } from 'antd';
+import { CarOutlined, TruckOutlined, FullscreenOutlined } from '@ant-design/icons';
 import { formatDuration } from '../../utils/RenderTooltip';
 
 const { Text } = Typography;
 
-// Composant Tooltip pro
-const TooltipBox = (text, bg = 'transparent', color = '#fff', maxWidth = 180) => (
+// Tooltip professionnel
+const TooltipBox = (text, bg = '#1a1a1a', color = '#fff', maxWidth = 200) => (
   <Tooltip title={text || '-'}>
     <div
       style={{
@@ -17,9 +17,9 @@ const TooltipBox = (text, bg = 'transparent', color = '#fff', maxWidth = 180) =>
         backgroundColor: bg,
         color,
         fontWeight: 700,
-        fontSize: 20,
+        fontSize: 22,
         borderRadius: 10,
-        padding: '4px 10px',
+        padding: '6px 12px',
         textAlign: 'center',
       }}
     >
@@ -49,20 +49,8 @@ const ScoreBox = (value) => {
 
   return (
     <Tooltip title={`Score: ${value}%`}>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Progress
-          type="circle"
-          percent={value}
-          width={50}
-          strokeColor={color}
-          format={(percent) => `${percent}%`}
-        />
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <Progress type="circle" percent={value} width={60} strokeColor={color} format={(p) => `${p}%`} />
       </div>
     </Tooltip>
   );
@@ -78,35 +66,48 @@ const RapportVehiculeUtilitaire = ({ utilitaire }) => {
       align: 'center',
     },
     {
-      title: 'Matricule',
+      title: (
+        <Space>
+          <TruckOutlined style={{ color: '#1d39c4' }} />
+          <Text strong style={{ fontSize: 26 }}>Matricule</Text>
+        </Space>
+      ),
       dataIndex: 'immatriculation',
       key: 'immatriculation',
-      render: (text) => TooltipBox(text, '#1a1a1a'),
+      render: (text) => TooltipBox(text),
       width: '20%',
     },
     {
-      title: 'Marque',
+      title: (
+        <Text strong style={{ fontSize: 26 }}>Marque</Text>
+      ),
       dataIndex: 'nom_marque',
       key: 'nom_marque',
-      render: (text) => TooltipBox(text, '#1a1a1a'),
+      render: (text) => TooltipBox(text),
       width: '20%',
     },
     {
-      title: 'Type véhicule',
+      title: (
+        <Text strong style={{ fontSize: 26 }}>Type véhicule</Text>
+      ),
       dataIndex: 'nom_cat',
       key: 'nom_cat',
-      render: (text) => TooltipBox(text ?? 'Aucun', '#1a1a1a'),
+      render: (text) => TooltipBox(text ?? 'Aucun'),
       width: '25%',
     },
     {
-      title: 'Statut',
+      title: (
+        <Text strong style={{ fontSize: 26 }}>Statut</Text>
+      ),
       dataIndex: 'statut_affichage',
       key: 'statut_affichage',
       render: (text) => StatutBox(text),
       width: '20%',
     },
     {
-      title: 'Score',
+      title: (
+        <Text strong style={{ fontSize: 26 }}>Score</Text>
+      ),
       dataIndex: 'score',
       key: 'score',
       align: 'center',
@@ -119,19 +120,20 @@ const RapportVehiculeUtilitaire = ({ utilitaire }) => {
     <div className="rapportVehiculeUtilitaireTV">
       <Card
         title={
-          <Text strong style={{ fontSize: '1.2rem', color: '#fff' }}>
-            Liste des véhicules utilitaires
-            <span style={{ marginLeft: 12 }}>{utilitaire.length}</span>
+          <Text strong style={{ fontSize: 28, color: '#fff' }}>
+            Véhicules Utilitaires
+            <Badge count={utilitaire.length} style={{ backgroundColor: '#52c41a', fontSize: 20, marginLeft: 12 }} />
           </Text>
         }
+        extra={<FullscreenOutlined style={{ fontSize: 26, cursor: 'pointer', color: '#fff' }} />}
         bordered={false}
         style={{
           borderRadius: 12,
           backgroundColor: '#1a1a1a',
-          boxShadow: '0 6px 24px rgba(0,0,0,0.08)',
+          boxShadow: '0 6px 20px rgba(0,0,0,0.08)',
         }}
       >
-        <Divider style={{ borderColor: '#444' }} />
+        <Divider  style={{ margin: "14px 0", borderColor: "#444" }} />
         <Table
           columns={columns}
           dataSource={utilitaire}
@@ -145,9 +147,10 @@ const RapportVehiculeUtilitaire = ({ utilitaire }) => {
           }
         />
       </Card>
+
       <style jsx>{`
         .row-critical {
-          animation: blink 1s infinite;
+          animation: blink 1.2s infinite;
         }
 
         @keyframes blink {

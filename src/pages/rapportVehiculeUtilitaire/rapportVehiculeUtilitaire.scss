@@ -1,147 +1,159 @@
-.rapportVehiculeValide {
-  margin: 20px auto;
+.rapportVehiculeUtilitaireTV {
   padding: 20px;
+  background-color: #111; // fond TV sombre
 
+  .ant-card {
+    background-color: #1a1a1a;
+    border-radius: 16px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+
+    .ant-card-head-title {
+      display: flex;
+      align-items: center;
+      font-size: 34px;
+      color: #fff;
+      font-weight: 900;
+
+      .ant-badge-count {
+        min-width: 48px;
+        height: 48px;
+        font-size: 1.3rem;
+        background-color: #52c41a;
+      }
+    }
+
+    .ant-card-extra {
+      color: #fff;
+    }
+  }
+
+  .ant-table {
+    border: none;
+    .ant-table-thead > tr > th {
+      background-color: #222;
+      color: #fff !important;
+      font-size: 30px;
+      font-weight: 900;
+      padding: 18px 16px;
+      text-align: center;
+    }
+
+    .ant-table-tbody > tr {
+      height: 70px;
+      color: #fff;
+      font-size: 24px;
+    }
+
+    .ant-table-tbody > tr:nth-child(odd) {
+      background-color: #1f1f1f;
+    }
+
+    .ant-table-tbody > tr:nth-child(even) {
+      background-color: #2a2a2a;
+    }
+
+    .row-critical {
+      animation: blink 1s infinite;
+      font-weight: 900;
+      color: #ff4d4f;
+    }
+
+    .tooltip-box, .score-box, .statut-box {
+      font-weight: 900;
+      font-size: 24px;
+      text-align: center;
+      border-radius: 12px;
+      padding: 8px 14px;
+      min-width: 100px;
+    }
+
+    .score-box {
+      color: #fff;
+    }
+
+    .statut-box {
+      color: #fff;
+    }
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  // Matricule voiture + icônes animées
   .vehicule-matricule {
     display: flex;
     align-items: center;
-    gap: 10px;
-}
+    gap: 12px;
+  }
 
-.car-wrapper {
+  .car-wrapper {
     position: relative;
     display: inline-block;
-    width: 24px;
-    height: 24px;
-}
+    width: 32px;
+    height: 32px;
+  }
 
-/* Voiture avec animation au démarrage + hover */
-.car-icon-animated {
-    font-size: 24px;
+  .car-icon-animated {
+    font-size: 32px;
     color: #1890ff;
     animation: carStart 0.8s ease-out forwards;
     transform-origin: center;
     transition: transform 0.2s;
-}
+  }
 
-.car-icon-animated:hover {
-    animation: none;
-    transform: rotate(1deg) scale(1.05);
+  .car-icon-animated:hover {
     animation: carVibrate 0.3s infinite;
-}
+    transform: rotate(2deg) scale(1.1);
+  }
 
-/* Ombre sous la voiture */
-.car-shadow {
-    content: '';
+  .car-shadow {
     position: absolute;
-    bottom: -3px;
+    bottom: -4px;
     left: 0;
     width: 100%;
-    height: 4px;
-    background: rgba(0, 0, 0, 0.2);
+    height: 5px;
+    background: rgba(0, 0, 0, 0.4);
     border-radius: 50%;
     transform: scaleX(0);
     animation: shadowStretch 0.8s ease-out forwards;
-}
+  }
 
-/* Boost / drift derrière la voiture */
-.car-boost {
-    content: '';
+  .car-boost {
     position: absolute;
     top: 50%;
-    left: -10px;
-    width: 8px;
+    left: -12px;
+    width: 10px;
     height: 2px;
     background: linear-gradient(to right, #00f6ff, transparent);
     transform: translateY(-50%) scaleX(0);
     opacity: 0;
     animation: boostTrail 1s ease-out forwards;
     z-index: 0;
-}
-
-/* === Keyframes === */
-@keyframes carStart {
-    0% {
-        transform: translateX(-15px) scale(0.8) rotate(-3deg);
-        opacity: 0;
-    }
-    50% {
-        transform: translateX(5px) scale(1.05) rotate(1deg);
-        opacity: 1;
-    }
-    100% {
-        transform: translateX(0) scale(1) rotate(0);
-    }
-}
-
-@keyframes carVibrate {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-1px); }
-    50% { transform: translateX(1px); }
-    75% { transform: translateX(-1px); }
-    100% { transform: translateX(0); }
-}
-
-@keyframes shadowStretch {
-    0% {
-        transform: scaleX(0);
-        opacity: 0;
-    }
-    100% {
-        transform: scaleX(1);
-        opacity: 1;
-    }
-}
-
-@keyframes boostTrail {
-    0% {
-        transform: scaleX(0);
-        opacity: 0;
-    }
-    30% {
-        transform: scaleX(1.2);
-        opacity: 1;
-    }
-    100% {
-        transform: scaleX(0.5);
-        opacity: 0;
-    }
-}
-
-
-  .ant-card {
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
   }
 
-  .legend {
-    margin-bottom: 10px;
-
-    .ant-tag {
-      border-radius: 6px;
-      font-weight: 600;
-      padding: 2px 8px;
-      font-size: 0.85rem;
-    }
+  @keyframes carStart {
+    0% { transform: translateX(-20px) scale(0.8) rotate(-3deg); opacity: 0; }
+    50% { transform: translateX(5px) scale(1.05) rotate(2deg); opacity: 1; }
+    100% { transform: translateX(0) scale(1) rotate(0); }
   }
 
-  .ant-table-tbody > tr:nth-child(odd) {
-    background-color: #fafafa;
+  @keyframes carVibrate {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    50% { transform: translateX(2px); }
+    75% { transform: translateX(-2px); }
   }
-}
 
-.blinking-tag {
-  animation: blink 1.5s infinite;
-  font-weight: bold;
-}
-
-@keyframes blink {
-  0%,
-  100% {
-    opacity: 1;
-    color: #ff4d4f;
+  @keyframes shadowStretch {
+    0% { transform: scaleX(0); opacity: 0; }
+    100% { transform: scaleX(1); opacity: 1; }
   }
-  50% {
-    opacity: 0.5;
-    color: #fa8c16;
+
+  @keyframes boostTrail {
+    0% { transform: scaleX(0); opacity: 0; }
+    30% { transform: scaleX(1.3); opacity: 1; }
+    100% { transform: scaleX(0.5); opacity: 0; }
   }
 }
