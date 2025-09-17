@@ -1,42 +1,73 @@
 .tableauHorsTiming {
-  margin-top: 20px;
+  margin: 20px;
   border-radius: 15px;
   padding: 20px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  overflow-x: scroll;
-  margin:20px;
+  background-color: #1e1e1e; // fond sombre TV
+  color: #fff; // texte blanc
+  overflow-x: auto;
 
-  .title_timing {
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-bottom: 16px;
-    color: #151541;
+  .header-bar {
+    h3.title_timing {
+      font-size: 1.5rem; // plus visible pour TV
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+    .ant-divider-horizontal {
+      border-top: 2px solid #444;
+    }
   }
 
   .tableauHorsTiming_wrapper {
-    .row-hors-timing {
-      background-color: #fff1f0;
-    }
+    .ant-table {
+      color: #fff !important;
+      background: transparent;
 
-    .ant-table-cell.late {
-      color: #ff4d4f;
-      font-weight: 600;
-    }
+      .ant-table-thead > tr > th {
+        color: #fff !important;       // en-têtes blancs
+        background-color: #111 !important; // contraste fort
+        font-size: 1.2rem;
+        font-weight: 700;
+      }
 
-    .ant-table-thead > tr > th {
-      background-color: #f5f5f5;
-      font-weight: 600;
-      color: #151541;
-    }
+      .ant-table-tbody > tr > td {
+        color: #fff !important;       // cellules blanches
+        font-size: 1.1rem;            // lisible à distance
+        font-weight: 500;
+      }
 
-    .ant-table-tbody > tr:hover {
-      background-color: #e6f7ff;
-      transition: 0.3s;
-    }
+      .ant-table-tbody > tr:hover {
+        background-color: #2a2a2a !important; // effet hover sombre
+        transition: 0.3s;
+      }
 
-    .ant-tag {
-      font-weight: 600;
+      .row-hors-timing {
+        background-color: #660000 !important; // rouge sombre pour les retards
+        color: #fff !important;
+      }
+
+      .ant-table-cell.late {
+        color: #ff4d4f !important;
+        font-weight: 700;
+      }
+
+      .ant-tag {
+        color: #fff !important;
+        font-weight: 600;
+      }
+
+      span, svg {
+        color: #fff !important; // toutes les icônes et spans en blanc
+      }
+    }
+  }
+
+  a {
+    color: #40a9ff !important; // lien réinitialiser les filtres
+    &:hover {
+      color: #1890ff !important;
+      text-decoration: underline;
     }
   }
 }
