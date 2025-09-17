@@ -137,7 +137,7 @@ const RapportVehiculeCourses = ({ course }) => {
         title={
           <Space align="center">
             <CarOutlined style={{ color: "#1890ff", fontSize: 28 }} />
-            <Text strong style={{ fontSize: "40px", color: "#fff" }}>
+            <Text strong style={{ fontSize: 40, color: "#fff" }}>
               Véhicules en course
             </Text>
             <Badge
