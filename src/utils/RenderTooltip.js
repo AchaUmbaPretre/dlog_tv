@@ -102,14 +102,14 @@ export const EcartBox = ({ duree_reelle_min, duree_moyenne_min }) => {
 
   const diff = duree_moyenne_min - duree_reelle_min;
   let bgColor = "#52c41a";
-  let text = `${formatDuration(Math.abs(diff))} de gain`;
+  let text = `${formatDuration(Math.abs(diff))}`;
 
   if (diff < 0 && diff >= -60) {
     bgColor = "#faad14";
-    text = `${formatDuration(Math.abs(diff))} de retard`;
+    text = `${formatDuration(Math.abs(diff))}`;
   } else if (diff < -60) {
     bgColor = "#ff4d4f";
-    text = `${formatDuration(Math.abs(diff))} de retard`;
+    text = `${formatDuration(Math.abs(diff))}`;
   }
 
   return <TooltipBox text={text} bg={bgColor} />;

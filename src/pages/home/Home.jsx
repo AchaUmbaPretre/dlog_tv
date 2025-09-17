@@ -67,7 +67,7 @@ const Home = () => {
 {/*         <div className={`fade-container ${fade ? 'fade-in' : 'fade-out'}`}>
           {componentsList[currentIndex]}
         </div> */}
-          <RapportVehiculeUtilitaire key="utilitaire" utilitaire={utilitaire} />
+      <RapportVehiculeCourses key="courses" course={course} />,
     </div>
   );
 }
