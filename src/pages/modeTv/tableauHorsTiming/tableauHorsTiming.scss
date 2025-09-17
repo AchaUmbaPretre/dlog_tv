@@ -3,13 +3,13 @@
   border-radius: 15px;
   padding: 20px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-  background-color: #1e1e1e; // fond sombre TV
-  color: #fff; // texte blanc
+  background-color: #1e1e1e;
+  color: #fff;
   overflow-x: auto;
 
   .header-bar {
     h3.title_timing {
-      font-size: 1.5rem; // plus visible pour TV
+      font-size: 1.5rem;
       font-weight: 700;
       margin-bottom: 12px;
       color: #fff;
@@ -32,18 +32,18 @@
       }
 
       .ant-table-tbody > tr > td {
-        color: #fff !important;       // cellules blanches
-        font-size: 1.1rem;            // lisible à distance
+        color: #fff !important;
+        font-size: 1.1rem;
         font-weight: 500;
       }
 
       .ant-table-tbody > tr:hover {
-        background-color: #2a2a2a !important; // effet hover sombre
+        background-color: #2a2a2a !important;
         transition: 0.3s;
       }
 
       .row-hors-timing {
-        background-color: #660000 !important; // rouge sombre pour les retards
+        background-color: #660000 !important;
         color: #fff !important;
       }
 
@@ -58,7 +58,7 @@
       }
 
       span, svg {
-        color: #fff !important; // toutes les icônes et spans en blanc
+        color: #fff !important;
       }
     }
   }
