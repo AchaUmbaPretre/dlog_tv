@@ -28,12 +28,18 @@ const Home = () => {
         fetcDatas()
     },[]);
   
-    console.log(falcon)
+  const mergedCourses = course.map(c => {
+    const capteur = falcon.find(f => f.id === c.id_capteur);
+    return {
+      ...c,
+      capteurInfo: capteur || null,
+    };
+  });
 
   const componentsList = [
     <ModeTv key="modeTv" />,
     <RapportVehiculeValide key="valide" data={data} />,
-    <RapportVehiculeCourses key="courses" course={course} />,
+    <RapportVehiculeCourses key="courses" course={mergedCourses} />,
     <RapportVehiculeUtilitaire key="utilitaire" utilitaire={utilitaire} />
     ];
 
@@ -79,9 +85,11 @@ const Home = () => {
   return (
     <div className="home">
         <TopBarModelTv/>
-        <div className={`fade-container ${fade ? 'fade-in' : 'fade-out'}`}>
+{/*         <div className={`fade-container ${fade ? 'fade-in' : 'fade-out'}`}>
           {componentsList[currentIndex]}
-        </div>
+        </div> */}
+            <RapportVehiculeCourses key="courses" course={mergedCourses} />,
+
     </div>
   );
 }

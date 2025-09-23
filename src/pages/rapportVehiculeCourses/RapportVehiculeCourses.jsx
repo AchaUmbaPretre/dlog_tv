@@ -25,6 +25,8 @@ import './rapportVehiculeCourses.scss'
 const { Text } = Typography;
 
 const RapportVehiculeCourses = ({ course }) => {
+  console.log(course)
+  
   const columns = [
     {
       title: "#",
