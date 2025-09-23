@@ -17,3 +17,7 @@ export const getRapportCharroiVehicule = async (params) => {
 export const getRapportUtilitaire = async () => {
   return axios.get(`${DOMAIN}/api/rapport/rapport_utilitaire`);
 };
+
+export const getFalcon = async () => {
+  return axios.get('https://apidlog.loginsmart-cd.com/api/falcon'); // toujours en HTTPS car ton site est en HTTPS
+};
