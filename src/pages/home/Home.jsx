@@ -6,14 +6,29 @@ import RapportVehiculeUtilitaire from '../rapportVehiculeUtilitaire/RapportVehic
 import './home.scss';
 import TopBarModelTv from '../../components/topBarModelTv/TopBarModelTv';
 import { notification } from 'antd';
-import { getRapportCharroiVehicule, getRapportUtilitaire } from '../../services/rapportService';
+import { getFalcon, getRapportCharroiVehicule, getRapportUtilitaire } from '../../services/rapportService';
 
 const Home = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [fade, setFade] = useState(true);
   const [data, setData] = useState([]);
   const [course, setCourse] = useState([]);
-  const [utilitaire, setUtilitaire] = useState([])
+  const [utilitaire, setUtilitaire] = useState([]);
+
+  const [falcon, setFalcon] = useState([]);
+    useEffect(()=> {
+      const fetcDatas = async() => {
+        try {
+          const { data } = await getFalcon();
+          setFalcon(data[0].items)
+        } catch (error) {
+          console.log(error)
+        }
+        }
+        fetcDatas()
+    },[]);
+  
+    console.log(falcon)
 
   const componentsList = [
     <ModeTv key="modeTv" />,

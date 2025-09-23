@@ -6,7 +6,7 @@ import ModeTvCardPonct from './modeTvCardPonct/ModeTvCardPonct';
 import ModeTvService from './modeTvService/ModeTvService';
 import TableauHorsTiming from './tableauHorsTiming/TableauHorsTiming';
 import { InfoCircleFilled, InfoCircleOutlined } from '@ant-design/icons';
-import { getFalcon, getRapportKiosque } from '../../services/rapportService';
+import { getRapportKiosque } from '../../services/rapportService';
 
 const ModeTv = () => {
     const [data, setData] = useState([]);
@@ -18,21 +18,6 @@ const ModeTv = () => {
     const [utilisationParc, setUtilisationParc] = useState([]);
     const [departHorsTimingCompletRow, setDepartHorsTimingCompletRow] = useState([]);
     const [motif, setMotif] = useState([]);
-    const [falcon, setFalcon] = useState([]);
-
-    useEffect(()=> {
-        const fetcDatas = async() => {
-            try {
-                const { data } = await getFalcon();
-                setFalcon(data[0].items)
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        fetcDatas()
-    },[]);
-
-    console.log(falcon)
 
     useEffect(() => {
         const fetchData = async() => {
