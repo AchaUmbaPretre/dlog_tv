@@ -138,7 +138,7 @@ const VehicleAddress = ({ record }) => {
         </Space>
       ),
       key: 'address',
-      width: 180,         // largeur max de la colonne
+      width: 180,
       ellipsis: true,
       render: (_, record) => <VehicleAddress record={record} />
     },

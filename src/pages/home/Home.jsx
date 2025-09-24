@@ -26,9 +26,6 @@ const Home = () => {
         }
         }
         fetchDatas()
-        const interval = setInterval(fetchDatas, 5000);
-
-    return () => clearInterval(interval);
     },[]);
   
   const mergedCourses = course.map(c => {
