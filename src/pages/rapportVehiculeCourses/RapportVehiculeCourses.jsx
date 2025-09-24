@@ -26,6 +26,7 @@ const { Text } = Typography;
 
 const RapportVehiculeCourses = ({ course }) => {
   console.log(course)
+
   const columns = [
     {
       title: "#",
@@ -77,6 +78,109 @@ const RapportVehiculeCourses = ({ course }) => {
       key: "nom",
       render: (text, record) =>
         <TooltipBox text={`${record.prenom_chauffeur || '-'} ${record.nom || '-'}`} bg="#333" />
+    },
+    {
+      title: "Position",
+      key: "position",
+      render: (_, record) => 
+        <TooltipBox text={record?.capteurInfo?.address && record.capteurInfo.address !== "-"
+              ? record.capteurInfo.address
+              : "Adresse non dispo"} bg="#333" />,
+    },
+    {
+      title: "Moteur",
+      key: "engine",
+      align: "center",
+      render: (_, record) => {
+        const moteurOn = record?.capteurInfo?.engine_status === true;
+        return (
+          <Badge
+            status={moteurOn ? "success" : "error"}
+            text={moteurOn ? "ON" : "OFF"}
+            style={{ fontSize: 16, color: moteurOn ? "green" : "red" }}
+          />
+        );
+      },
+    },
+    {
+      title: "Vitesse",
+      key: "speed",
+      align: "center",
+      render: (_, record) => {
+        const speed = record?.capteurInfo?.speed || 0;
+
+        // Couleur selon vitesse
+        let color = "red";
+        if (speed > 5) color = "green";
+        else if (speed > 0) color = "orange";
+
+        // Critique si vitesse > 120 km/h
+        const isCritical = speed > 120;
+
+        // Taille dynamique du texte selon la vitesse
+        const fontSize = Math.min(Math.max(20, speed / 2), 36);
+
+        // Cercle réactif : r et strokeWidth selon la vitesse
+        const radius = 55 + Math.min(speed / 5, 10); // r entre 55 et 65
+        const strokeWidth = 10 + Math.min(speed / 20, 5); // strokeWidth entre 10 et 15
+
+        return (
+          <div style={{ maxWidth: 90, margin: "0 auto" }}>
+            <svg viewBox="0 0 120 120" width="100%" height="100%">
+              {/* Cercle dynamique */}
+              <circle
+                cx="60"
+                cy="60"
+                r={radius}
+                fill="white"
+                stroke={color}
+                strokeWidth={strokeWidth}
+                style={{ transition: "all 0.3s ease" }}
+              />
+
+              {/* Texte vitesse */}
+              <text
+                x="50%"
+                y="50%"
+                textAnchor="middle"
+                dy=".3em"
+                fontSize={fontSize}
+                fontWeight="bold"
+                fill={color}
+                style={{
+                  animation: isCritical ? "blink 1s infinite" : "none",
+                  transition: "all 0.3s ease",
+                }}
+              >
+                {speed}
+              </text>
+
+              {/* Label KM/H */}
+              <text
+                x="50%"
+                y="75%"
+                textAnchor="middle"
+                fontSize="12"
+                fontWeight="bold"
+                fill="black"
+              >
+                KM/H
+              </text>
+
+              {/* Animation blink */}
+              <style>
+                {`
+                  @keyframes blink {
+                    0% { opacity: 1; }
+                    50% { opacity: 0.2; }
+                    100% { opacity: 1; }
+                  }
+                `}
+              </style>
+            </svg>
+          </div>
+        );
+      },
     },
     {
       title: (
