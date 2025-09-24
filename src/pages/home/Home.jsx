@@ -17,7 +17,7 @@ const Home = () => {
 
   const [falcon, setFalcon] = useState([]);
     useEffect(()=> {
-      const fetcDatas = async() => {
+      const fetchDatas = async() => {
         try {
           const { data } = await getFalcon();
           setFalcon(data[0].items)
@@ -25,7 +25,10 @@ const Home = () => {
           console.log(error)
         }
         }
-        fetcDatas()
+        fetchDatas()
+        const interval = setInterval(fetchDatas, 5000);
+
+    return () => clearInterval(interval);
     },[]);
   
   const mergedCourses = course.map(c => {

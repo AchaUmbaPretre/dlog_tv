@@ -14,6 +14,8 @@ import {
   EnvironmentOutlined,
   AppstoreOutlined,
   FullscreenOutlined,
+  DashboardOutlined,
+  EnvironmentFilled
 } from "@ant-design/icons";
 import {
   ChronoBox,
@@ -127,32 +129,32 @@ const VehicleAddress = ({ record }) => {
         <TooltipBox text={`${record.prenom_chauffeur || '-'} ${record.nom || '-'}`} bg="#333" />
     },
     {
-      title: 'Position',
+      title: (
+        <Space>
+          <EnvironmentFilled style={{ color: "red", fontSize: 28 }} />
+          <Text strong style={{ fontSize: 32, color: "#fff" }}>
+            Position
+          </Text>
+        </Space>
+      ),
       key: 'address',
       width: 180,         // largeur max de la colonne
       ellipsis: true,
       render: (_, record) => <VehicleAddress record={record} />
     },
     {
-      title: "Moteur",
-      key: "engine",
-      align: "center",
-      render: (_, record) => {
-        const moteurOn = record?.capteurInfo?.engine_status === true;
-        return (
-          <Badge
-            status={moteurOn ? "success" : "error"}
-            text={moteurOn ? "ON" : "OFF"}
-            style={{ fontSize: 16, color: moteurOn ? "green" : "red" }}
-          />
-        );
-      },
-    },
-    {
-      title: "Vitesse",
+      title: (
+        <Space>
+          <DashboardOutlined style={{ color: "#fff", fontSize: 28 }} />
+          <Text strong style={{ fontSize: 32, color: "#fff" }}>
+            Vitesse
+          </Text>
+        </Space>
+      ),
       key: "speed",
       align: "center",
       render: (_, record) => {
+        const moteurOn = record?.capteurInfo?.engine_status === true;
         const speed = record?.capteurInfo?.speed || 0;
         let color = "red";
         if (speed > 5) color = "green";
@@ -209,6 +211,11 @@ const VehicleAddress = ({ record }) => {
                 `}
               </style>
             </svg>
+            <Badge
+              status={moteurOn ? "success" : "error"}
+              text={moteurOn ? "ON" : "OFF"}
+              style={{ fontSize: 16, color: moteurOn ? "green" : "red" }}
+            />
           </div>
         );
       },
