@@ -7,9 +7,9 @@ try {
   console.warn('Impossible de lire le cache localStorage', err);
 }
 
+// Fonction pour récupérer l'adresse avec cache
 export const fetchAddress = async (vehicle) => {
   if (!vehicle) return '';
-  // Trigger reverse geocoding si address vide ou "-"
   if (vehicle.address && vehicle.address !== '-') return vehicle.address;
 
   const lat = parseFloat(vehicle.lat);
@@ -22,7 +22,7 @@ export const fetchAddress = async (vehicle) => {
   try {
     const res = await fetch(
       `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`,
-      { headers: { 'User-Agent': 'MyApp/1.0' } } // obligatoire pour Nominatim
+      { headers: { 'User-Agent': 'MyApp/1.0' } }
     );
     const data = await res.json();
     const addr = data.display_name || '';

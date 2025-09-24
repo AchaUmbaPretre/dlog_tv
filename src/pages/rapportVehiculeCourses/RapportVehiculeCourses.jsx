@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import {
   Table,
   Space,
@@ -15,7 +14,7 @@ import {
   AppstoreOutlined,
   FullscreenOutlined,
   DashboardOutlined,
-  EnvironmentFilled
+  EnvironmentFilled,
 } from "@ant-design/icons";
 import {
   ChronoBox,
@@ -24,70 +23,13 @@ import {
   TooltipBox,
 } from "../../utils/RenderTooltip";
 import './rapportVehiculeCourses.scss';
+import { VehicleAddress } from "../../utils/vehicleAddress";
 
 const { Text } = Typography;
 
-// -------- CACHE PERSISTANT --------
-let addressCache = {};
-try {
-  const stored = localStorage.getItem('vehicleAddressCache');
-  if (stored) addressCache = JSON.parse(stored);
-} catch (err) {
-  console.warn('Impossible de lire le cache localStorage', err);
-}
 
-export const fetchAddress = async (vehicle) => {
-  if (!vehicle) return '';
-  if (vehicle.address && vehicle.address !== '-') return vehicle.address;
-
-  const lat = parseFloat(vehicle.lat);
-  const lng = parseFloat(vehicle.lng);
-  if (isNaN(lat) || isNaN(lng)) return '';
-
-  const key = `${lat}_${lng}`;
-  if (addressCache[key]) return addressCache[key];
-
-  try {
-    const res = await fetch(
-      `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`,
-      { headers: { 'User-Agent': 'MyApp/1.0' } }
-    );
-    const data = await res.json();
-    const addr = data.display_name || '';
-
-    addressCache[key] = addr;
-    localStorage.setItem('vehicleAddressCache', JSON.stringify(addressCache));
-
-    return addr;
-  } catch (err) {
-    console.error('Erreur reverse geocoding:', err);
-    return '';
-  }
-};
-
+// -------- Composant principal --------
 const RapportVehiculeCourses = ({ course }) => {
-
-  // Composant pour afficher l'adresse avec fetch + cache
-const VehicleAddress = ({ record }) => {
-  const [displayAddress, setDisplayAddress] = useState(
-    record.address && record.address !== '-' ? record.address : `${record.lat}, ${record.lng}`
-  );
-
-  useEffect(() => {
-    let mounted = true;
-
-    const fetchAddr = async () => {
-      const addr = await fetchAddress(record.capteurInfo || record);
-      if (mounted && addr) setDisplayAddress(addr);
-    };
-
-    fetchAddr();
-    return () => { mounted = false; };
-  }, [record]);
-
-  return <TooltipBox text={displayAddress} bg="#333" minWidth={180} />;
-};
-
 
   const columns = [
     {
@@ -105,67 +47,62 @@ const VehicleAddress = ({ record }) => {
       title: (
         <Space>
           <AppstoreOutlined style={{ color: "#1890ff", fontSize: 28 }} />
-          <Text strong style={{ fontSize: 32, color: "#fff" }}>
-            Motif
-          </Text>
+          <Text strong style={{ fontSize: 32, color: "#fff" }}>Motif</Text>
         </Space>
       ),
       dataIndex: "nom_motif_demande",
       key: "nom_motif_demande",
       render: (text) => <TooltipBox text={text} bg="#333" />,
+      ellipsis: true,
+      width: 180,
     },
     {
       title: (
         <Space>
           <UserOutlined style={{ color: "orange", fontSize: 28 }} />
-          <Text strong style={{ fontSize: 32, color: "#fff" }}>
-            Chauffeur
-          </Text>
+          <Text strong style={{ fontSize: 32, color: "#fff" }}>Chauffeur</Text>
         </Space>
       ),
       dataIndex: "nom",
       key: "nom",
-      render: (_, record) =>
+      render: (_, record) => (
         <TooltipBox text={`${record.prenom_chauffeur || '-'} ${record.nom || '-'}`} bg="#333" />
+      ),
+      ellipsis: true,
+      width: 180,
     },
     {
       title: (
         <Space>
           <EnvironmentFilled style={{ color: "red", fontSize: 28 }} />
-          <Text strong style={{ fontSize: 32, color: "#fff" }}>
-            Position
-          </Text>
+          <Text strong style={{ fontSize: 32, color: "#fff" }}>Position</Text>
         </Space>
       ),
       key: 'address',
-      width: 180,
+      render: (_, record) => <VehicleAddress record={record} />,
       ellipsis: true,
-      render: (_, record) => <VehicleAddress record={record} />
+      width: 200,
     },
     {
       title: (
         <Space>
           <DashboardOutlined style={{ color: "#fff", fontSize: 28 }} />
-          <Text strong style={{ fontSize: 32, color: "#fff" }}>
-            Vitesse
-          </Text>
+          <Text strong style={{ fontSize: 32, color: "#fff" }}>Vitesse</Text>
         </Space>
       ),
       key: "speed",
       align: "center",
       render: (_, record) => {
-        const moteurOn = record?.capteurInfo?.engine_status === true;
         const speed = record?.capteurInfo?.speed || 0;
-        let color = "red";
-        if (speed > 5) color = "green";
-        else if (speed > 0) color = "orange";
+        const moteurOn = record?.capteurInfo?.engine_status === true;
+        const color = speed > 120 ? 'red' : speed > 5 ? 'green' : speed > 0 ? 'orange' : 'red';
         const isCritical = speed > 120;
         const fontSize = Math.min(Math.max(20, speed / 2), 36);
         const radius = 55 + Math.min(speed / 5, 10);
         const strokeWidth = 10 + Math.min(speed / 20, 5);
 
         return (
-          <div style={{ maxWidth: 90, margin: "0 auto" }}>
+          <div style={{ maxWidth: 90, margin: "0 auto", textAlign: 'center' }}>
             <svg viewBox="0 0 120 120" width="100%" height="100%">
               <circle
                 cx="60"
@@ -201,15 +138,13 @@ const VehicleAddress = ({ record }) => {
               >
                 KM/H
               </text>
-              <style>
-                {`
-                  @keyframes blink {
-                    0% { opacity: 1; }
-                    50% { opacity: 0.2; }
-                    100% { opacity: 1; }
-                  }
-                `}
-              </style>
+              <style>{`
+                @keyframes blink {
+                  0% { opacity: 1; }
+                  50% { opacity: 0.2; }
+                  100% { opacity: 1; }
+                }
+              `}</style>
             </svg>
             <Badge
               status={moteurOn ? "success" : "error"}
@@ -224,27 +159,27 @@ const VehicleAddress = ({ record }) => {
       title: (
         <Space>
           <EnvironmentOutlined style={{ color: "red", fontSize: 28 }} />
-          <Text strong style={{ fontSize: 32, color: "#fff" }}>
-            Destination
-          </Text>
+          <Text strong style={{ fontSize: 32, color: "#fff" }}>Destination</Text>
         </Space>
       ),
       dataIndex: "nom_destination",
       key: "nom_destination",
       render: (text) => <TooltipBox text={text} bg="#333" />,
+      ellipsis: true,
+      width: 180,
     },
     {
       title: (
         <Space>
           <CarOutlined style={{ color: "green", fontSize: 28 }} />
-          <Text strong style={{ fontSize: 32, color: "#fff" }}>
-            Véhicule
-          </Text>
+          <Text strong style={{ fontSize: 32, color: "#fff" }}>Véhicule</Text>
         </Space>
       ),
       dataIndex: "nom_cat",
       key: "nom_cat",
       render: (text) => <TooltipBox text={text} bg="#333" />,
+      ellipsis: true,
+      width: 150,
     },
     {
       title: "Durée réelle",
@@ -278,9 +213,7 @@ const VehicleAddress = ({ record }) => {
         title={
           <Space align="center">
             <CarOutlined style={{ color: "#1890ff", fontSize: 28 }} />
-            <Text strong style={{ fontSize: 40, color: "#fff" }}>
-              Véhicules en course
-            </Text>
+            <Text strong style={{ fontSize: 40, color: "#fff" }}>Véhicules en course</Text>
             <Badge
               count={course.length}
               style={{ backgroundColor: "#52c41a", fontSize: 20, minWidth: 44, height: 44 }}
