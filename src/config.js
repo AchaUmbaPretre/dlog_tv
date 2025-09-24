@@ -5,7 +5,7 @@ const currentUser = user && JSON.parse(user).currentUser;
 const TOKEN = currentUser?.accessToken;
 
 const config = {
-   REACT_APP_SERVER_DOMAIN : 'http://apidlog.loginsmart-cd.com'
+   REACT_APP_SERVER_DOMAIN : 'http://localhost:8080'
 
 /*   REACT_APP_SERVER_DOMAIN : 'https://apidlog.loginsmart-cd.com'
  */ };
