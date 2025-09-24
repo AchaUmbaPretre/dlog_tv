@@ -26,7 +26,6 @@ const { Text } = Typography;
 
 const RapportVehiculeCourses = ({ course }) => {
   console.log(course)
-  
   const columns = [
     {
       title: "#",
