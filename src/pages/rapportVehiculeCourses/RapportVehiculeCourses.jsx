@@ -30,9 +30,15 @@ const { Text } = Typography;
 
 
 // -------- Composant principal --------
+// -------- Composant principal --------
 const RapportVehiculeCourses = ({ course }) => {
+  // Vérifier si au moins un record contient une position
+  const hasPosition = course?.some((record) => !!record?.position || !!record?.capteurInfo?.address);
+  // Vérifier si au moins un record contient une vitesse
+  const hasSpeed = course?.some((record) => record?.capteurInfo?.speed !== undefined);
 
-  const columns = [
+  // Colonnes de base
+  let columns = [
     {
       title: "#",
       key: "index",
@@ -67,38 +73,10 @@ const RapportVehiculeCourses = ({ course }) => {
       dataIndex: "nom",
       key: "nom",
       render: (_, record) => (
-        <TooltipBox text={`${record.prenom_chauffeur || '-'} ${record.nom || '-'}`} bg="#333" />
+        <TooltipBox text={`${record.prenom_chauffeur || "-"} ${record.nom || "-"}`} bg="#333" />
       ),
       ellipsis: true,
       width: 180,
-    },
-    {
-      title: (
-        <Space>
-          <EnvironmentFilled style={{ color: "red", fontSize: 28 }} />
-          <Text strong style={{ fontSize: 32, color: "#fff" }}>Position</Text>
-        </Space>
-      ),
-      key: 'address',
-      render: (_, record) => <VehicleAddress record={record} />,
-      ellipsis: true,
-      width: 200,
-    },
-    {
-      title: (
-        <Space>
-          <DashboardOutlined style={{ color: "#fff", fontSize: 28 }} />
-          <Text strong style={{ fontSize: 32, color: "#fff" }}>Vitesse</Text>
-        </Space>
-      ),
-      key: "speed",
-      align: "center",
-      render: (_, record) => (
-        <VehicleSpeed 
-          speed={record?.capteurInfo?.speed || 0} 
-          engineOn={record?.capteurInfo?.engine_status === true} 
-        />
-      ),
     },
     {
       title: (
@@ -152,10 +130,46 @@ const RapportVehiculeCourses = ({ course }) => {
     },
   ];
 
+  // Ajouter dynamiquement la colonne "Position"
+  if (hasPosition) {
+    columns.splice(3, 0, {
+      title: (
+        <Space>
+          <EnvironmentFilled style={{ color: "red", fontSize: 28 }} />
+          <Text strong style={{ fontSize: 32, color: "#fff" }}>Position</Text>
+        </Space>
+      ),
+      key: "address",
+      render: (_, record) => <VehicleAddress record={record} />,
+      ellipsis: true,
+      width: 200,
+    });
+  }
+
+  // Ajouter dynamiquement la colonne "Vitesse"
+  if (hasSpeed) {
+    columns.splice(hasPosition ? 4 : 3, 0, {
+      title: (
+        <Space>
+          <DashboardOutlined style={{ color: "#fff", fontSize: 28 }} />
+          <Text strong style={{ fontSize: 32, color: "#fff" }}>Vitesse</Text>
+        </Space>
+      ),
+      key: "speed",
+      align: "center",
+      render: (_, record) => (
+        <VehicleSpeed
+          speed={record?.capteurInfo?.speed || 0}
+          engineOn={record?.capteurInfo?.engine_status === true}
+        />
+      ),
+    });
+  }
+
   return (
     <div className="rapportVehiculeCourses" style={{ padding: 20 }}>
       <Card
-        title={
+        title={(
           <Space align="center">
             <CarOutlined style={{ color: "#1890ff", fontSize: 28 }} />
             <Text strong style={{ fontSize: 40, color: "#fff" }}>Véhicules en course</Text>
@@ -164,12 +178,12 @@ const RapportVehiculeCourses = ({ course }) => {
               style={{ backgroundColor: "#52c41a", fontSize: 20, minWidth: 44, height: 44 }}
             />
           </Space>
-        }
-        extra={
+        )}
+        extra={(
           <Tooltip title="Plein écran">
             <FullscreenOutlined style={{ fontSize: 24, cursor: "pointer", color: "#fff" }} />
           </Tooltip>
-        }
+        )}
         bordered={false}
         style={{
           borderRadius: 16,
@@ -200,5 +214,6 @@ const RapportVehiculeCourses = ({ course }) => {
     </div>
   );
 };
+
 
 export default RapportVehiculeCourses;
