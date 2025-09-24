@@ -3,12 +3,19 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 
 // Tooltip stylé pour texte tronqué
-export const TooltipBox = ({ text, bg = "#333", color = "#fff", fontSize = 24, padding = '6px 12px', radius = 12, minWidth = 90 }) => (
+export const TooltipBox = ({
+  text,
+  bg = "#333",
+  color = "#fff",
+  fontSize = 24,
+  padding = "6px 12px",
+  radius = 12,
+}) => (
   <Tooltip title={text || '-'}>
     <div
       style={{
         display: 'inline-block',
-        minWidth,
+        maxWidth: '100%',  // ne dépasse pas la cellule
         background: bg,
         color,
         fontWeight: 700,
@@ -25,7 +32,7 @@ export const TooltipBox = ({ text, bg = "#333", color = "#fff", fontSize = 24, p
       {text || '-'}
     </div>
   </Tooltip>
-);
+)
 
 // Formatage durée en j h m
 export const formatDuration = (minutes) => {

@@ -7,7 +7,7 @@ try {
   console.warn('Impossible de lire le cache localStorage', err);
 }
 
-const fetchAddress = async (vehicle) => {
+export const fetchAddress = async (vehicle) => {
   if (!vehicle) return '';
   // Trigger reverse geocoding si address vide ou "-"
   if (vehicle.address && vehicle.address !== '-') return vehicle.address;

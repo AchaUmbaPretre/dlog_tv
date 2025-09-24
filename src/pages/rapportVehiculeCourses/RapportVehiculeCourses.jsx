@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import {
   Table,
   Space,
@@ -20,12 +21,71 @@ import {
   MoyenneBox,
   TooltipBox,
 } from "../../utils/RenderTooltip";
-import './rapportVehiculeCourses.scss'
+import './rapportVehiculeCourses.scss';
 
 const { Text } = Typography;
 
+// -------- CACHE PERSISTANT --------
+let addressCache = {};
+try {
+  const stored = localStorage.getItem('vehicleAddressCache');
+  if (stored) addressCache = JSON.parse(stored);
+} catch (err) {
+  console.warn('Impossible de lire le cache localStorage', err);
+}
+
+export const fetchAddress = async (vehicle) => {
+  if (!vehicle) return '';
+  if (vehicle.address && vehicle.address !== '-') return vehicle.address;
+
+  const lat = parseFloat(vehicle.lat);
+  const lng = parseFloat(vehicle.lng);
+  if (isNaN(lat) || isNaN(lng)) return '';
+
+  const key = `${lat}_${lng}`;
+  if (addressCache[key]) return addressCache[key];
+
+  try {
+    const res = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`,
+      { headers: { 'User-Agent': 'MyApp/1.0' } }
+    );
+    const data = await res.json();
+    const addr = data.display_name || '';
+
+    addressCache[key] = addr;
+    localStorage.setItem('vehicleAddressCache', JSON.stringify(addressCache));
+
+    return addr;
+  } catch (err) {
+    console.error('Erreur reverse geocoding:', err);
+    return '';
+  }
+};
+
 const RapportVehiculeCourses = ({ course }) => {
-  console.log(course)
+
+  // Composant pour afficher l'adresse avec fetch + cache
+const VehicleAddress = ({ record }) => {
+  const [displayAddress, setDisplayAddress] = useState(
+    record.address && record.address !== '-' ? record.address : `${record.lat}, ${record.lng}`
+  );
+
+  useEffect(() => {
+    let mounted = true;
+
+    const fetchAddr = async () => {
+      const addr = await fetchAddress(record.capteurInfo || record);
+      if (mounted && addr) setDisplayAddress(addr);
+    };
+
+    fetchAddr();
+    return () => { mounted = false; };
+  }, [record]);
+
+  return <TooltipBox text={displayAddress} bg="#333" minWidth={180} />;
+};
+
 
   const columns = [
     {
@@ -52,19 +112,6 @@ const RapportVehiculeCourses = ({ course }) => {
       key: "nom_motif_demande",
       render: (text) => <TooltipBox text={text} bg="#333" />,
     },
-/*     {
-      title: (
-        <Space>
-          <ApartmentOutlined style={{ color: "#1d39c4", fontSize: 28 }} />
-          <Text strong style={{ fontSize: 32, color: "#fff" }}>
-            Service
-          </Text>
-        </Space>
-      ),
-      dataIndex: "nom_service",
-      key: "nom_service",
-      render: (text) => <TooltipBox text={text} bg="#333" />,
-    }, */
     {
       title: (
         <Space>
@@ -76,16 +123,15 @@ const RapportVehiculeCourses = ({ course }) => {
       ),
       dataIndex: "nom",
       key: "nom",
-      render: (text, record) =>
+      render: (_, record) =>
         <TooltipBox text={`${record.prenom_chauffeur || '-'} ${record.nom || '-'}`} bg="#333" />
     },
     {
-      title: "Position",
-      key: "position",
-      render: (_, record) => 
-        <TooltipBox text={record?.capteurInfo?.address && record.capteurInfo.address !== "-"
-              ? record.capteurInfo.address
-              : "Adresse non dispo"} bg="#333" />,
+      title: 'Position',
+      key: 'address',
+      width: 180,         // largeur max de la colonne
+      ellipsis: true,
+      render: (_, record) => <VehicleAddress record={record} />
     },
     {
       title: "Moteur",
@@ -108,26 +154,17 @@ const RapportVehiculeCourses = ({ course }) => {
       align: "center",
       render: (_, record) => {
         const speed = record?.capteurInfo?.speed || 0;
-
-        // Couleur selon vitesse
         let color = "red";
         if (speed > 5) color = "green";
         else if (speed > 0) color = "orange";
-
-        // Critique si vitesse > 120 km/h
         const isCritical = speed > 120;
-
-        // Taille dynamique du texte selon la vitesse
         const fontSize = Math.min(Math.max(20, speed / 2), 36);
-
-        // Cercle réactif : r et strokeWidth selon la vitesse
-        const radius = 55 + Math.min(speed / 5, 10); // r entre 55 et 65
-        const strokeWidth = 10 + Math.min(speed / 20, 5); // strokeWidth entre 10 et 15
+        const radius = 55 + Math.min(speed / 5, 10);
+        const strokeWidth = 10 + Math.min(speed / 20, 5);
 
         return (
           <div style={{ maxWidth: 90, margin: "0 auto" }}>
             <svg viewBox="0 0 120 120" width="100%" height="100%">
-              {/* Cercle dynamique */}
               <circle
                 cx="60"
                 cy="60"
@@ -137,8 +174,6 @@ const RapportVehiculeCourses = ({ course }) => {
                 strokeWidth={strokeWidth}
                 style={{ transition: "all 0.3s ease" }}
               />
-
-              {/* Texte vitesse */}
               <text
                 x="50%"
                 y="50%"
@@ -154,8 +189,6 @@ const RapportVehiculeCourses = ({ course }) => {
               >
                 {speed}
               </text>
-
-              {/* Label KM/H */}
               <text
                 x="50%"
                 y="75%"
@@ -166,8 +199,6 @@ const RapportVehiculeCourses = ({ course }) => {
               >
                 KM/H
               </text>
-
-              {/* Animation blink */}
               <style>
                 {`
                   @keyframes blink {
@@ -212,26 +243,25 @@ const RapportVehiculeCourses = ({ course }) => {
       title: "Durée réelle",
       key: "duree_reelle_min",
       align: "center",
-      render: (_, record) => (
+      render: (_, record) =>
         <ChronoBox sortie_time={record.sortie_time} date_prevue={record.date_prevue} />
-      ),
     },
     {
       title: "Durée Moyenne",
       key: "duree_moyenne_min",
       align: "center",
-      render: (_, record) => <MoyenneBox duree_moyenne_min={record.duree_moyenne_min} />,
+      render: (_, record) =>
+        <MoyenneBox duree_moyenne_min={record.duree_moyenne_min} />
     },
     {
       title: "Écart",
       key: "ecart_min",
       align: "center",
-      render: (_, record) => (
+      render: (_, record) =>
         <EcartBox
           duree_reelle_min={record.duree_reelle_min}
           duree_moyenne_min={record.duree_moyenne_min}
         />
-      ),
     },
   ];
 
@@ -278,7 +308,7 @@ const RapportVehiculeCourses = ({ course }) => {
       </Card>
       <style jsx>{`
         .row-en-cours {
-          background-color: rgba(82, 196, 26, 0.1); /* vert léger pour cours */
+          background-color: rgba(82, 196, 26, 0.1);
           transition: background-color 0.3s;
         }
       `}</style>
