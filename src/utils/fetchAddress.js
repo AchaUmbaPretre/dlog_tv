@@ -25,7 +25,15 @@ export const fetchAddress = async (vehicle) => {
       { headers: { 'User-Agent': 'MyApp/1.0' } }
     );
     const data = await res.json();
-    const addr = data.display_name || '';
+
+    // On récupère le display_name normal
+    let addr = data.display_name || '';
+
+    // Vérifie si le pays est "République démocratique du Congo"
+    if (data.address?.country === 'République démocratique du Congo') {
+      // ✅ On remplace uniquement le pays
+      addr = addr.replace(/République démocratique du Congo/gi, 'RD Congo');
+    }
 
     addressCache[key] = addr;
     localStorage.setItem('vehicleAddressCache', JSON.stringify(addressCache));
