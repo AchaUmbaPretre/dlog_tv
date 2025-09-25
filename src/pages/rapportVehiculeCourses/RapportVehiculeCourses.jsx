@@ -140,7 +140,7 @@ const RapportVehiculeCourses = ({ course }) => {
       key: "address",
       render: (_, record) => <VehicleAddress record={record} />,
       ellipsis: true,
-      width: 200,
+      width: 80,
     });
   }
 

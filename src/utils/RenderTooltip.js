@@ -7,7 +7,7 @@ export const TooltipBox = ({
   text,
   bg = "#333",
   color = "#fff",
-  fontSize = 24,
+  fontSize = 22,
   padding = "6px 12px",
   radius = 12,
 }) => (
@@ -15,7 +15,7 @@ export const TooltipBox = ({
     <div
       style={{
         display: 'inline-block',
-        maxWidth: '100%',  // ne dépasse pas la cellule
+        maxWidth: '100%',
         background: bg,
         color,
         fontWeight: 700,
