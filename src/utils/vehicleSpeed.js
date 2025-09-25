@@ -2,50 +2,49 @@ import React, { memo } from "react";
 import { Badge } from "antd";
 
 const VehicleSpeed = ({ speed = 0, engineOn = false }) => {
-  // Couleur selon vitesse
-  const color = speed > 120 ? "red" : speed > 5 ? "green" : speed > 0 ? "orange" : "red";
   const isCritical = speed > 120;
-  const fontSize = Math.min(Math.max(20, speed / 2), 36);
-  const radius = 55 + Math.min(speed / 5, 10);
-  const strokeWidth = 10 + Math.min(speed / 20, 5);
 
   return (
-    <div style={{ maxWidth: 90, margin: "0 auto", textAlign: "center" }}>
-      <svg viewBox="0 0 120 120" width="100%" height="100%">
+    <div style={{ maxWidth: 150, margin: "0 auto", textAlign: "center" }}>
+      <svg viewBox="0 0 200 200" width="100%" height="100%">
+        {/* Cercle extérieur rouge */}
         <circle
-          cx="60"
-          cy="60"
-          r={radius}
+          cx="100"
+          cy="100"
+          r="90"
           fill="white"
-          stroke={color}
-          strokeWidth={strokeWidth}
-          style={{ transition: "all 0.3s ease" }}
+          stroke="red"
+          strokeWidth="15"
         />
+
+        {/* Vitesse */}
         <text
           x="50%"
           y="50%"
           textAnchor="middle"
           dy=".3em"
-          fontSize={fontSize}
+          fontSize="60"
           fontWeight="bold"
-          fill={color}
+          fill="black"
           style={{
             animation: isCritical ? "blink 1s infinite" : "none",
-            transition: "all 0.3s ease",
           }}
         >
           {speed}
         </text>
+
+        {/* KM/H */}
         <text
           x="50%"
           y="75%"
           textAnchor="middle"
-          fontSize="12"
+          fontSize="22"
           fontWeight="bold"
           fill="black"
         >
           KM/H
         </text>
+
         <style>{`
           @keyframes blink {
             0% { opacity: 1; }
@@ -54,10 +53,12 @@ const VehicleSpeed = ({ speed = 0, engineOn = false }) => {
           }
         `}</style>
       </svg>
+
+      {/* Badge moteur */}
       <Badge
         status={engineOn ? "success" : "error"}
         text={engineOn ? "ON" : "OFF"}
-        style={{ fontSize: 16, color: engineOn ? "green" : "red" }}
+        style={{ fontSize: 18, color: engineOn ? "green" : "red", marginTop: 8 }}
       />
     </div>
   );

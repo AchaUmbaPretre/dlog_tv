@@ -4,19 +4,43 @@ import { TooltipBox } from "./RenderTooltip";
 
 // -------- Composant VehicleAddress --------
 export const VehicleAddress = memo(({ record }) => {
-  const [displayAddress, setDisplayAddress] = useState(
-    record.address && record.address !== '-' ? record.address : `${record.lat}, ${record.lng}`
-  );
+  const getInitialAddress = () => {
+    if (record?.address && record.address !== "-") {
+      return record.address;
+    }
+
+    if (record?.lat !== undefined && record?.lng !== undefined) {
+      return `${record.lat}, ${record.lng}`;
+    }
+
+    return "-";
+  };
+
+  const [displayAddress, setDisplayAddress] = useState(getInitialAddress);
 
   useEffect(() => {
     let mounted = true;
     const fetchAddr = async () => {
-      const addr = await fetchAddress(record.capteurInfo || record);
-      if (mounted && addr) setDisplayAddress(addr);
+      try {
+        const addr = await fetchAddress(record.capteurInfo || record);
+        if (mounted && addr && addr !== "undefined, undefined") {
+          setDisplayAddress(addr);
+        }
+      } catch (e) {
+        console.warn("Erreur fetchAddress:", e);
+      }
     };
     fetchAddr();
-    return () => { mounted = false; };
+    return () => {
+      mounted = false;
+    };
   }, [record]);
 
-  return <TooltipBox text={displayAddress} bg="#333" minWidth={150} />;
+  // Sécuriser l'affichage final
+  const cleanAddress =
+    displayAddress && displayAddress !== "undefined, undefined"
+      ? displayAddress
+      : "-";
+
+  return <TooltipBox text={cleanAddress} bg="#333" minWidth={150} />;
 });
