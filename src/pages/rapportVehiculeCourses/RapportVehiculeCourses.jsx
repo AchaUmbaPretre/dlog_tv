@@ -28,6 +28,7 @@ import VehicleSpeed from "../../utils/vehicleSpeed";
 
 const { Text } = Typography;
 
+
 const RapportVehiculeCourses = ({ course }) => {
   // Vérifier si au moins un record contient une position
   const hasPosition = course?.some((record) => !!record?.position || !!record?.capteurInfo?.address);
