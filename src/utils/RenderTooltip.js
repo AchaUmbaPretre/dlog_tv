@@ -121,7 +121,6 @@ export const EcartBox = ({ duree_reelle_min, duree_moyenne_min }) => {
   return <TooltipBox text={text} bg={bgColor} />;
 };
 
-
 export const ScoreBox = (value) => {
   if (value == null) return TooltipBox('Aucun', '#d9d9d9', '#000'); // texte visible
 
