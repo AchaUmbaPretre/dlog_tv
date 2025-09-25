@@ -2,7 +2,6 @@ import { Progress, Tooltip } from "antd";
 import moment from "moment";
 import { useEffect, useState } from "react";
 
-// Tooltip stylé pour texte tronqué
 export const TooltipBox = ({
   text,
   bg = "#333",
