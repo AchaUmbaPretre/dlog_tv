@@ -2,36 +2,27 @@ import { Progress, Tooltip } from "antd";
 import moment from "moment";
 import { useEffect, useState } from "react";
 
-export const TooltipBox = ({
-  text,
-  bg = "#333",
-  color = "#fff",
-  fontSize = 50,
-  padding = "6px 12px",
-  radius = 12,
-}) => (
+export const TooltipBox = (text, bg = '#1a1a1a', color = '#fff', maxWidth = 300) => (
   <Tooltip title={text || '-'}>
     <div
       style={{
-        display: 'inline-block',
-        maxWidth: '100%',
-        background: bg,
-        color,
-        fontWeight: 800,
-        fontSize,
-        padding,
-        borderRadius: radius,
-        textAlign: 'center',
+        maxWidth,
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
-        boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
+        backgroundColor: bg,
+        color,
+        fontWeight: 800,
+        fontSize: 50,
+        borderRadius: 12,
+        padding: '6px 12px',
+        textAlign: 'center',
       }}
     >
       {text || '-'}
     </div>
   </Tooltip>
-)
+);
 
 // Formatage durée en j h m
 export const formatDuration = (minutes) => {
