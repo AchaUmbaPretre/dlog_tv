@@ -24,19 +24,19 @@
         align-items: center;
         gap: 3px;
         font-weight: 900;
-        font-size: 2.5rem;
+        font-size: 4.2rem;
         color: #fff;
 
         .logo-d {
-          width: 50px;
-          height: 50px;
+          width: 70px;
+          height: 70px;
           background-color: #1890ff;
           border-radius: 50%;
           display: flex;
           justify-content: center;
           align-items: center;
           color: #fff;
-          font-size: 40px;
+          font-size: 50px;
         }
       }
     }
@@ -46,8 +46,8 @@
       text-align: center;
 
       .topbar_model_h2 {
-        font-size: 3.5rem;
-        font-weight: 700;
+        font-size: 4.8rem;
+        font-weight: 800;
         color: #fff;
       }
     }
@@ -70,7 +70,7 @@
         }
 
         .tv-current-time {
-          font-size: 2.4rem;
+          font-size: 4.5rem;
           color: #fff;
           font-weight: 500;
           min-width: 90px;
@@ -79,7 +79,7 @@
       }
 
       .fullscreen-icon {
-        font-size: 30px;
+        font-size: 50px;
         color: #fff;
         cursor: pointer;
         transition: transform 0.3s ease;
@@ -98,16 +98,16 @@
       }
 
       .logout-popover {
-        width: 220px;
+        width: 280px;
         text-align: center;
-        p { font-size: 1.5rem; color: #000; margin-bottom: 10px; }
+        p { font-size: 3.5rem; color: #000; margin-bottom: 10px; }
         .ant-btn-primary { background-color: #ff4d4f; border: none; color: #fff; }
       }
     }
   }
 
   &.tv-active {
-    .topbar_model_h2 { font-size: 3.8rem; }
+    .topbar_model_h2 { font-size: 4.8rem; }
     .tv-switch-ant .anticon { font-size: 30px; }
     .fullscreen-icon { font-size: 34px; }
     .tv-current-time { font-size: 2.6rem; }
