@@ -1,5 +1,8 @@
 .departHorsTiming-container {
   width: 100%;
+  .card-title{
+    font-size: 30px;
+  }
 }
 
 .event-card {
@@ -11,8 +14,8 @@
 
   .ant-card-head-title {
     color: #fff !important;
-    font-size: 26px;
-    font-weight: 700;
+    font-size: 35px;
+    font-weight: 800;
   }
 }
 
@@ -59,7 +62,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 1.2rem;
+    font-size: 1.8rem;
     font-weight: 700;
     color: #fff;
     margin-bottom: 8px;
@@ -69,7 +72,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 1rem;
+    font-size: 1.8rem;
     color: #fff;
     margin-bottom: 10px;
   }
@@ -80,21 +83,21 @@
     justify-content: space-between;
 
     .departHorsTiming-date {
-      font-size: 1rem;
+      font-size: 1.8rem;
       color: #fff;
     }
   }
 }
 
 .departHorsTiming-icon {
-  font-size: 18px;
+  font-size: 25px;
   &.car {
     color: #1890ff;
   }
 }
 
 .departHorsTiming-numBon{
-  font-size: 1.5rem;
+  font-size: 2rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;  
