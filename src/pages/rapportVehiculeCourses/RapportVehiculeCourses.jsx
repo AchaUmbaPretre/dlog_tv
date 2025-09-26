@@ -88,7 +88,7 @@ const RapportVehiculeCourses = ({ course }) => {
       key: "nom_destination",
       render: (text) => <TooltipBox text={text} bg="#333" />,
       ellipsis: true,
-      width: 180,
+      width: 700,
     },
     {
       title: (
@@ -165,7 +165,7 @@ const RapportVehiculeCourses = ({ course }) => {
     columns.splice(hasPosition ? 4 : 3, 0, {
       title: (
         <Space>
-          <DashboardOutlined style={{ color: "#fff", fontSize: 45 }} />
+          <DashboardOutlined style={{ color: "#fff", fontSize: 40 }} />
           <Text strong style={{ fontSize: 50, color: "#fff" }}>Vitesse</Text>
         </Space>
       ),
