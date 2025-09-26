@@ -78,8 +78,8 @@ const RapportVehiculeValide = ({ data }) => {
       <Card
         title={
           <Space direction="horizontal" size={28} align="center">
-            <CarOutlined style={{ color: "#1890ff", fontSize: 28 }} />
-            <Text strong style={{ fontSize: 40, color: '#fff', fontWeight: 'bold' }}>Véhicules en attente de sortie</Text>
+            <CarOutlined style={{ color: "#1890ff", fontSize: 40 }} />
+            <Text strong style={{ fontSize: 50, color: '#fff', fontWeight: 'bold' }}>Véhicules en attente de sortie</Text>
             <Badge
               count={nbVehiculesAttente}
               style={{ backgroundColor: '#faad14', fontSize: '1.5rem', minWidth: 44, height: 44 }}
