@@ -93,7 +93,7 @@ const RapportVehiculeCourses = ({ course }) => {
       title: (
         <Space>
           <CarOutlined style={{ color: "green", fontSize: 28 }} />
-          <Text strong style={{ fontSize: 32, color: "#fff" }}>Véhicule</Text>
+          <Text strong style={{ fontSize: 38, color: "#fff" }}>Véhicule</Text>
         </Space>
       ),
       dataIndex: "nom_cat",

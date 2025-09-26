@@ -24,32 +24,51 @@ export const fetchAddress = async (vehicle) => {
   const key = `${lat}_${lng}`;
   if (addressCache[key]) return addressCache[key];
 
+  const cleanAddress = (addr) => {
+    if (!addr) return "";
+    // Supprimer "Unnamed road"
+    addr = addr.replace(/\bUnnamed road,?\s*/gi, "");
+    // Remplacer le pays par "RD Congo"
+    if (/République démocratique du Congo/i.test(addr)) {
+      addr = addr.replace(/République démocratique du Congo/gi, "RD Congo");
+    }
+    // Nettoyer virgules multiples ou espaces
+    addr = addr.replace(/,\s*,/g, ",").replace(/^\s*,\s*|\s*,\s*$/g, "");
+    return addr;
+  };
+
   try {
+    // 🔹 Essayer OpenCage
     const res = await fetch(
       `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=${API_KEY}&language=fr`
     );
     const data = await res.json();
-
-    let addr = data.results?.[0]?.formatted || "";
-
-    // 🛠 Supprimer toutes les occurrences de "Unnamed road"
-    addr = addr.replace(/\bUnnamed road,?\s*/gi, "");
-
-    // 🛠 Remplacer le pays par "RD Congo" si besoin
-    if (/République démocratique du Congo/i.test(addr)) {
-      addr = addr.replace(/République démocratique du Congo/gi, "RD Congo");
+    let addr = cleanAddress(data.results?.[0]?.formatted || "");
+    if (addr) {
+      addressCache[key] = addr;
+      localStorage.setItem("vehicleAddressCache", JSON.stringify(addressCache));
+      return addr;
     }
-
-    // Supprimer les virgules multiples ou espaces en trop
-    addr = addr.replace(/,\s*,/g, ",").replace(/^\s*,\s*|\s*,\s*$/g, "");
-
-    // Sauvegarder en cache
-    addressCache[key] = addr;
-    localStorage.setItem("vehicleAddressCache", JSON.stringify(addressCache));
-
-    return addr;
   } catch (err) {
-    console.error("Erreur reverse geocoding OpenCage:", err);
-    return "";
+    console.warn("OpenCage échoué, tentative avec Nominatim:", err);
   }
+
+  try {
+    // 🔹 Fallback Nominatim
+    const nominatimRes = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&addressdetails=1&accept-language=fr`
+    );
+    const nomData = await nominatimRes.json();
+    const nomAddr = cleanAddress(nomData.display_name);
+    if (nomAddr) {
+      addressCache[key] = nomAddr;
+      localStorage.setItem("vehicleAddressCache", JSON.stringify(addressCache));
+      return nomAddr;
+    }
+  } catch (err) {
+    console.error("Erreur reverse geocoding Nominatim:", err);
+  }
+
+  return ""; // si tout échoue
 };
+
