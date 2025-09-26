@@ -88,10 +88,9 @@ const Home = () => {
   return (
     <div className="home">
         <TopBarModelTv/>
-{/*         <div className={`fade-container ${fade ? 'fade-in' : 'fade-out'}`}>
+        <div className={`fade-container ${fade ? 'fade-in' : 'fade-out'}`}>
           {componentsList[currentIndex]}
-        </div> */}
-            <RapportVehiculeUtilitaire key="utilitaire" utilitaire={utilitaire} />
+        </div>
 
     </div>
   );

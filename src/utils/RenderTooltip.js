@@ -135,7 +135,7 @@ export const ScoreBox = (value) => {
         <Progress
           type="circle"
           percent={value}
-          width={60}
+          width={100}
           strokeColor={color}
           trailColor="#555" // arrière-plan visible
           format={(p) => <span style={{ color: '#fff', fontWeight: 900 }}>{p}%</span>} // texte blanc
