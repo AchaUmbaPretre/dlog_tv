@@ -11,27 +11,27 @@ const RapportVehiculeValide = ({ data }) => {
     { 
       title: '#', 
       key: 'index', 
-      render: (_, __, index) => <Text style={{ color:'#fff', fontWeight:900, fontSize:28 }}>{index + 1}</Text>, 
+      render: (_, __, index) => <Text style={{ color:'#fff', fontWeight:900, fontSize:45 }}>{index + 1}</Text>, 
       width: 70, 
       align: 'center' 
     },
     { 
-      title: <Space><AppstoreOutlined style={{ color: '#1d39c4', fontSize: 28 }} /><Text strong style={{ fontSize:32, color:'#fff' }}>Motif</Text></Space>, 
+      title: <Space><AppstoreOutlined style={{ color: '#1d39c4', fontSize: 45 }} /><Text strong style={{ fontSize:45, color:'#fff' }}>Motif</Text></Space>, 
       key: 'nom_service', 
       render: (_, record) => <TooltipBox text={record.nom_service} bg="#333" />
     },
     { 
-      title: <Space><UserOutlined style={{ color:'orange', fontSize: 28 }} /><Text strong style={{ fontSize:32, color:'#fff' }}>Chauffeur</Text></Space>, 
+      title: <Space><UserOutlined style={{ color:'orange', fontSize: 45 }} /><Text strong style={{ fontSize:45, color:'#fff' }}>Chauffeur</Text></Space>, 
       key: 'chauffeur', 
       render: (_, record) => <TooltipBox text={`${record.prenom_chauffeur || '-'} ${record.nom || '-'}`} bg="#333" />
     },
     { 
-      title: <Space><EnvironmentOutlined style={{ color: 'red', fontSize: 28 }} /><Text strong style={{ fontSize:32, color:'#fff' }}>Destination</Text></Space>, 
+      title: <Space><EnvironmentOutlined style={{ color: 'red', fontSize: 45 }} /><Text strong style={{ fontSize:45, color:'#fff' }}>Destination</Text></Space>, 
       key: 'nom_destination', 
       render: (_, record) => <TooltipBox text={record.nom_destination} bg="#333" />
     },
     { 
-      title: <Space><CarOutlined style={{ color: 'green', fontSize: 28 }} /><Text strong style={{ fontSize:32, color:'#fff' }}>Véhicule</Text></Space>, 
+      title: <Space><CarOutlined style={{ color: 'green', fontSize: 45 }} /><Text strong style={{ fontSize:45, color:'#fff' }}>Véhicule</Text></Space>, 
       key: 'nom_cat', 
       render: (_, record) => <TooltipBox text={record.nom_cat} bg="#333" />
     },
