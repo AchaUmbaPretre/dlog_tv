@@ -6,7 +6,7 @@ import { ScoreBox } from '../../utils/RenderTooltip';
 const { Text } = Typography;
 
 // Tooltip pro
-const TooltipBox = (text, bg = '#1a1a1a', color = '#fff', maxWidth = 300) => (
+const TooltipBox = (text, bg = '#1a1a1a', color = '#fff', maxWidth = 700) => (
   <Tooltip title={text || '-'}>
     <div
       style={{
@@ -59,6 +59,7 @@ const RapportVehiculeUtilitaire = ({ utilitaire }) => {
       key: 'immatriculation',
       render: (text) => TooltipBox(text),
       width: '20%',
+      align: 'center'
     },
     {
       title: <span className="column-title">Marque</span>,
@@ -66,13 +67,15 @@ const RapportVehiculeUtilitaire = ({ utilitaire }) => {
       key: 'nom_marque',
       render: (text) => TooltipBox(text),
       width: '20%',
+      align: 'center'
     },
     {
       title: <span className="column-title">Type véhicule</span>,
       dataIndex: 'nom_cat',
       key: 'nom_cat',
       render: (text) => TooltipBox(text ?? 'Aucun'),
-      width: '25%',
+      width: '40%',
+      align: 'center'
     },
     {
       title: <span className="column-title">Statut</span>,
