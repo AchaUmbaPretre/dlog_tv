@@ -114,7 +114,6 @@ const RapportVehiculeUtilitaire = ({ utilitaire }) => {
           boxShadow: '0 8px 40px rgba(0,0,0,0.2)',
         }}
       >
-        <Divider style={{ margin: '16px 0', borderColor: '#444' }} />
         <Table
           columns={columns}
           dataSource={utilitaire}

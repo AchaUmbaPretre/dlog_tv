@@ -20,19 +20,19 @@ const Home = () => {
 
   const intervalRef = useRef(null);
 
-  useEffect(()=> {
-    const fetchDatas = async() => {
+  useEffect(() => {
+    const fetchDatas = async () => {
       try {
         const { data } = await getFalcon();
-        setFalcon(data[0].items)
+        setFalcon(data[0].items);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-    }
+    };
     fetchDatas();
     const interval = setInterval(fetchDatas, 5000);
     return () => clearInterval(interval);
-  },[]);
+  }, []);
 
   const mergedCourses = course.map(c => {
     const capteur = falcon.find(f => f.id === c.id_capteur);
@@ -44,16 +44,16 @@ const Home = () => {
 
   const componentsList = [
     <ModeTv key="modeTv" />,
-    <RapportVehiculeValide key="valide" data={data} />,
-    <RapportVehiculeCourses key="courses" course={mergedCourses} />,
-    <RapportVehiculeUtilitaire key="utilitaire" utilitaire={utilitaire} />
+    ...(data.length > 0 ? [<RapportVehiculeValide key="valide" data={data} />] : []),
+    ...(mergedCourses.length > 0 ? [<RapportVehiculeCourses key="courses" course={mergedCourses} />] : []),
+    ...(utilitaire.length > 0 ? [<RapportVehiculeUtilitaire key="utilitaire" utilitaire={utilitaire} />] : []),
   ];
 
-  const fetchData = async() => {
+  const fetchData = async () => {
     try {
-      const [ allData, utilData] = await Promise.all([
+      const [allData, utilData] = await Promise.all([
         getRapportCharroiVehicule(),
-        getRapportUtilitaire()
+        getRapportUtilitaire(),
       ]);
 
       setData(allData.data.listeEnAttente);
@@ -66,13 +66,20 @@ const Home = () => {
         description: 'Une erreur est survenue lors du chargement des données.',
       });
     }
-  }
+  };
 
   useEffect(() => {
     fetchData();
     const interval = setInterval(fetchData, 5000);
     return () => clearInterval(interval);
   }, []);
+
+  // 🔹 Sécurité : réinitialiser l’index si plus grand que la longueur de la liste
+  useEffect(() => {
+    if (currentIndex >= componentsList.length) {
+      setCurrentIndex(0);
+    }
+  }, [componentsList, currentIndex]);
 
   useEffect(() => {
     if (!isRunning) {
@@ -86,10 +93,10 @@ const Home = () => {
         setCurrentIndex(prev => (prev + 1) % componentsList.length);
         setFade(true);
       }, 500);
-    }, 30000);
+    }, 30000); // ⏱️ change toutes les 30s
 
     return () => clearInterval(intervalRef.current);
-  }, [isRunning]);
+  }, [isRunning, componentsList.length]);
 
   return (
     <div className="home">
@@ -110,17 +117,14 @@ const Home = () => {
           }}
           onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
           onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-        >
-          {isRunning ? "Arrêter le mouvement" : "Reprendre le mouvement"}
-        </Button>
+        />
       </div>
 
-{/*       <div className={`fade-container ${fade ? 'fade-in' : 'fade-out'}`}>
+      <div className={`fade-container ${fade ? 'fade-in' : 'fade-out'}`}>
         {componentsList[currentIndex]}
-      </div> */}
-        <RapportVehiculeCourses key="courses" course={mergedCourses} />,
+      </div>
     </div>
   );
-}
+};
 
 export default Home;

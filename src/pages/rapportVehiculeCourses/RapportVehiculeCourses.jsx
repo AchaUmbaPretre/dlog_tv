@@ -30,6 +30,7 @@ import './rapportVehiculeCourses.scss';
 const { Text } = Typography;
 
 const RapportVehiculeCourses = ({ course }) => {
+
   const hasPosition = course?.some((r) => !!r?.position || !!r?.capteurInfo?.address);
   const hasSpeed = course?.some((r) => r?.capteurInfo?.speed !== undefined);
 
