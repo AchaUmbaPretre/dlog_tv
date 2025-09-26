@@ -83,7 +83,7 @@ const RapportVehiculeCourses = ({ course }) => {
       key: "nom_destination",
       render: (text) => <TooltipBox text={text} bg="#333" maxWidth={400} />,
       ellipsis: false,
-      width: 550,
+      width: 250,
     },
     {
       title: (
