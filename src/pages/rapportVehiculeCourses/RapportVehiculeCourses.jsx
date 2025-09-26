@@ -192,7 +192,6 @@ const RapportVehiculeCourses = ({ course }) => {
         )}
         bordered={false}
       >
-        <Divider style={{ margin: "14px 0", borderColor: "#444" }} />
         <div className="table-scroll">
           <Table
             columns={columns}
