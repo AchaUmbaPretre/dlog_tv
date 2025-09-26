@@ -7,7 +7,7 @@ import { ChronoBox, MoyenneBox, TooltipBox } from '../../utils/RenderTooltip';
 const { Text } = Typography;
 
 const RapportVehiculeValide = ({ data }) => {
-  
+
   const columns = [
     { 
       title: '#', 
@@ -37,7 +37,12 @@ const RapportVehiculeValide = ({ data }) => {
       render: (_, record) => <TooltipBox text={record.nom_cat} bg="#333" />
     },
     { 
-      title: 'Sortie prévue', 
+      title: (
+        <Space>
+          <FieldTimeOutlined style={{ color: "blue", fontSize: 45 }} />
+          <Text strong style={{ fontSize: 50, color: "#fff" }}>Sortie prévue</Text>
+        </Space>
+      ),
       key: 'date_prevue', 
       align: 'center', 
       render: (_, record) => <TooltipBox text={moment(record.date_prevue).format('DD-MM-YYYY HH:mm')} bg="#1890ff" />
