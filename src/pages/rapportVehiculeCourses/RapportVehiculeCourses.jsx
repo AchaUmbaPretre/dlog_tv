@@ -165,8 +165,8 @@ const RapportVehiculeCourses = ({ course }) => {
     columns.splice(hasPosition ? 4 : 3, 0, {
       title: (
         <Space>
-          <DashboardOutlined style={{ color: "#fff", fontSize: 28 }} />
-          <Text strong style={{ fontSize: 32, color: "#fff" }}>Vitesse</Text>
+          <DashboardOutlined style={{ color: "#fff", fontSize: 40 }} />
+          <Text strong style={{ fontSize: 45, color: "#fff" }}>Vitesse</Text>
         </Space>
       ),
       key: "speed",
