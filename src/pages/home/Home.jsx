@@ -115,9 +115,10 @@ const Home = () => {
         </Button>
       </div>
 
-      <div className={`fade-container ${fade ? 'fade-in' : 'fade-out'}`}>
+{/*       <div className={`fade-container ${fade ? 'fade-in' : 'fade-out'}`}>
         {componentsList[currentIndex]}
-      </div>
+      </div> */}
+        <RapportVehiculeCourses key="courses" course={mergedCourses} />,
     </div>
   );
 }

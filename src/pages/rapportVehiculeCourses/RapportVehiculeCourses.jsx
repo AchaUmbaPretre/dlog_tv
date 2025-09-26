@@ -23,31 +23,26 @@ import {
   MoyenneBox,
   TooltipBox,
 } from "../../utils/RenderTooltip";
-import './rapportVehiculeCourses.scss';
 import { VehicleAddress } from "../../utils/vehicleAddress";
 import VehicleSpeed from "../../utils/vehicleSpeed";
+import './rapportVehiculeCourses.scss';
 
 const { Text } = Typography;
 
-
 const RapportVehiculeCourses = ({ course }) => {
-  // Vérifier si au moins un record contient une position
-  const hasPosition = course?.some((record) => !!record?.position || !!record?.capteurInfo?.address);
-  // Vérifier si au moins un record contient une vitesse
-  const hasSpeed = course?.some((record) => record?.capteurInfo?.speed !== undefined);
+  const hasPosition = course?.some((r) => !!r?.position || !!r?.capteurInfo?.address);
+  const hasSpeed = course?.some((r) => r?.capteurInfo?.speed !== undefined);
 
-  // Colonnes de base
   let columns = [
     {
       title: "#",
       key: "index",
       render: (_, __, index) => (
-        <Text style={{ fontSize: 40, fontWeight: 900, color: "#fff" }}>
-          {index + 1}
-        </Text>
+        <Text style={{ fontSize: 40, fontWeight: 900 }}>{index + 1}</Text>
       ),
       width: 70,
       align: "center",
+      fixed: 'left',
     },
     {
       title: (
@@ -86,9 +81,9 @@ const RapportVehiculeCourses = ({ course }) => {
       ),
       dataIndex: "nom_destination",
       key: "nom_destination",
-      render: (text) => <TooltipBox text={text} bg="#333" />,
-      ellipsis: true,
-      width: 700,
+      render: (text) => <TooltipBox text={text} bg="#333" maxWidth={400} />,
+      ellipsis: false,
+      width: 550,
     },
     {
       title: (
@@ -107,25 +102,27 @@ const RapportVehiculeCourses = ({ course }) => {
       title: (
         <Space>
           <FieldTimeOutlined style={{ color: "green", fontSize: 45 }} />
-          <Text strong style={{ fontSize: 50, color: "#fff" }}>Durée réelle</Text>
+          <Text strong style={{ fontSize: 50, color: "#fff" }}>Durée R.</Text>
         </Space>
       ),
       key: "duree_reelle_min",
       align: "center",
-      render: (_, record) =>
-        <ChronoBox sortie_time={record.sortie_time} date_prevue={record.date_prevue} />
+      render: (_, record) => <ChronoBox sortie_time={record.sortie_time} date_prevue={record.date_prevue} />,
+      ellipsis: true,
+      width: 200,
     },
     {
       title: (
         <Space>
           <FieldTimeOutlined style={{ color: "yellow", fontSize: 45 }} />
-          <Text strong style={{ fontSize: 50, color: "#fff" }}>Durée Moyenne</Text>
+          <Text strong style={{ fontSize: 50, color: "#fff" }}>Durée M</Text>
         </Space>
       ),
       key: "duree_moyenne_min",
       align: "center",
-      render: (_, record) =>
-        <MoyenneBox duree_moyenne_min={record.duree_moyenne_min} />
+      render: (_, record) => <MoyenneBox duree_moyenne_min={record.duree_moyenne_min} />,
+      ellipsis: true,
+      width: 200,
     },
     {
       title: (
@@ -136,15 +133,12 @@ const RapportVehiculeCourses = ({ course }) => {
       ),
       key: "ecart_min",
       align: "center",
-      render: (_, record) =>
-        <EcartBox
-          duree_reelle_min={record.duree_reelle_min}
-          duree_moyenne_min={record.duree_moyenne_min}
-        />
+      render: (_, record) => <EcartBox duree_reelle_min={record.duree_reelle_min} duree_moyenne_min={record.duree_moyenne_min} />,
+      ellipsis: true,
+      width: 120,
     },
   ];
 
-  // Ajouter dynamiquement la colonne "Position"
   if (hasPosition) {
     columns.splice(3, 0, {
       title: (
@@ -156,11 +150,10 @@ const RapportVehiculeCourses = ({ course }) => {
       key: "address",
       render: (_, record) => <VehicleAddress record={record} />,
       ellipsis: true,
-      width: 80,
+      width: 100,
     });
   }
 
-  // Ajouter dynamiquement la colonne "Vitesse"
   if (hasSpeed) {
     columns.splice(hasPosition ? 4 : 3, 0, {
       title: (
@@ -172,16 +165,15 @@ const RapportVehiculeCourses = ({ course }) => {
       key: "speed",
       align: "center",
       render: (_, record) => (
-        <VehicleSpeed
-          speed={record?.capteurInfo?.speed || 0}
-          engineOn={record?.capteurInfo?.engine_status === true}
-        />
+        <VehicleSpeed speed={record?.capteurInfo?.speed || 0} engineOn={record?.capteurInfo?.engine_status === true} />
       ),
+      ellipsis: true,
+      width: 250,
     });
   }
 
   return (
-    <div className="rapportVehiculeCourses" style={{ padding: 20 }}>
+    <div className="rapportVehiculeCourses">
       <Card
         title={(
           <Space align="center">
@@ -199,35 +191,23 @@ const RapportVehiculeCourses = ({ course }) => {
           </Tooltip>
         )}
         bordered={false}
-        style={{
-          borderRadius: 16,
-          boxShadow: "0 6px 30px rgba(0,0,0,0.15)",
-          backgroundColor: "#1a1a1a",
-        }}
       >
         <Divider style={{ margin: "14px 0", borderColor: "#444" }} />
-        <Table
-          columns={columns}
-          dataSource={course}
-          rowKey={(record) => record.id_vehicule}
-          pagination={{ pageSize: 15 }}
-          scroll={{ x: "max-content" }}
-          bordered={false}
-          size="middle"
-          rowClassName={(record) =>
-            record.en_cours ? "row-en-cours" : ""
-          }
-        />
+        <div className="table-scroll">
+          <Table
+            columns={columns}
+            dataSource={course}
+            rowKey={(record) => record.id_vehicule}
+            pagination={{ pageSize: 15 }}
+            scroll={{ x: "max-content" }}
+            bordered={false}
+            size="middle"
+            rowClassName={(record) => record.en_cours ? "row-en-cours" : ""}
+          />
+        </div>
       </Card>
-      <style jsx>{`
-        .row-en-cours {
-          background-color: rgba(82, 196, 26, 0.1);
-          transition: background-color 0.3s;
-        }
-      `}</style>
     </div>
   );
 };
-
 
 export default RapportVehiculeCourses;

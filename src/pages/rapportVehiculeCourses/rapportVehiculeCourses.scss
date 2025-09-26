@@ -25,6 +25,13 @@
     }
   }
 
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+
+    ::-webkit-scrollbar { height: 6px; }
+  }
+
   .ant-table {
     .ant-table-thead > tr > th {
       background-color: #333;
@@ -39,75 +46,26 @@
       color: #fff;
     }
 
-    .ant-table-tbody > tr:nth-child(odd) {
-      background-color: #2a2a2a;
-    }
+    .ant-table-tbody > tr:nth-child(odd) { background-color: #2a2a2a; }
+    .ant-table-tbody > tr:nth-child(even) { background-color: #1f1f1f; }
 
-    .ant-table-tbody > tr:nth-child(even) {
-      background-color: #1f1f1f;
-    }
+    .row-en-cours { background-color: rgba(82, 196, 26, 0.1); transition: background-color 0.3s; }
+    .row-retard { animation: blink 1s infinite; font-weight: bold; color: #ff4d4f; }
 
-    .row-en-cours {
-      transition: background-color 0.3s;
-    }
-
-    .row-retard {
-      animation: blink 1s infinite;
-      font-weight: bold;
-      color: #ff4d4f;
-    }
-
-    .tooltip-box {
-      font-weight: 700;
-      font-size: 22px;
-      color: #fff;
-      text-align: center;
-      border-radius: 10px;
-      padding: 6px 12px;
-      min-width: 90px;
-    }
-
-    .chrono-box {
-      background-color: #52c41a; // dynamique selon ChronoBox
-      color: #fff;
-      font-weight: 700;
-      font-size: 22px;
-      padding: 4px 12px;
-      border-radius: 10px;
-      text-align: center;
-      min-width: 90px;
-    }
-
-    .moyenne-box {
-      background-color: #722ed1;
-      color: #fff;
-      font-weight: 700;
-      font-size: 22px;
-      padding: 4px 12px;
-      border-radius: 10px;
-      text-align: center;
-      min-width: 90px;
-    }
-
-    .ecart-box {
-      font-weight: 700;
-      font-size: 22px;
-      padding: 4px 12px;
-      border-radius: 10px;
-      text-align: center;
-      min-width: 90px;
-      background-color: #52c41a; // vert par défaut
+    .ant-table-cell {
+      word-break: break-word;
+      hyphens: auto;
+      white-space: normal;
     }
   }
 }
 
 @keyframes blink {
-  0%, 100% {
-    opacity: 1;
-    color: #ff4d4f;
-  }
-  50% {
-    opacity: 0.5;
-    color: #fa8c14;
-  }
+  0%,100% { opacity: 1; color: #ff4d4f; }
+  50% { opacity: 0.5; color: #fa8c14; }
+}
+
+@media (max-width: 900px) {
+  .ant-table th, .ant-table td { padding: 0.35rem; }
+  .ant-table { font-size: clamp(12px, 1.8vw, 14px); }
 }
