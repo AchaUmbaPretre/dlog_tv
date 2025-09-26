@@ -44,20 +44,20 @@ const Home = () => {
     <RapportVehiculeValide key="valide" data={data} />,
     <RapportVehiculeCourses key="courses" course={mergedCourses} />,
     <RapportVehiculeUtilitaire key="utilitaire" utilitaire={utilitaire} />
-    ];
+  ];
 
-    const fetchData = async() => {
-        try {
-            const [ allData, utilData] = await Promise.all([
-              getRapportCharroiVehicule(),
-              getRapportUtilitaire()
-            ])
+  const fetchData = async() => {
+    try {
+      const [ allData, utilData] = await Promise.all([
+        getRapportCharroiVehicule(),
+        getRapportUtilitaire()
+      ])
 
-            setData(allData.data.listeEnAttente);
-            setCourse(allData.data.listeCourse);
-            setUtilitaire(utilData.data.listVehiculeDispo);
+      setData(allData.data.listeEnAttente);
+      setCourse(allData.data.listeCourse);
+      setUtilitaire(utilData.data.listVehiculeDispo);
 
-        } catch (error) {
+    } catch (error) {
             notification.error({
             message: 'Erreur de chargement',
             description: 'Une erreur est survenue lors du chargement des données.',
@@ -78,7 +78,7 @@ const Home = () => {
       setFade(false);
       setTimeout(() => {
         setCurrentIndex(prev => (prev + 1) % componentsList.length);
-        setFade(true); // fade-in le nouveau composant
+        setFade(true);
       }, 500);
     }, 30000); // toutes les 3 secondes
 
