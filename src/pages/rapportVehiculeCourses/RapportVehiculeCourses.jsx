@@ -15,6 +15,7 @@ import {
   FullscreenOutlined,
   DashboardOutlined,
   EnvironmentFilled,
+  FieldTimeOutlined
 } from "@ant-design/icons";
 import {
   ChronoBox,
@@ -41,7 +42,7 @@ const RapportVehiculeCourses = ({ course }) => {
       title: "#",
       key: "index",
       render: (_, __, index) => (
-        <Text style={{ fontSize: 28, fontWeight: 900, color: "#fff" }}>
+        <Text style={{ fontSize: 40, fontWeight: 900, color: "#fff" }}>
           {index + 1}
         </Text>
       ),
@@ -51,8 +52,8 @@ const RapportVehiculeCourses = ({ course }) => {
     {
       title: (
         <Space>
-          <AppstoreOutlined style={{ color: "#1890ff", fontSize: 28 }} />
-          <Text strong style={{ fontSize: 32, color: "#fff" }}>Motif</Text>
+          <AppstoreOutlined style={{ color: "#1890ff", fontSize: 40 }} />
+          <Text strong style={{ fontSize: 45, color: "#fff" }}>Motif</Text>
         </Space>
       ),
       dataIndex: "nom_motif_demande",
@@ -64,8 +65,8 @@ const RapportVehiculeCourses = ({ course }) => {
     {
       title: (
         <Space>
-          <UserOutlined style={{ color: "orange", fontSize: 28 }} />
-          <Text strong style={{ fontSize: 32, color: "#fff" }}>Chauffeur</Text>
+          <UserOutlined style={{ color: "orange", fontSize: 40 }} />
+          <Text strong style={{ fontSize: 45, color: "#fff" }}>Chauffeur</Text>
         </Space>
       ),
       dataIndex: "nom",
@@ -79,8 +80,8 @@ const RapportVehiculeCourses = ({ course }) => {
     {
       title: (
         <Space>
-          <EnvironmentOutlined style={{ color: "red", fontSize: 28 }} />
-          <Text strong style={{ fontSize: 32, color: "#fff" }}>Destination</Text>
+          <EnvironmentOutlined style={{ color: "red", fontSize: 40 }} />
+          <Text strong style={{ fontSize: 45, color: "#fff" }}>Destination</Text>
         </Space>
       ),
       dataIndex: "nom_destination",
@@ -92,8 +93,8 @@ const RapportVehiculeCourses = ({ course }) => {
     {
       title: (
         <Space>
-          <CarOutlined style={{ color: "green", fontSize: 28 }} />
-          <Text strong style={{ fontSize: 38, color: "#fff" }}>Véhicule</Text>
+          <CarOutlined style={{ color: "green", fontSize: 40 }} />
+          <Text strong style={{ fontSize: 45, color: "#fff" }}>Véhicule</Text>
         </Space>
       ),
       dataIndex: "nom_cat",
@@ -103,21 +104,36 @@ const RapportVehiculeCourses = ({ course }) => {
       width: 150,
     },
     {
-      title: "Durée réelle",
+      title: (
+        <Space>
+          <FieldTimeOutlined style={{ color: "green", fontSize: 40 }} />
+          <Text strong style={{ fontSize: 45, color: "#fff" }}>Durée réelle</Text>
+        </Space>
+      ),
       key: "duree_reelle_min",
       align: "center",
       render: (_, record) =>
         <ChronoBox sortie_time={record.sortie_time} date_prevue={record.date_prevue} />
     },
     {
-      title: "Durée Moyenne",
+      title: (
+        <Space>
+          <FieldTimeOutlined style={{ color: "yellow", fontSize: 40 }} />
+          <Text strong style={{ fontSize: 45, color: "#fff" }}>Durée Moyenne</Text>
+        </Space>
+      ),
       key: "duree_moyenne_min",
       align: "center",
       render: (_, record) =>
         <MoyenneBox duree_moyenne_min={record.duree_moyenne_min} />
     },
     {
-      title: "Écart",
+      title: (
+        <Space>
+          <FieldTimeOutlined style={{ color: "blue", fontSize: 40 }} />
+          <Text strong style={{ fontSize: 45, color: "#fff" }}>Écart</Text>
+        </Space>
+      ),
       key: "ecart_min",
       align: "center",
       render: (_, record) =>

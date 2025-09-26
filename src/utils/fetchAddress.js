@@ -69,6 +69,6 @@ export const fetchAddress = async (vehicle) => {
     console.error("Erreur reverse geocoding Nominatim:", err);
   }
 
-  return ""; // si tout échoue
+  return "";
 };
 
