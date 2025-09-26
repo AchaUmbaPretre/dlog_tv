@@ -16,7 +16,7 @@ const TooltipBox = (text, bg = '#1a1a1a', color = '#fff', maxWidth = 300) => (
         textOverflow: 'ellipsis',
         backgroundColor: bg,
         color,
-        fontWeight: 700,
+        fontWeight: 800,
         fontSize: 50,
         borderRadius: 12,
         padding: '6px 12px',
