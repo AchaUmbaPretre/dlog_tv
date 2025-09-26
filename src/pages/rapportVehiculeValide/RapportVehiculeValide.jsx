@@ -1,12 +1,13 @@
 import './rapportVehiculeValide.scss';
 import { Table, Space, Typography, Divider, Card, Badge } from 'antd';
-import { CarOutlined, AppstoreOutlined, UserOutlined, EnvironmentOutlined } from '@ant-design/icons';
+import { CarOutlined, AppstoreOutlined, FieldTimeOutlined, UserOutlined, EnvironmentOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import { ChronoBox, MoyenneBox, TooltipBox } from '../../utils/RenderTooltip';
 
 const { Text } = Typography;
 
 const RapportVehiculeValide = ({ data }) => {
+  
   const columns = [
     { 
       title: '#', 
@@ -42,13 +43,23 @@ const RapportVehiculeValide = ({ data }) => {
       render: (_, record) => <TooltipBox text={moment(record.date_prevue).format('DD-MM-YYYY HH:mm')} bg="#1890ff" />
     },
     { 
-      title: "Durée Moyenne", 
+      title: (
+        <Space>
+          <FieldTimeOutlined style={{ color: "blue", fontSize: 45 }} />
+          <Text strong style={{ fontSize: 50, color: "#fff" }}>Durée Moyenne</Text>
+        </Space>
+      ),
       key: "duree_moyenne_min", 
       align: 'center', 
       render: (_, record) => <MoyenneBox duree_moyenne_min={record.duree_moyenne_min} />
     },
     { 
-      title: "Chrono", 
+      title: (
+        <Space>
+          <FieldTimeOutlined style={{ color: "blue", fontSize: 45 }} />
+          <Text strong style={{ fontSize: 50, color: "#fff" }}>Chrono</Text>
+        </Space>
+      ),
       key: "chrono", 
       align: 'center', 
       render: (_, record) => <ChronoBox sortie_time={record.date_prevue} />
