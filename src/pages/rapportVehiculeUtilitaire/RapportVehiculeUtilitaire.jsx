@@ -67,7 +67,6 @@ const RapportVehiculeUtilitaire = ({ utilitaire }) => {
       key: 'nom_marque',
       render: (text) => TooltipBox(text),
       width: '20%',
-      align: 'center'
     },
     {
       title: <span className="column-title">Type véhicule</span>,
@@ -75,12 +74,12 @@ const RapportVehiculeUtilitaire = ({ utilitaire }) => {
       key: 'nom_cat',
       render: (text) => TooltipBox(text ?? 'Aucun'),
       width: '40%',
-      align: 'center'
     },
     {
       title: <span className="column-title">Statut</span>,
       dataIndex: 'statut_affichage',
       key: 'statut_affichage',
+      align: 'center',
       render: (text) => StatutBox(text),
       width: '20%',
     },
