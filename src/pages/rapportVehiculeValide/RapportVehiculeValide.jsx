@@ -82,7 +82,7 @@ const RapportVehiculeValide = ({ data }) => {
             <Text strong style={{ fontSize: 50, color: '#fff', fontWeight: 'bold' }}>Véhicules en attente de sortie</Text>
             <Badge
               count={nbVehiculesAttente}
-              style={{ backgroundColor: '#faad14', fontSize: '1.5rem', minWidth: 44, height: 44 }}
+              style={{ backgroundColor: '#faad14', fontSize: 40, minWidth: 44, height: 44, display:'flex', alignItems:'center', justifyContent:'center'}}
             />
           </Space>
         }
