@@ -8,9 +8,16 @@
   }
 
   .alert_wrapper {
+    .alert_title{
+        font-size: 30px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+    .alert_rows{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 14px;
+    }
   }
 
   .alert_row {
