@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import "./topBarModelTv.scss";
-import { Tooltip, Divider, Button, message, Popover, Switch, Space } from "antd";
-import { FullscreenOutlined, LogoutOutlined, DesktopOutlined } from "@ant-design/icons";
+import { Tooltip, Divider, Button, message, Popover, Switch, Space, Badge } from "antd";
+import { FullscreenOutlined, LogoutOutlined, DesktopOutlined, AlertOutlined } from "@ant-design/icons";
 import { useState, useEffect } from "react";
 import { logout } from "../../services/authService";
 
-const TopBarModelTv = ({alert}) => {
+const TopBarModelTv = ({ alert }) => {
   const navigate = useNavigate();
   const [tvMode, setTvMode] = useState(false);
   const [currentTime, setCurrentTime] = useState("");
@@ -92,9 +92,16 @@ const TopBarModelTv = ({alert}) => {
               unCheckedChildren={<DesktopOutlined />}
               className="tv-switch-ant"
             />
-            {/* Heure séparée */}
+            {/* Heure */}
             <div className="tv-current-time">{currentTime}</div>
           </Space>
+
+          {/* Alerte avec badge */}
+          <Tooltip title="Alertes véhicules">
+            <Badge count={alert} offset={[0, 5]} size="small">
+              <AlertOutlined className="alert-icon" />
+            </Badge>
+          </Tooltip>
 
           {tvMode && (
             <Tooltip title="Affichage plein écran">

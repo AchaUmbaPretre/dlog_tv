@@ -59,6 +59,26 @@
       align-items: center;
       gap: 20px;
 
+      .alert-icon {
+        font-size: 40px;
+        color: #fff;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
+
+      .ant-badge-count {
+        font-size: 1.5rem;
+        min-width: 40px;
+        height: 40px;
+        line-height: 35px;
+        padding: 0 6px;
+        background-color: #ff4d4f;
+        border: 2px solid #fff;
+        border-radius: 50%;
+      }
       .tv-space {
         display: flex;
         align-items: center;
