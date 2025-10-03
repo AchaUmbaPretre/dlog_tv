@@ -102,7 +102,7 @@ const Home = () => {
     <div className="home">
       <TopBarModelTv />
 
-      <div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', margin: '10px 0' }}>
         <Button
           type="primary"
           size="large"
@@ -110,7 +110,7 @@ const Home = () => {
           icon={isRunning ? <PauseCircleOutlined /> : <PlayCircleOutlined />}
           onClick={() => setIsRunning(prev => !prev)}
           style={{
-            fontSize: '16px',
+            fontSize: '18px',
             padding: '0 20px',
             boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
             transition: 'all 0.3s',
