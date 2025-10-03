@@ -5,7 +5,7 @@ import { FullscreenOutlined, LogoutOutlined, DesktopOutlined } from "@ant-design
 import { useState, useEffect } from "react";
 import { logout } from "../../services/authService";
 
-const TopBarModelTv = () => {
+const TopBarModelTv = ({alert}) => {
   const navigate = useNavigate();
   const [tvMode, setTvMode] = useState(false);
   const [currentTime, setCurrentTime] = useState("");
