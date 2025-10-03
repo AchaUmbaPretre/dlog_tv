@@ -8,6 +8,8 @@ import RapportVehiculeUtilitaire from '../rapportVehiculeUtilitaire/RapportVehic
 import TopBarModelTv from '../../components/topBarModelTv/TopBarModelTv';
 import { getFalcon, getRapportCharroiVehicule, getRapportUtilitaire } from '../../services/rapportService';
 import './home.scss';
+import AlertVehicule from '../alertVehicule/AlertVehicule';
+import { getAlertVehicule } from '../../services/alertService';
 
 const Home = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -17,7 +19,7 @@ const Home = () => {
   const [utilitaire, setUtilitaire] = useState([]);
   const [falcon, setFalcon] = useState([]);
   const [isRunning, setIsRunning] = useState(true);
-
+  const [alert, setAlert] = useState([]);
   const intervalRef = useRef(null);
 
   useEffect(() => {
@@ -98,6 +100,18 @@ const Home = () => {
     return () => clearInterval(intervalRef.current);
   }, [isRunning, componentsList.length]);
 
+  useEffect(()=> {
+      const fetchData = async() => {
+          try {
+              const { data } = await getAlertVehicule();
+              setAlert(data)
+          } catch (error) {
+              console.log(error)
+          }
+      }
+      fetchData();
+  }, [])
+
   return (
     <div className="home">
       <TopBarModelTv />
@@ -120,9 +134,10 @@ const Home = () => {
         />
       </div>
 
-      <div className={`fade-container ${fade ? 'fade-in' : 'fade-out'}`}>
+{/*       <div className={`fade-container ${fade ? 'fade-in' : 'fade-out'}`}>
         {componentsList[currentIndex]}
-      </div>
+      </div> */}
+      <AlertVehicule alerts={alert} />
     </div>
   );
 };
