@@ -24,7 +24,7 @@ const Home = () => {
 
   const prevAlertCountRef = useRef(0);
   const intervalRef = useRef(null);
-  const alertAudioRef = useRef(new Audio('/sounds/notification.mp3')); // mets ton fichier mp3 ici
+  const alertAudioRef = useRef(new Audio('/sounds/Sonnerie.mp3')); // mets ton fichier mp3 ici
 
   // Fonction pour activer le son (clic utilisateur obligatoire)
   const enableSound = () => setSoundEnabled(true);
