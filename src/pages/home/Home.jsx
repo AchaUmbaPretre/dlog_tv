@@ -54,8 +54,8 @@ const Home = () => {
     <ModeTv key="modeTv" />,
     ...(data.length > 0 ? [<RapportVehiculeValide key="valide" data={data} />] : []),
     ...(mergedCourses.length > 0 ? [<RapportVehiculeCourses key="courses" course={mergedCourses} />] : []),
-/*     ...(alertCount > 0 ? [<AlertVehicule key="alert"/>] : []),
- */    ...(utilitaire.length > 0 ? [<RapportVehiculeUtilitaire key="utilitaire" utilitaire={utilitaire} />] : []),
+    ...(alertCount > 0 ? [<AlertVehicule key="alert"/>] : []),
+    ...(utilitaire.length > 0 ? [<RapportVehiculeUtilitaire key="utilitaire" utilitaire={utilitaire} />] : []),
   ];
 
   // Fetch données principales et alertes
