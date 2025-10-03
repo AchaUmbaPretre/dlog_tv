@@ -53,14 +53,16 @@ const Home = () => {
 
   const fetchData = async () => {
     try {
-      const [allData, utilData] = await Promise.all([
+      const [allData, utilData, alertData] = await Promise.all([
         getRapportCharroiVehicule(),
         getRapportUtilitaire(),
+        getAlertVehicule()
       ]);
 
       setData(allData.data.listeEnAttente);
       setCourse(allData.data.listeCourse);
       setUtilitaire(utilData.data.listVehiculeDispo);
+      setAlert(alertData.data)
 
     } catch (error) {
       notification.error({
@@ -100,17 +102,6 @@ const Home = () => {
     return () => clearInterval(intervalRef.current);
   }, [isRunning, componentsList.length]);
 
-  useEffect(()=> {
-      const fetchData = async() => {
-          try {
-              const { data } = await getAlertVehicule();
-              setAlert(data)
-          } catch (error) {
-              console.log(error)
-          }
-      }
-      fetchData();
-  }, [])
 
   return (
     <div className="home">

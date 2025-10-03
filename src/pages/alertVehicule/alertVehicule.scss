@@ -1,63 +1,26 @@
 .alert_vehicule {
   padding: 25px;
 
-  .alert_filters {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-  }
-
   .alert_wrapper {
-    .alert_title{
-        font-size: 30px;
-        font-weight: bold;
-        margin-bottom: 15px;
-    }
-    .alert_rows{
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 14px;
-    }
-  }
-
-  .alert_row {
-    background: #fff;
-    border-radius: 12px;
-    padding: 15px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
-    }
-
-    &.unresolved {
-      border-left: 6px solid #ff4d4f;
-    }
-
-    &.resolved {
-      border-left: 6px solid #52c41a;
-      opacity: 0.9;
-    }
-
-    .alert_header {
+    .alert_title_row {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
+      justify-content: space-between;
+      margin-bottom: 18px;
     }
 
-    .alert_message {
-      font-size: 15px;
-      font-weight: 500;
-      margin: 6px 0 10px;
-      color: #333;
-    }
-
-    .alert_footer {
+    .alert_title {
+      font-size: 30px;
+      font-weight: bold;
       display: flex;
-      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .alert_rows {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
     }
   }
 }
