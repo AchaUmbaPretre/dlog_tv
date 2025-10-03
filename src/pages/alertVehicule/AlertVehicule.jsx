@@ -33,6 +33,8 @@ const AlertVehicule = () => {
       setAlerts((prev) =>
         prev.map((a) => (a.id === id ? { ...a, resolved: 1 } : a))
       );
+
+      fetchAlerts();
     } catch (error) {
       message.error("Impossible de mettre à jour l'alerte");
       console.error(error);
