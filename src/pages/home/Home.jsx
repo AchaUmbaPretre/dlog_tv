@@ -57,7 +57,7 @@ const Home = () => {
     ...(alertCount > 0 ? [<AlertVehicule key="alert"/>] : []),
     ...(utilitaire.length > 0 ? [<RapportVehiculeUtilitaire key="utilitaire" utilitaire={utilitaire} />] : []),
   ];
-
+  
   // Fetch données principales et alertes
   const fetchData = async () => {
     try {
