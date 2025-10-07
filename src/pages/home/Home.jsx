@@ -111,7 +111,6 @@ const fetchData = async () => {
     const currentAlerts = alertData.data || [];
     const currentIds = currentAlerts.map(a => a.id);
 
-    // 🔍 Détection de nouvelles alertes par différence
     const newAlerts = currentIds.filter(id => !lastAlertIds.includes(id));
 
     if (soundEnabled && newAlerts.length > 0) {
