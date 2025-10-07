@@ -10,3 +10,13 @@ export const getAlertVehicule = async () => {
 export const markAlertAsRead = async (id) => {
   return axios.put(`${DOMAIN}/api/event/vehicule_alert?id=${id}`);
 };
+
+export const getEvent = async (params) => {
+  return axios.get("https://apidlog.loginsmart-cd.com/api/get_event", {
+    params,
+  });
+};
+
+export const postEvent = async (data) => {
+  return axios.post(`${DOMAIN}/api/event`, data);
+};

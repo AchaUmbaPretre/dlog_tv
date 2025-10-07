@@ -8,8 +8,10 @@ import RapportVehiculeUtilitaire from '../rapportVehiculeUtilitaire/RapportVehic
 import TopBarModelTv from '../../components/topBarModelTv/TopBarModelTv';
 import AlertVehicule from '../alertVehicule/AlertVehicule';
 import { getFalcon, getRapportCharroiVehicule, getRapportUtilitaire } from '../../services/rapportService';
-import { getAlertVehicule } from '../../services/alertService';
+import { getAlertVehicule, getEvent, postEvent } from '../../services/alertService';
 import './home.scss';
+import config from '../../config';
+import moment from 'moment';
 
 const Home = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -21,6 +23,7 @@ const Home = () => {
   const [alertCount, setAlertCount] = useState(0);
   const [isRunning, setIsRunning] = useState(true);
   const [soundEnabled, setSoundEnabled] = useState(false);
+  const apiHash = config.api_hash;
 
   const prevAlertCountRef = useRef(0);
   const intervalRef = useRef(null);
@@ -135,6 +138,57 @@ const fetchData = async () => {
     console.error(error);
   }
 };
+
+useEffect(() => {
+  const fetchDatas = async () => {
+    try {
+      // 🕒 Définir les dates par défaut (aujourd’hui)
+      const now = moment();
+      const fromDefault = moment(now).startOf("day").format("YYYY-MM-DD HH:mm:ss");
+      const toDefault = moment(now).endOf("day").format("YYYY-MM-DD HH:mm:ss");
+      // 🔹 Appel API
+      const { data } = await getEvent({
+        date_from: fromDefault,
+        date_to: toDefault,
+        lang: "fr",
+        limit: 1000,
+        user_api_hash: apiHash,
+      });
+
+      // 🔹 Vérifier et enregistrer les événements
+      if (data?.items?.data?.length) {
+        const eventsData = data.items.data;
+        for (const e of eventsData) {
+          try {
+            await postEvent({
+              external_id: e.id,
+              device_id: e.device_id,
+              device_name: e.device_name,
+              type: e.type,
+              message: e.message || e.name,
+              speed: e.speed || 0,
+              latitude: e.latitude,
+              longitude: e.longitude,
+              event_time: e.time,
+            });
+          } catch (err) {
+            console.error(`Erreur stockage event ${e.id}:`, err.message);
+          }
+        }
+      } else {
+        console.log(`[${moment().format("HH:mm:ss")}] Aucun événement trouvé pour aujourd'hui.`);
+      }
+    } catch (error) {
+      console.error("Erreur lors de la récupération des événements :", error.message);
+    }
+  };
+
+  // Lancer immédiatement puis toutes les 5 secondes
+  fetchDatas();
+  const interval = setInterval(fetchDatas, 30000);
+
+  return () => clearInterval(interval);
+}, []);
 
   // Intervalle de mise à jour
   useEffect(() => {
