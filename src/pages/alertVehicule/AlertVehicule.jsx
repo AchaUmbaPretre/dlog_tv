@@ -90,7 +90,7 @@ const AlertVehicule = () => {
               🚨 Alertes véhicules{" "}
               <Badge
                 count={alerts.length}
-                style={{ backgroundColor: "#f5222d" }}
+                style={{ backgroundColor: "#f5222d", fontSize: 40, minWidth: 44, height: 44, display:'flex', alignItems:'center', justifyContent:'center' }}
                 overflowCount={99}
               />
             </h2>
@@ -132,7 +132,7 @@ const AlertVehicule = () => {
                 }
               >
                 <div className="alert_content">
-                  <Space direction="vertical" size={4}>
+                  <Space direction="vertical" size={6}>
                     <Text strong>{alert.alert_message}</Text>
                     <Text type="secondary">
                       <CarOutlined /> {alert.device_name}
