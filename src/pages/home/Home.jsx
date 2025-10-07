@@ -120,7 +120,7 @@ const fetchData = async () => {
         description: `${newAlerts.length} nouvelle(s) alerte(s) ont été détectées.`,
         placement: 'topRight',
         duration: 5
-      });
+      });              
     }
 
     // Mise à jour du cache
