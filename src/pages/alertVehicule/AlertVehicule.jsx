@@ -1,6 +1,22 @@
 import { useEffect, useState } from "react";
-import { Card, Tag, Typography, Space, Button, Spin, Empty, Tooltip, Badge, message } from "antd";
-import { CheckCircleOutlined, AlertOutlined, ClockCircleOutlined, CarOutlined, BellOutlined } from "@ant-design/icons";
+import {
+  Card,
+  Tag,
+  Typography,
+  Space,
+  Button,
+  Spin,
+  Empty,
+  Tooltip,
+  Badge,
+  message,
+} from "antd";
+import {
+  CheckCircleOutlined,
+  AlertOutlined,
+  ClockCircleOutlined,
+  CarOutlined,
+} from "@ant-design/icons";
 import { getAlertVehicule, markAlertAsRead } from "../../services/alertService";
 import "./alertVehicule.scss";
 
@@ -10,17 +26,14 @@ const AlertVehicule = () => {
   const [alerts, setAlerts] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // 🔹 Récupération des alertes
+  // 🔹 Fonction pour récupérer les alertes
   const fetchAlerts = async () => {
     try {
-      setLoading(true);
       const { data } = await getAlertVehicule();
       setAlerts(data);
     } catch (error) {
-      message.error("Erreur lors du chargement des alertes");
       console.error(error);
-    } finally {
-      setLoading(false);
+      message.error("Erreur lors du chargement des alertes");
     }
   };
 
@@ -29,15 +42,35 @@ const AlertVehicule = () => {
     try {
       await markAlertAsRead(id);
       message.success("Alerte marquée comme lue ✅");
-      setAlerts((prev) => prev.filter((a) => a.id !== id)); // on enlève directement du state
+      setAlerts((prev) => prev.filter((a) => a.id !== id)); // Supprime localement
     } catch (error) {
-      message.error("Impossible de mettre à jour l'alerte");
       console.error(error);
+      message.error("Impossible de mettre à jour l'alerte");
     }
   };
 
+  // 🔹 Chargement initial + actualisation toutes les 5 secondes
   useEffect(() => {
-    fetchAlerts();
+    let isMounted = true;
+
+    const loadData = async () => {
+      setLoading(true);
+      await fetchAlerts();
+      setLoading(false);
+    };
+
+    loadData();
+
+    const interval = setInterval(() => {
+      if (isMounted) {
+        fetchAlerts();
+      }
+    }, 5000); // ⏱ actualisation toutes les 5 secondes
+
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
   }, []);
 
   return (
@@ -55,9 +88,9 @@ const AlertVehicule = () => {
           <div className="alert_title_row">
             <h2 className="alert_title">
               🚨 Alertes véhicules{" "}
-              <Badge 
-                count={alerts.length} 
-                style={{ backgroundColor: "#f5222d" }} 
+              <Badge
+                count={alerts.length}
+                style={{ backgroundColor: "#f5222d" }}
                 overflowCount={99}
               />
             </h2>
@@ -68,7 +101,9 @@ const AlertVehicule = () => {
             {alerts.map((alert) => (
               <Card
                 key={alert.id}
-                className={`alert_card ${alert.resolved ? "resolved" : "unresolved"}`}
+                className={`alert_card ${
+                  alert.resolved ? "resolved" : "unresolved"
+                }`}
                 hoverable
                 title={
                   <Space>
