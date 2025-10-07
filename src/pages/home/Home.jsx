@@ -57,9 +57,9 @@ const Home = () => {
     ...(alertCount > 0 ? [<AlertVehicule key="alert"/>] : []),
     ...(utilitaire.length > 0 ? [<RapportVehiculeUtilitaire key="utilitaire" utilitaire={utilitaire} />] : []),
   ];
-  
+
   // Fetch données principales et alertes
-  const fetchData = async () => {
+/*   const fetchData = async () => {
     try {
       const [allData, utilData, alertData] = await Promise.all([
         getRapportCharroiVehicule(),
@@ -92,7 +92,50 @@ const Home = () => {
       });
       console.error(error);
     }
-  };
+  }; */
+
+  const [lastAlertIds, setLastAlertIds] = useState([]);
+
+const fetchData = async () => {
+  try {
+    const [allData, utilData, alertData] = await Promise.all([
+      getRapportCharroiVehicule(),
+      getRapportUtilitaire(),
+      getAlertVehicule()
+    ]);
+
+    setData(allData.data.listeEnAttente);
+    setCourse(allData.data.listeCourse);
+    setUtilitaire(utilData.data.listVehiculeDispo);
+
+    const currentAlerts = alertData.data || [];
+    const currentIds = currentAlerts.map(a => a.id);
+
+    // 🔍 Détection de nouvelles alertes par différence
+    const newAlerts = currentIds.filter(id => !lastAlertIds.includes(id));
+
+    if (soundEnabled && newAlerts.length > 0) {
+      alertAudioRef.current.play().catch(err => console.log('Impossible de jouer le son', err));
+      notification.warning({
+        message: `🚨 Nouvelle alerte détectée`,
+        description: `${newAlerts.length} nouvelle(s) alerte(s) ont été détectées.`,
+        placement: 'topRight',
+        duration: 5
+      });
+    }
+
+    // Mise à jour du cache
+    setLastAlertIds(currentIds);
+    setAlertCount(currentIds.length);
+
+  } catch (error) {
+    notification.error({
+      message: 'Erreur de chargement',
+      description: 'Une erreur est survenue lors du chargement des données.',
+    });
+    console.error(error);
+  }
+};
 
   // Intervalle de mise à jour
   useEffect(() => {
