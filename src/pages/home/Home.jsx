@@ -24,6 +24,8 @@ const Home = () => {
   const [isRunning, setIsRunning] = useState(true);
   const [soundEnabled, setSoundEnabled] = useState(false);
   const apiHash = config.api_hash;
+  const lastAlertKeysRef = useRef(new Set());
+
 
   const prevAlertCountRef = useRef(0);
   const intervalRef = useRef(null);
@@ -61,44 +63,6 @@ const Home = () => {
     ...(utilitaire.length > 0 ? [<RapportVehiculeUtilitaire key="utilitaire" utilitaire={utilitaire} />] : []),
   ];
 
-  // Fetch données principales et alertes
-/*   const fetchData = async () => {
-    try {
-      const [allData, utilData, alertData] = await Promise.all([
-        getRapportCharroiVehicule(),
-        getRapportUtilitaire(),
-        getAlertVehicule()
-      ]);
-
-      setData(allData.data.listeEnAttente);
-      setCourse(allData.data.listeCourse);
-      setUtilitaire(utilData.data.listVehiculeDispo);
-
-      // Gestion des alertes
-      const currentCount = alertData.data.length;
-      if (soundEnabled && currentCount > prevAlertCountRef.current) {
-        // Nouvelle alerte détectée → jouer le son
-        alertAudioRef.current.play().catch(err => console.log('Impossible de jouer le son', err));
-        notification.warning({
-          message: `🚨 Nouvelle alerte !`,
-          description: `${currentCount - prevAlertCountRef.current} nouvelle(s) alerte(s) détectée(s)`,
-          placement: 'topRight'
-        });
-      }
-      prevAlertCountRef.current = currentCount;
-      setAlertCount(currentCount);
-
-    } catch (error) {
-      notification.error({
-        message: 'Erreur de chargement',
-        description: 'Une erreur est survenue lors du chargement des données.',
-      });
-      console.error(error);
-    }
-  }; */
-
-  const [lastAlertIds, setLastAlertIds] = useState([]);
-
 const fetchData = async () => {
   try {
     const [allData, utilData, alertData] = await Promise.all([
@@ -112,9 +76,16 @@ const fetchData = async () => {
     setUtilitaire(utilData.data.listVehiculeDispo);
 
     const currentAlerts = alertData.data || [];
-    const currentIds = currentAlerts.map(a => a.id);
 
-    const newAlerts = currentIds.filter(id => !lastAlertIds.includes(id));
+    // Crée une "clé" stable pour chaque alerte (par ex. device_id + type)
+    const currentAlertKeys = new Set(
+      currentAlerts.map(a => `${a.device_id}-${a.type || a.message}`)
+    );
+
+    // Détection des nouvelles clés
+    const newAlerts = [...currentAlertKeys].filter(
+      key => !lastAlertKeysRef.current.has(key)
+    );
 
     if (soundEnabled && newAlerts.length > 0) {
       alertAudioRef.current.play().catch(err => console.log('Impossible de jouer le son', err));
@@ -123,12 +94,12 @@ const fetchData = async () => {
         description: `${newAlerts.length} nouvelle(s) alerte(s) ont été détectées.`,
         placement: 'topRight',
         duration: 5
-      });              
+      });
     }
 
-    // Mise à jour du cache
-    setLastAlertIds(currentIds);
-    setAlertCount(currentIds.length);
+    // Met à jour la mémoire
+    lastAlertKeysRef.current = currentAlertKeys;
+    setAlertCount(currentAlerts.length);
 
   } catch (error) {
     notification.error({
@@ -138,6 +109,7 @@ const fetchData = async () => {
     console.error(error);
   }
 };
+
 
 useEffect(() => {
   const fetchDatas = async () => {
