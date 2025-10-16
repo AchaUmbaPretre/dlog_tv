@@ -63,6 +63,7 @@ const Home = () => {
     ...(utilitaire.length > 0 ? [<RapportVehiculeUtilitaire key="utilitaire" utilitaire={utilitaire} />] : []),
   ];
 
+
 const fetchData = async () => {
   try {
     const [allData, utilData, alertData] = await Promise.all([
