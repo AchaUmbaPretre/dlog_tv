@@ -8,7 +8,7 @@ import RapportVehiculeUtilitaire from '../rapportVehiculeUtilitaire/RapportVehic
 import TopBarModelTv from '../../components/topBarModelTv/TopBarModelTv';
 import AlertVehicule from '../alertVehicule/AlertVehicule';
 import { getFalcon, getRapportCharroiVehicule, getRapportUtilitaire } from '../../services/rapportService';
-import { getAlertVehicule, getEvent, postEvent } from '../../services/alertService';
+import { getAlertVehicule, getEvent } from '../../services/alertService';
 import './home.scss';
 import config from '../../config';
 import moment from 'moment';
@@ -25,9 +25,6 @@ const Home = () => {
   const [soundEnabled, setSoundEnabled] = useState(false);
   const apiHash = config.api_hash;
   const lastAlertKeysRef = useRef(new Set());
-
-
-  const prevAlertCountRef = useRef(0);
   const intervalRef = useRef(null);
   const alertAudioRef = useRef(new Audio('/sounds/Sonnerie.mp3')); // mets ton fichier mp3 ici
 
@@ -127,30 +124,6 @@ useEffect(() => {
         limit: 1000,
         user_api_hash: apiHash,
       });
-
-      // 🔹 Vérifier et enregistrer les événements
-      if (data?.items?.data?.length) {
-        const eventsData = data.items.data;
-        for (const e of eventsData) {
-          try {
-            await postEvent({
-              external_id: e.id,
-              device_id: e.device_id,
-              device_name: e.device_name,
-              type: e.type,
-              message: e.message || e.name,
-              speed: e.speed || 0,
-              latitude: e.latitude,
-              longitude: e.longitude,
-              event_time: e.time,
-            });
-          } catch (err) {
-            console.error(`Erreur stockage event ${e.id}:`, err.message);
-          }
-        }
-      } else {
-        console.log(`[${moment().format("HH:mm:ss")}] Aucun événement trouvé pour aujourd'hui.`);
-      }
     } catch (error) {
       console.error("Erreur lors de la récupération des événements :", error.message);
     }
