@@ -4,6 +4,7 @@ import {
   CarOutlined,
   AlertOutlined,
   CheckCircleOutlined,
+  EyeOutlined,
 } from "@ant-design/icons";
 import moment from "moment";
 import "./alertTimeline.scss";
@@ -119,8 +120,8 @@ const AlertTimeline = () => {
                   ) : (
                     <AlertOutlined
                       style={{
-                        fontSize: 22, // agrandi pour l'écran
-                        color: "#ff4d4f", // icône rouge pour toutes les alertes non résolues
+                        fontSize: 22,
+                        color: "#ff4d4f",
                         transition: "all 0.3s",
                       }}
                     />
@@ -133,12 +134,12 @@ const AlertTimeline = () => {
                   <div className="alert-header">
                     <strong>{alert.device_name}</strong>
                     {!alert.resolved && (
-                      <button
-                        className="mark-read-btn"
-                        onClick={() => handleMarkAsRead(alert.id)}
-                      >
-                        Marquer comme lue
-                      </button>
+                      <Tooltip title="Marquer comme lue">
+                        <CheckCircleOutlined
+                          onClick={() => handleMarkAsRead(alert.id)}
+                          className="icon-mark-read"
+                        />
+                      </Tooltip>
                     )}
                   </div>
                   <div className="alert-message">
