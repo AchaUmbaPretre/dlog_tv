@@ -21,3 +21,7 @@ export const getRapportUtilitaire = async () => {
 export const getFalcon = async () => {
   return axios.get('https://apidlog.loginsmart-cd.com/api/falcon'); // toujours en HTTPS car ton site est en HTTPS
 };
+
+export const getGeofences = async(params) => {
+  return axios.get(`${DOMAIN}/api/point_in_geofences`, { params });
+}

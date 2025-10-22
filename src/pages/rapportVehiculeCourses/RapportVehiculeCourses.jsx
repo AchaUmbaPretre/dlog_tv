@@ -181,7 +181,7 @@ const RapportVehiculeCourses = ({ course }) => {
             <Text strong style={{ fontSize: 30, color: "#fff" }}>Véhicules en course</Text>
             <Badge
               count={course.length}
-              style={{ backgroundColor: "#52c41a", fontSize: 35, minWidth: 35, height: 35, display:'flex', alignItems:'center', justifyContent:'center' }}
+              style={{ backgroundColor: "#52c41a", fontSize: 30, minWidth: 35, height: 35, display:'flex', alignItems:'center', justifyContent:'center' }}
             />
           </Space>
         )}
