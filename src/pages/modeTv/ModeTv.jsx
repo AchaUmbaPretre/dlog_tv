@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import DepartHorsTiming from './departHorsTiming/DepartHorsTiming';
 import ModelEvenementLive from './modelEvenementLive/ModelEvenementLive';
 import './modeTv.scss'
 import ModeTvCardPonct from './modeTvCardPonct/ModeTvCardPonct';
@@ -7,6 +6,7 @@ import ModeTvService from './modeTvService/ModeTvService';
 import TableauHorsTiming from './tableauHorsTiming/TableauHorsTiming';
 import { InfoCircleFilled, InfoCircleOutlined } from '@ant-design/icons';
 import { getRapportKiosque } from '../../services/rapportService';
+import AlertTimeline from './alertTimeline/AlertTimeline';
 
 const ModeTv = () => {
     const [data, setData] = useState([]);
@@ -87,7 +87,7 @@ const ModeTv = () => {
                 </div>
                 <div className="model_tv_right">
                     <ModelEvenementLive evenementLiveRow={evenementLiveRow}/>
-                    <DepartHorsTiming departHorsTimingRow={departHorsTimingRow}/>
+                    <AlertTimeline departHorsTimingRow={departHorsTimingRow}/>
                 </div>
             </div>
             <TableauHorsTiming departHorsTimingRow={departHorsTimingCompletRow} />

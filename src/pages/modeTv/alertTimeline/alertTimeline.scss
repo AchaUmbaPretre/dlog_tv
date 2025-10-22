@@ -1,0 +1,131 @@
+.alert-timeline-container {
+  background-color: #1f1f1f;
+  padding: 16px;
+  min-height: 100%;
+
+  .alert-card {
+    background-color: #141414;
+    border-radius: 8px;
+    color: #f0f0f0;
+
+    .ant-card-head {
+      font-size: 18px;
+      font-weight: bold;
+      color: #fafafa;
+      border-bottom: 1px solid #303030;
+    }
+
+    .ant-card-body {
+      padding: 12px 0;
+    }
+  }
+
+  .alert-timeline {
+    height: 500px; /* Hauteur fixe */
+    overflow-y: auto; /* Scroll si dépasse */
+    padding-right: 10px;
+
+    .ant-timeline-item-tail {
+      background-color: #303030;
+    }
+
+    .ant-timeline-item-head {
+      border-color: #1890ff;
+    }
+  }
+
+  .alert-content {
+    background: #252525;
+    border-radius: 6px;
+    padding: 12px 16px;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+      transform: translateY(-2px);
+    }
+
+    .alert-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #f0f0f0;
+
+      .mark-read-btn {
+        background: #52c41a;
+        color: #fff;
+        border: none;
+        padding: 2px 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+
+        &:hover {
+          background: #389e0d;
+        }
+      }
+    }
+
+    .alert-message {
+      font-size: 14px;
+      margin-bottom: 6px;
+      color: #d9d9d9;
+      display: flex;
+      align-items: center;
+
+      svg {
+        margin-right: 6px;
+        color: #1890ff;
+      }
+    }
+
+    .alert-footer {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #8c8c8c;
+
+      .status {
+        font-weight: bold;
+
+        &.resolved {
+          color: #52c41a;
+        }
+
+        &.unresolved {
+          color: #ff4d4f;
+        }
+      }
+    }
+  }
+
+  .loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0;
+    font-size: 14px;
+    color: #bfbfbf;
+
+    .ant-spin {
+      margin-bottom: 8px;
+    }
+  }
+
+  /* Scrollbar sombre */
+  .alert-timeline::-webkit-scrollbar {
+    width: 8px;
+  }
+  .alert-timeline::-webkit-scrollbar-track {
+    background: #141414;
+  }
+  .alert-timeline::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 4px;
+  }
+}
