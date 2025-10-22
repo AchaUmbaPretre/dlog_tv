@@ -15,7 +15,7 @@
 
       .model_tv_anomalie {
         display: flex;
-        padding: 28px;
+        padding: 20px;
         background: #2a2a2a;
         border-radius: 16px;
         box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
@@ -26,7 +26,7 @@
           gap: 20px;
 
           .anomalie_h3 {
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 800;
             color: #fff;
             letter-spacing: 0.5px;
@@ -41,7 +41,7 @@
               display: flex;
               align-items: center;
               gap: 14px;
-              padding: 16px 20px;
+              padding: 15px;
               border-radius: 12px;
               font-size: 1.8rem; // ~22px
               font-weight: 600;
@@ -57,7 +57,7 @@
               }
 
               .anomalie_desc {
-                font-size: 1.8rem; // ~20px
+                font-size: 1rem;
                 font-weight: 500;
               }
 
