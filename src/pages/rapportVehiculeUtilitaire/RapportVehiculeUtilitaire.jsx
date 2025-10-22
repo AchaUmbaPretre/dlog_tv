@@ -6,7 +6,7 @@ import { ScoreBox } from '../../utils/RenderTooltip';
 const { Text } = Typography;
 
 // Tooltip pro
-const TooltipBox = (text, bg = '#1a1a1a', color = '#fff', maxWidth = 700) => (
+const TooltipBox = (text, bg = '#1a1a1a', color = '#fff', maxWidth = 200) => (
   <Tooltip title={text || '-'}>
     <div
       style={{
@@ -17,9 +17,9 @@ const TooltipBox = (text, bg = '#1a1a1a', color = '#fff', maxWidth = 700) => (
         backgroundColor: bg,
         color,
         fontWeight: 800,
-        fontSize: 50,
+        fontSize: 25,
         borderRadius: 12,
-        padding: '6px 12px',
+        padding: '4px 8px',
         textAlign: 'center',
       }}
     >
@@ -51,7 +51,7 @@ const RapportVehiculeUtilitaire = ({ utilitaire }) => {
     {
       title: (
         <Space className="column-title" align="center">
-          <TruckOutlined style={{ color: '#52c41a', fontSize: 40 }} />
+          <TruckOutlined style={{ color: '#52c41a', fontSize: 25 }} />
           Matricule
         </Space>
       ),
@@ -73,7 +73,7 @@ const RapportVehiculeUtilitaire = ({ utilitaire }) => {
       dataIndex: 'nom_cat',
       key: 'nom_cat',
       render: (text) => TooltipBox(text ?? 'Aucun'),
-      width: '40%',
+      width: '35%',
     },
     {
       title: <span className="column-title">Statut</span>,
@@ -98,17 +98,17 @@ const RapportVehiculeUtilitaire = ({ utilitaire }) => {
       <Card
         title={
           <Space direction="horizontal" size={28} align="center">
-            <CarOutlined style={{ color: "#1890ff", fontSize: 45 }} />
-            <Text strong style={{ fontSize: 50, color: '#fff', fontWeight: 'bold' }}>
+            <CarOutlined style={{ color: "#1890ff", fontSize: 25 }} />
+            <Text strong style={{ fontSize: 35, color: '#fff', fontWeight: 'bold' }}>
               Véhicules utilitaires
             </Text>
             <Badge
               count={utilitaire.length}
-              style={{ backgroundColor: '#52c41a', fontSize: 40, minWidth: 44, height: 44, display:'flex', alignItems:'center', justifyContent:'center' }}
+              style={{ backgroundColor: '#52c41a', fontSize: 25, minWidth: 35, height: 35, display:'flex', alignItems:'center', justifyContent:'center' }}
             />
           </Space>
         }
-        extra={<FullscreenOutlined style={{ fontSize: 26, cursor: 'pointer', color: '#fff' }} />}
+        extra={<FullscreenOutlined style={{ fontSize: 24, cursor: 'pointer', color: '#fff' }} />}
         bordered={false}
         style={{
           borderRadius: 16,
