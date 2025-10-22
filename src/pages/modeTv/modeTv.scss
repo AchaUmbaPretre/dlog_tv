@@ -11,11 +11,11 @@
     padding: 10px;
 
     .model_tv_left {
-      flex: 2.5;
+      flex: 3;
 
       .model_tv_anomalie {
         display: flex;
-        padding: 20px;
+        padding: 15px;
         background: #2a2a2a;
         border-radius: 16px;
         box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
@@ -23,7 +23,7 @@
         .anomalie_left {
           display: flex;
           flex-direction: column;
-          gap: 20px;
+          gap: 15px;
 
           .anomalie_h3 {
             font-size: 1.5rem;
@@ -34,16 +34,16 @@
 
           .anomalie_wrapper {
             display: flex;
-            gap: 28px;
+            gap: 10px;
 
             .anomalie_card {
               position: relative;
               display: flex;
               align-items: center;
-              gap: 14px;
-              padding: 15px;
+              gap: 10px;
+              padding: 10px;
               border-radius: 12px;
-              font-size: 1.8rem; // ~22px
+              font-size: 1.5rem;
               font-weight: 600;
               color: #fff;
               transition: transform 0.25s ease;
@@ -74,7 +74,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                font-size: 1.8rem;
+                font-size: 1.7rem;
                 animation: blink 1s infinite;
                 box-shadow: 0 0 8px rgba(255, 0, 0, 0.7);
               }

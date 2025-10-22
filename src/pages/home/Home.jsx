@@ -174,7 +174,7 @@ useEffect(() => {
           shape="round"
           icon={isRunning ? <PauseCircleOutlined /> : <PlayCircleOutlined />}
           onClick={() => setIsRunning(prev => !prev)}
-          style={{ fontSize: '18px', padding: '0 20px', boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}
+          style={{ fontSize: '10px', padding: '0 10px', height:'20px', width:'20px', boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}
         />
         {!soundEnabled && (
           <Button
@@ -183,9 +183,8 @@ useEffect(() => {
             shape="round"
             icon={<SoundOutlined />}
             onClick={enableSound}
-            style={{ marginLeft: 10 }}
+            style={{ marginLeft: 10, fontSize: '10px', padding: '0 10px', height:'20px', width:'20px', boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}
           >
-            Activer alertes sonores
           </Button>
         )}
       </div>

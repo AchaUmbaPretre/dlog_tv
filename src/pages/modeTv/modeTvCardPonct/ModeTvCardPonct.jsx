@@ -96,9 +96,9 @@ const ModeTvCardPonct = ({ datas }) => {
 
   return (
     <div className="tv_ponct_container">
-      {renderCard("Nombre de Départs", "depart", "departPrecedent")}
-      {renderCard("Véhicules en attente", "attente", "attentePrecedent")}
-      {renderCard("Véhicules disponibles", "dispo")}
+      {renderCard("Départs", "depart", "departPrecedent")}
+      {renderCard("En attente", "attente", "attentePrecedent")}
+      {renderCard("Disponibles", "dispo")}
     </div>
   );
 };
