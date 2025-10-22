@@ -86,8 +86,8 @@ const ModeTv = () => {
                 
                 </div>
                 <div className="model_tv_right">
-                    <ModelEvenementLive evenementLiveRow={evenementLiveRow}/>
                     <AlertTimeline departHorsTimingRow={departHorsTimingRow}/>
+                    <ModelEvenementLive evenementLiveRow={evenementLiveRow}/>
                 </div>
             </div>
             <TableauHorsTiming departHorsTimingRow={departHorsTimingCompletRow} />
