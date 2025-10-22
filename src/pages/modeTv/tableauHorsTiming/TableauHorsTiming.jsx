@@ -1,4 +1,4 @@
-import { Table, Tag, Tooltip, Divider } from "antd";
+import { Table, Tooltip, Divider } from "antd";
 import {
   CarOutlined,
   UserOutlined,
