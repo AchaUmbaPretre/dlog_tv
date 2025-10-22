@@ -67,7 +67,7 @@ const VehicleSpeed = ({ speed = 0, engineOn = false, maxSpeed = 180 }) => {
   }
 
   return (
-    <div style={{ maxWidth: 220, margin: "0 auto", textAlign: "center" }}>
+    <div style={{ maxWidth: 170, margin: "0 auto", textAlign: "center" }}>
       <svg viewBox="0 0 200 200" width="100%" height="100%">
         <defs>
           <radialGradient id="radialBg" cx="50%" cy="50%" r="50%">

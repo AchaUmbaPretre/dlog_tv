@@ -189,9 +189,10 @@ useEffect(() => {
         )}
       </div>
 
-      <div className={`fade-container ${fade ? 'fade-in' : 'fade-out'}`}>
+{/*       <div className={`fade-container ${fade ? 'fade-in' : 'fade-out'}`}>
         {componentsList[currentIndex]}
-      </div>
+      </div> */}
+      <RapportVehiculeValide key="valide" data={data} />
     </div>
   );
 };
