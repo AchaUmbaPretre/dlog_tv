@@ -12,35 +12,35 @@ const RapportVehiculeValide = ({ data }) => {
     { 
       title: '#', 
       key: 'index', 
-      render: (_, __, index) => <Text style={{ color:'#fff', fontWeight:900, fontSize:35 }}>{index + 1}</Text>, 
+      render: (_, __, index) => <Text style={{ color:'#fff', fontWeight:900, fontSize:30 }}>{index + 1}</Text>, 
       width: 60, 
       align: 'center' 
     },
     { 
-      title: <Space><AppstoreOutlined style={{ color: '#1d39c4', fontSize: 30 }} /><Text strong style={{ fontSize:35, color:'#fff' }}>Motif</Text></Space>, 
+      title: <Space><AppstoreOutlined style={{ color: '#1d39c4', fontSize: 30 }} /><Text strong style={{ fontSize:25, color:'#fff' }}>Motif</Text></Space>, 
       key: 'nom_service', 
       render: (_, record) => <TooltipBox text={record.nom_service} bg="#333" />
     },
     { 
-      title: <Space><UserOutlined style={{ color:'orange', fontSize: 30 }} /><Text strong style={{ fontSize:35, color:'#fff' }}>Chauffeur</Text></Space>, 
+      title: <Space><UserOutlined style={{ color:'orange', fontSize: 30 }} /><Text strong style={{ fontSize:25, color:'#fff' }}>Chauffeur</Text></Space>, 
       key: 'chauffeur', 
       render: (_, record) => <TooltipBox text={`${record.prenom_chauffeur || '-'} ${record.nom || '-'}`} bg="#333" />
     },
     { 
-      title: <Space><EnvironmentOutlined style={{ color: 'red', fontSize: 30 }} /><Text strong style={{ fontSize:35, color:'#fff' }}>Destination</Text></Space>, 
+      title: <Space><EnvironmentOutlined style={{ color: 'red', fontSize: 30 }} /><Text strong style={{ fontSize:25, color:'#fff' }}>Destination</Text></Space>, 
       key: 'nom_destination', 
       render: (_, record) => <TooltipBox text={record.nom_destination} bg="#333" />
     },
     { 
-      title: <Space><CarOutlined style={{ color: 'green', fontSize: 30 }} /><Text strong style={{ fontSize:35, color:'#fff' }}>Véhicule</Text></Space>, 
+      title: <Space><CarOutlined style={{ color: 'green', fontSize: 30 }} /><Text strong style={{ fontSize:25, color:'#fff' }}>Véhicule</Text></Space>, 
       key: 'nom_cat', 
       render: (_, record) => <TooltipBox text={record.nom_cat} bg="#333" />
     },
     { 
       title: (
         <Space>
-          <FieldTimeOutlined style={{ color: "blue", fontSize: 30 }} />
-          <Text strong style={{ fontSize: 35, color: "#fff" }}>Sortie prévue</Text>
+          <FieldTimeOutlined style={{ color: "blue", fontSize: 25 }} />
+          <Text strong style={{ fontSize: 30, color: "#fff" }}>Sortie prévue</Text>
         </Space>
       ),
       key: 'date_prevue', 
@@ -50,8 +50,8 @@ const RapportVehiculeValide = ({ data }) => {
     { 
       title: (
         <Space>
-          <FieldTimeOutlined style={{ color: "blue", fontSize: 30 }} />
-          <Text strong style={{ fontSize: 35, color: "#fff" }}>Durée Moyenne</Text>
+          <FieldTimeOutlined style={{ color: "blue", fontSize: 25 }} />
+          <Text strong style={{ fontSize: 30, color: "#fff" }}>Durée Moyenne</Text>
         </Space>
       ),
       key: "duree_moyenne_min", 
@@ -61,8 +61,8 @@ const RapportVehiculeValide = ({ data }) => {
     { 
       title: (
         <Space>
-          <FieldTimeOutlined style={{ color: "blue", fontSize: 30 }} />
-          <Text strong style={{ fontSize: 35, color: "#fff" }}>Chrono</Text>
+          <FieldTimeOutlined style={{ color: "blue", fontSize: 25 }} />
+          <Text strong style={{ fontSize: 30, color: "#fff" }}>Chrono</Text>
         </Space>
       ),
       key: "chrono", 
