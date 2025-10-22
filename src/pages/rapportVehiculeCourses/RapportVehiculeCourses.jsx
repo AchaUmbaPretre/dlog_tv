@@ -38,7 +38,7 @@ const RapportVehiculeCourses = ({ course }) => {
       title: "#",
       key: "index",
       render: (_, __, index) => (
-        <Text style={{ fontSize: 35, fontWeight: 900 }}>{index + 1}</Text>
+        <Text style={{ fontSize: 25, fontWeight: 900 }}>{index + 1}</Text>
       ),
       width: 70,
       align: "center",
@@ -47,21 +47,21 @@ const RapportVehiculeCourses = ({ course }) => {
     {
       title: (
         <Space>
-          <AppstoreOutlined style={{ color: "#1890ff", fontSize: 30 }} />
-          <Text strong style={{ fontSize: 35, color: "#fff" }}>Motif</Text>
+          <AppstoreOutlined style={{ color: "#1890ff", fontSize: 25 }} />
+          <Text strong style={{ fontSize: 25, color: "#fff" }}>Motif</Text>
         </Space>
       ),
       dataIndex: "nom_motif_demande",
       key: "nom_motif_demande",
       render: (text) => <TooltipBox text={text} bg="#333" />,
       ellipsis: true,
-      width: 180,
+      width: 150,
     },
     {
       title: (
         <Space>
-          <UserOutlined style={{ color: "orange", fontSize: 30 }} />
-          <Text strong style={{ fontSize: 35, color: "#fff" }}>Chauffeur</Text>
+          <UserOutlined style={{ color: "orange", fontSize: 25 }} />
+          <Text strong style={{ fontSize: 25, color: "#fff" }}>Chauffeur</Text>
         </Space>
       ),
       dataIndex: "nom",
@@ -75,21 +75,21 @@ const RapportVehiculeCourses = ({ course }) => {
     {
       title: (
         <Space>
-          <EnvironmentOutlined style={{ color: "red", fontSize: 30 }} />
-          <Text strong style={{ fontSize: 35, color: "#fff" }}>Destination</Text>
+          <EnvironmentOutlined style={{ color: "red", fontSize: 25 }} />
+          <Text strong style={{ fontSize: 25, color: "#fff" }}>Destination</Text>
         </Space>
       ),
       dataIndex: "nom_destination",
       key: "nom_destination",
-      render: (text) => <TooltipBox text={text} bg="#333" maxWidth={400} />,
+      render: (text) => <TooltipBox text={text} bg="#333" maxWidth={250} />,
       ellipsis: false,
-      width: 250,
+      width: 200,
     },
     {
       title: (
         <Space>
-          <CarOutlined style={{ color: "green", fontSize: 30 }} />
-          <Text strong style={{ fontSize: 35, color: "#fff" }}>Véhicule</Text>
+          <CarOutlined style={{ color: "green", fontSize: 25 }} />
+          <Text strong style={{ fontSize: 25, color: "#fff" }}>Véhicule</Text>
         </Space>
       ),
       dataIndex: "nom_cat",
@@ -101,21 +101,21 @@ const RapportVehiculeCourses = ({ course }) => {
     {
       title: (
         <Space>
-          <FieldTimeOutlined style={{ color: "green", fontSize: 30 }} />
-          <Text strong style={{ fontSize: 35, color: "#fff" }}>Durée R.</Text>
+          <FieldTimeOutlined style={{ color: "green", fontSize: 25 }} />
+          <Text strong style={{ fontSize: 25, color: "#fff" }}>Durée R.</Text>
         </Space>
       ),
       key: "duree_reelle_min",
       align: "center",
       render: (_, record) => <ChronoBox sortie_time={record.sortie_time} date_prevue={record.date_prevue} />,
       ellipsis: true,
-      width: 200,
+      width: 100,
     },
     {
       title: (
         <Space>
-          <FieldTimeOutlined style={{ color: "yellow", fontSize: 30 }} />
-          <Text strong style={{ fontSize: 35, color: "#fff" }}>Durée M</Text>
+          <FieldTimeOutlined style={{ color: "yellow", fontSize: 25 }} />
+          <Text strong style={{ fontSize: 25, color: "#fff" }}>Durée M</Text>
         </Space>
       ),
       key: "duree_moyenne_min",
@@ -127,8 +127,8 @@ const RapportVehiculeCourses = ({ course }) => {
     {
       title: (
         <Space>
-          <FieldTimeOutlined style={{ color: "blue", fontSize: 30 }} />
-          <Text strong style={{ fontSize: 35, color: "#fff" }}>Écart</Text>
+          <FieldTimeOutlined style={{ color: "blue", fontSize: 25 }} />
+          <Text strong style={{ fontSize: 25, color: "#fff" }}>Écart</Text>
         </Space>
       ),
       key: "ecart_min",
@@ -143,8 +143,8 @@ const RapportVehiculeCourses = ({ course }) => {
     columns.splice(3, 0, {
       title: (
         <Space>
-          <EnvironmentFilled style={{ color: "red", fontSize: 30 }} />
-          <Text strong style={{ fontSize: 35, color: "#fff" }}>Position</Text>
+          <EnvironmentFilled style={{ color: "red", fontSize: 25 }} />
+          <Text strong style={{ fontSize: 25, color: "#fff" }}>Position</Text>
         </Space>
       ),
       key: "address",
@@ -159,7 +159,7 @@ const RapportVehiculeCourses = ({ course }) => {
       title: (
         <Space>
           <DashboardOutlined style={{ color: "#fff", fontSize: 30 }} />
-          <Text strong style={{ fontSize: 35, color: "#fff" }}>Vitesse</Text>
+          <Text strong style={{ fontSize: 30, color: "#fff" }}>Vitesse</Text>
         </Space>
       ),
       key: "speed",
@@ -168,7 +168,7 @@ const RapportVehiculeCourses = ({ course }) => {
         <VehicleSpeed speed={record?.capteurInfo?.speed || 0} engineOn={record?.capteurInfo?.engine_status === true} />
       ),
       ellipsis: true,
-      width: 250,
+      width: 200,
     });
   }
 
@@ -177,8 +177,8 @@ const RapportVehiculeCourses = ({ course }) => {
       <Card
         title={(
           <Space align="center">
-            <CarOutlined style={{ color: "#1890ff", fontSize: 30 }} />
-            <Text strong style={{ fontSize: 35, color: "#fff" }}>Véhicules en course</Text>
+            <CarOutlined style={{ color: "#1890ff", fontSize: 25 }} />
+            <Text strong style={{ fontSize: 30, color: "#fff" }}>Véhicules en course</Text>
             <Badge
               count={course.length}
               style={{ backgroundColor: "#52c41a", fontSize: 35, minWidth: 35, height: 35, display:'flex', alignItems:'center', justifyContent:'center' }}
