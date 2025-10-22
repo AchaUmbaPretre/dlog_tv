@@ -122,7 +122,7 @@ const RapportVehiculeCourses = ({ course }) => {
       align: "center",
       render: (_, record) => <MoyenneBox duree_moyenne_min={record.duree_moyenne_min} />,
       ellipsis: true,
-      width: 200,
+      width: 150,
     },
     {
       title: (
@@ -135,7 +135,7 @@ const RapportVehiculeCourses = ({ course }) => {
       align: "center",
       render: (_, record) => <EcartBox duree_reelle_min={record.duree_reelle_min} duree_moyenne_min={record.duree_moyenne_min} />,
       ellipsis: true,
-      width: 120,
+      width: 100,
     },
   ];
 
@@ -181,7 +181,7 @@ const RapportVehiculeCourses = ({ course }) => {
             <Text strong style={{ fontSize: 30, color: "#fff" }}>Véhicules en course</Text>
             <Badge
               count={course.length}
-              style={{ backgroundColor: "#52c41a", fontSize: 30, minWidth: 35, height: 35, display:'flex', alignItems:'center', justifyContent:'center' }}
+              style={{ backgroundColor: "#52c41a", fontSize: 28, minWidth: 35, height: 35, display:'flex', alignItems:'center', justifyContent:'center' }}
             />
           </Space>
         )}

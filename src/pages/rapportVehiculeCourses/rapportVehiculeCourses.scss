@@ -1,5 +1,5 @@
 .rapportVehiculeCourses {
-  padding: 20px;
+  padding: 8px 10px;
 
   .ant-card {
     background-color: #1a1a1a;
@@ -13,9 +13,9 @@
       color: #fff;
 
       .ant-badge-count {
-        min-width: 44px;
-        height: 44px;
-        font-size: 1.2rem;
+        min-width: 40px;
+        height: 40px;
+        font-size: 1rem;
         background-color: #52c41a;
       }
     }
@@ -38,11 +38,11 @@
       color: #fff;
       font-size: 28px;
       font-weight: 900;
-      padding: 16px 12px;
+      padding: 12px 8px;
     }
 
     .ant-table-tbody > tr {
-      height: 60px;
+      height: 40px;
       color: #fff;
     }
 

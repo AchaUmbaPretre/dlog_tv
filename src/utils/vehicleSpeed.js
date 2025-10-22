@@ -67,7 +67,7 @@ const VehicleSpeed = ({ speed = 0, engineOn = false, maxSpeed = 180 }) => {
   }
 
   return (
-    <div style={{ maxWidth: 110, margin: "0 auto", textAlign: "center" }}>
+    <div style={{ maxWidth: 100, margin: "0 auto", textAlign: "center" }}>
       <svg viewBox="0 0 200 200" width="100%" height="100%">
         <defs>
           <radialGradient id="radialBg" cx="50%" cy="50%" r="50%">
@@ -170,7 +170,7 @@ const VehicleSpeed = ({ speed = 0, engineOn = false, maxSpeed = 180 }) => {
       <Badge
         status={engineOn ? "success" : "error"}
         text={engineOn ? "ON" : "OFF"}
-        style={{ fontSize: 18, color: engineOn ? "green" : "red", marginTop: 8 }}
+        style={{ fontSize: 15, color: engineOn ? "green" : "red", marginTop: 5 }}
       />
     </div>
   );

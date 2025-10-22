@@ -40,7 +40,7 @@ export const fetchAddress = async (vehicle) => {
   try {
     const params = {
       lat: lat,
-      lng: lng, // corrigé
+      lng: lng,
       user_api_hash: Api_hash,
     };
     const { data } = await getGeofences(params);
