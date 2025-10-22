@@ -42,5 +42,5 @@ export const VehicleAddress = memo(({ record }) => {
       ? displayAddress
       : "-";
 
-  return <TooltipBox text={cleanAddress} bg="#333" minWidth={150} />;
+  return <TooltipBox text={cleanAddress} bg="#333" minWidth={90} />;
 });

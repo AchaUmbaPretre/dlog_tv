@@ -150,7 +150,7 @@ const RapportVehiculeCourses = ({ course }) => {
       key: "address",
       render: (_, record) => <VehicleAddress record={record} />,
       ellipsis: true,
-      width: 100,
+      width: 90,
     });
   }
 
@@ -177,11 +177,11 @@ const RapportVehiculeCourses = ({ course }) => {
       <Card
         title={(
           <Space align="center">
-            <CarOutlined style={{ color: "#1890ff", fontSize: 45 }} />
-            <Text strong style={{ fontSize: 50, color: "#fff" }}>Véhicules en course</Text>
+            <CarOutlined style={{ color: "#1890ff", fontSize: 30 }} />
+            <Text strong style={{ fontSize: 35, color: "#fff" }}>Véhicules en course</Text>
             <Badge
               count={course.length}
-              style={{ backgroundColor: "#52c41a", fontSize: 40, minWidth: 44, height: 44, display:'flex', alignItems:'center', justifyContent:'center' }}
+              style={{ backgroundColor: "#52c41a", fontSize: 35, minWidth: 35, height: 35, display:'flex', alignItems:'center', justifyContent:'center' }}
             />
           </Space>
         )}

@@ -2,7 +2,7 @@ import { Progress, Tooltip } from "antd";
 import moment from "moment";
 import { useEffect, useState } from "react";
 
-export const TooltipBox = ({ text, bg = '#1a1a1a', color = '#fff', maxWidth = 800 }) => (
+export const TooltipBox = ({ text, bg = '#1a1a1a', color = '#fff', maxWidth = 280 }) => (
   <Tooltip title={text || '-'}>
     <div
       style={{
@@ -13,7 +13,7 @@ export const TooltipBox = ({ text, bg = '#1a1a1a', color = '#fff', maxWidth = 80
         backgroundColor: bg,
         color,
         fontWeight: 800,
-        fontSize: 25,
+        fontSize: 30,
         borderRadius: 12,
         padding: '6px 12px',
         textAlign: 'center',
