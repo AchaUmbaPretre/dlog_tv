@@ -4,17 +4,15 @@ import {
   CarOutlined,
   AlertOutlined,
   CheckCircleOutlined,
-  ClockCircleOutlined,
 } from "@ant-design/icons";
 import moment from "moment";
 import "./alertTimeline.scss";
 import { getAlertVehicule, markAlertAsRead } from "../../../services/alertService";
- 
+
 const AlertTimeline = () => {
   const [alerts, setAlerts] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // 🔹 Récupérer les alertes
   const fetchAlerts = async () => {
     try {
       const { data } = await getAlertVehicule();
@@ -25,7 +23,6 @@ const AlertTimeline = () => {
     }
   };
 
-  // 🔹 Marquer une alerte comme lue
   const handleMarkAsRead = async (id) => {
     try {
       await markAlertAsRead(id);
@@ -56,9 +53,8 @@ const AlertTimeline = () => {
     };
   }, []);
 
-  // 🔹 Couleur des icônes selon gravité
   const getIconColor = (level, resolved) => {
-    if (resolved) return "#52c41a"; // vert pour résolu
+    if (resolved) return "#52c41a";
     switch (level) {
       case "Critique":
         return "#ff4d4f";
@@ -66,6 +62,17 @@ const AlertTimeline = () => {
         return "#fa8c16";
       default:
         return "#1890ff";
+    }
+  };
+
+  const getBadgeColor = (level) => {
+    switch (level) {
+      case "Critique":
+        return "red";
+      case "Important":
+        return "orange";
+      default:
+        return "blue";
     }
   };
 
@@ -120,7 +127,9 @@ const AlertTimeline = () => {
                   )
                 }
               >
-                <div className={`alert-content ${alert.resolved ? "resolved" : "unresolved"}`}>
+                <div
+                  className={`alert-content ${alert.resolved ? "resolved" : "unresolved"}`}
+                >
                   <div className="alert-header">
                     <strong>{alert.device_name}</strong>
                     {!alert.resolved && (
@@ -139,9 +148,10 @@ const AlertTimeline = () => {
                     <Tooltip title="Heure de l'alerte">
                       <span>{moment(alert.alert_time).format("DD/MM/YYYY HH:mm")}</span>
                     </Tooltip>
-                    <span className={`status ${alert.resolved ? "resolved" : "unresolved"}`}>
-                      {alert.resolved ? "Résolue" : alert.alert_level}
-                    </span>
+                    <Badge
+                      color={getBadgeColor(alert.alert_level)}
+                      text={alert.resolved ? "Résolue" : alert.alert_level}
+                    />
                   </div>
                 </div>
               </Timeline.Item>
