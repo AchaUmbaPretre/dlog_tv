@@ -2,7 +2,7 @@
   .event-card {
     border-radius: 14px;
     background: #1a1a1a;
-    padding: 22px;
+    padding: 15px;
     max-height: 500px;
     overflow-y: auto;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
@@ -24,14 +24,14 @@
   }
 
   .event-title {
-    font-size: 30px;
+    font-size: 20px;
     font-weight: 700;
     color: #fff;
   }
 
   .event-item {
     margin-bottom: 18px;
-    padding: 10px 15px;
+    padding: 10px;
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.03);
     transition: background 0.3s ease;
@@ -41,17 +41,17 @@
     }
 
     .event-time {
-      font-size: 30px;
+      font-size: 20px;
       color: #fff;
       margin-right: 12px;
     }
 
     .event-status {
-      font-size: 30px;
+      font-size: 20px;
     }
 
     .event-detail {
-      font-size: 30px;
+      font-size: 20px;
       font-weight: 500;
       margin-top: 6px;
       color: #ddd;

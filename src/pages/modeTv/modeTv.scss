@@ -7,11 +7,11 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    gap: 24px;
-    padding: 20px;
+    gap: 10px;
+    padding: 10px;
 
     .model_tv_left {
-      flex: 3;
+      flex: 2;
 
       .model_tv_anomalie {
         display: flex;
@@ -93,10 +93,10 @@
     }
 
     .model_tv_right {
-      flex: 1;
+      flex: 1.5;
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 10px;
     }
   }
 }
