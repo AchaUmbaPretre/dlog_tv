@@ -114,13 +114,13 @@ const AlertTimeline = () => {
                 dot={
                   alert.resolved ? (
                     <CheckCircleOutlined
-                      style={{ fontSize: 20, color: getIconColor("", true) }}
+                      style={{ fontSize: 22, color: getIconColor("", true) }}
                     />
                   ) : (
                     <AlertOutlined
                       style={{
-                        fontSize: 20,
-                        color: getIconColor(alert.alert_level, false),
+                        fontSize: 22, // agrandi pour l'écran
+                        color: "#ff4d4f", // icône rouge pour toutes les alertes non résolues
                         transition: "all 0.3s",
                       }}
                     />
