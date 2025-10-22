@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { Badge } from "antd";
 
 const VehicleSpeed = ({ speed = 0, engineOn = false, maxSpeed = 180 }) => {
