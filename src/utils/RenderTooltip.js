@@ -13,7 +13,7 @@ export const TooltipBox = ({ text, bg = '#1a1a1a', color = '#fff', maxWidth = 80
         backgroundColor: bg,
         color,
         fontWeight: 800,
-        fontSize: 50,
+        fontSize: 30,
         borderRadius: 12,
         padding: '6px 12px',
         textAlign: 'center',

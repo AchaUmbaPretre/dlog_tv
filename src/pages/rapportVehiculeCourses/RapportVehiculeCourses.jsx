@@ -38,7 +38,7 @@ const RapportVehiculeCourses = ({ course }) => {
       title: "#",
       key: "index",
       render: (_, __, index) => (
-        <Text style={{ fontSize: 40, fontWeight: 900 }}>{index + 1}</Text>
+        <Text style={{ fontSize: 35, fontWeight: 900 }}>{index + 1}</Text>
       ),
       width: 70,
       align: "center",
@@ -47,8 +47,8 @@ const RapportVehiculeCourses = ({ course }) => {
     {
       title: (
         <Space>
-          <AppstoreOutlined style={{ color: "#1890ff", fontSize: 45 }} />
-          <Text strong style={{ fontSize: 50, color: "#fff" }}>Motif</Text>
+          <AppstoreOutlined style={{ color: "#1890ff", fontSize: 30 }} />
+          <Text strong style={{ fontSize: 35, color: "#fff" }}>Motif</Text>
         </Space>
       ),
       dataIndex: "nom_motif_demande",
@@ -60,8 +60,8 @@ const RapportVehiculeCourses = ({ course }) => {
     {
       title: (
         <Space>
-          <UserOutlined style={{ color: "orange", fontSize: 45 }} />
-          <Text strong style={{ fontSize: 50, color: "#fff" }}>Chauffeur</Text>
+          <UserOutlined style={{ color: "orange", fontSize: 30 }} />
+          <Text strong style={{ fontSize: 35, color: "#fff" }}>Chauffeur</Text>
         </Space>
       ),
       dataIndex: "nom",
@@ -75,8 +75,8 @@ const RapportVehiculeCourses = ({ course }) => {
     {
       title: (
         <Space>
-          <EnvironmentOutlined style={{ color: "red", fontSize: 45 }} />
-          <Text strong style={{ fontSize: 50, color: "#fff" }}>Destination</Text>
+          <EnvironmentOutlined style={{ color: "red", fontSize: 30 }} />
+          <Text strong style={{ fontSize: 35, color: "#fff" }}>Destination</Text>
         </Space>
       ),
       dataIndex: "nom_destination",
@@ -88,8 +88,8 @@ const RapportVehiculeCourses = ({ course }) => {
     {
       title: (
         <Space>
-          <CarOutlined style={{ color: "green", fontSize: 45 }} />
-          <Text strong style={{ fontSize: 50, color: "#fff" }}>Véhicule</Text>
+          <CarOutlined style={{ color: "green", fontSize: 30 }} />
+          <Text strong style={{ fontSize: 35, color: "#fff" }}>Véhicule</Text>
         </Space>
       ),
       dataIndex: "nom_cat",
@@ -101,8 +101,8 @@ const RapportVehiculeCourses = ({ course }) => {
     {
       title: (
         <Space>
-          <FieldTimeOutlined style={{ color: "green", fontSize: 45 }} />
-          <Text strong style={{ fontSize: 50, color: "#fff" }}>Durée R.</Text>
+          <FieldTimeOutlined style={{ color: "green", fontSize: 30 }} />
+          <Text strong style={{ fontSize: 35, color: "#fff" }}>Durée R.</Text>
         </Space>
       ),
       key: "duree_reelle_min",
@@ -114,8 +114,8 @@ const RapportVehiculeCourses = ({ course }) => {
     {
       title: (
         <Space>
-          <FieldTimeOutlined style={{ color: "yellow", fontSize: 45 }} />
-          <Text strong style={{ fontSize: 50, color: "#fff" }}>Durée M</Text>
+          <FieldTimeOutlined style={{ color: "yellow", fontSize: 30 }} />
+          <Text strong style={{ fontSize: 35, color: "#fff" }}>Durée M</Text>
         </Space>
       ),
       key: "duree_moyenne_min",
@@ -127,8 +127,8 @@ const RapportVehiculeCourses = ({ course }) => {
     {
       title: (
         <Space>
-          <FieldTimeOutlined style={{ color: "blue", fontSize: 45 }} />
-          <Text strong style={{ fontSize: 50, color: "#fff" }}>Écart</Text>
+          <FieldTimeOutlined style={{ color: "blue", fontSize: 30 }} />
+          <Text strong style={{ fontSize: 35, color: "#fff" }}>Écart</Text>
         </Space>
       ),
       key: "ecart_min",
@@ -143,8 +143,8 @@ const RapportVehiculeCourses = ({ course }) => {
     columns.splice(3, 0, {
       title: (
         <Space>
-          <EnvironmentFilled style={{ color: "red", fontSize: 45 }} />
-          <Text strong style={{ fontSize: 50, color: "#fff" }}>Position</Text>
+          <EnvironmentFilled style={{ color: "red", fontSize: 30 }} />
+          <Text strong style={{ fontSize: 35, color: "#fff" }}>Position</Text>
         </Space>
       ),
       key: "address",
@@ -158,8 +158,8 @@ const RapportVehiculeCourses = ({ course }) => {
     columns.splice(hasPosition ? 4 : 3, 0, {
       title: (
         <Space>
-          <DashboardOutlined style={{ color: "#fff", fontSize: 40 }} />
-          <Text strong style={{ fontSize: 50, color: "#fff" }}>Vitesse</Text>
+          <DashboardOutlined style={{ color: "#fff", fontSize: 30 }} />
+          <Text strong style={{ fontSize: 35, color: "#fff" }}>Vitesse</Text>
         </Space>
       ),
       key: "speed",
