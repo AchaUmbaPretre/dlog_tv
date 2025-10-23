@@ -33,7 +33,7 @@ const RapportVehiculeValide = ({ data }) => {
     },
     { 
       title: <Space><CarOutlined style={{ color: 'green', fontSize: 30 }} /><Text strong style={{ fontSize:25, color:'#fff' }}>Véhicule</Text></Space>, 
-      key: 'nom_cat', 
+      key: 'abreviation', 
       render: (_, record) => <TooltipBox text={record.nom_cat} bg="#333" />
     },
     { 

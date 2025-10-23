@@ -70,8 +70,8 @@ const RapportVehiculeUtilitaire = ({ utilitaire }) => {
     },
     {
       title: <span className="column-title">Type véhicule</span>,
-      dataIndex: 'nom_cat',
-      key: 'nom_cat',
+      dataIndex: 'abreviation',
+      key: 'abreviation',
       render: (text) => TooltipBox(text ?? 'Aucun'),
       width: '35%',
     },
