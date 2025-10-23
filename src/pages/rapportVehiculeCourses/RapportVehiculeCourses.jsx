@@ -92,8 +92,8 @@ const RapportVehiculeCourses = ({ course }) => {
           <Text strong style={{ fontSize: 25, color: "#fff" }}>Véhicule</Text>
         </Space>
       ),
-      dataIndex: "nom_cat",
-      key: "nom_cat",
+      dataIndex: "abreviation",
+      key: "abreviation",
       render: (text) => <TooltipBox text={text} bg="#333" />,
       ellipsis: true,
       width: 150,
